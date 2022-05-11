@@ -54,38 +54,4 @@ public class Project {
     public void setLeader(Leader leader) {
         this.leader = leader;
     }
-
-//    public void setLeaderFromString(String leader) {
-//        ArrayList<Leader> leaderArrayList = new ArrayList<>();
-//        FirebaseFirestore db = FirebaseFirestore.getInstance();
-//        db.collection("Users").document(leader).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-//            @Override
-//            public void onSuccess(DocumentSnapshot documentSnapshot) {
-//                Map<String, Object> data = documentSnapshot.getData();
-//                Leader kLeader = new Leader((String) data.get("uid"), (String) data.get("email"), (String) data.get("displayName"),(String) data.get("photoUrl"), (ArrayList<String>) data.get("projects"));
-//                leaderArrayList.add(kLeader);
-//            }
-//        });
-////        setLeader(leaderArrayList.get(0));
-//    }
-
-//    public ArrayList<Member> getMembersFromStringList(ArrayList<String> members) {
-//        FirebaseFirestore db = FirebaseFirestore.getInstance();
-//        ArrayList<Member> memberArrayList = new ArrayList<>();
-//        for(String member : members){
-//            System.out.println(member);
-//            db.collection("Users").document(member).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-//                @Override
-//                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-//                    if(task.isSuccessful()) {
-//                        DocumentSnapshot documentSnapshot = task.getResult();
-//                        Map<String, Object> data = documentSnapshot.getData();
-//                        Member kMember = new Member((String) data.get("uid"), (String) data.get("email"), (String) data.get("displayName"),(String) data.get("photoUrl"), (ArrayList<String>) data.get("projects"));
-//                        memberArrayList.add(kMember);
-//                    }
-//                }
-//            });
-//        }
-//        return memberArrayList;
-//    }
 }
