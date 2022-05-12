@@ -4,12 +4,12 @@ import java.util.ArrayList;
 
 public class User extends Member {
     private ArrayList<Project> projects;
-
+    
     public User() {
     }
-
-    public User(String uid, String email, String displayName, String photoUrl, ArrayList<Project> projects) {
-        super(uid, email, displayName, photoUrl);
+    
+    public User(String id, String displayName, ArrayList<Project> projects) {
+        super(id, displayName);
         this.projects = projects;
     }
 
