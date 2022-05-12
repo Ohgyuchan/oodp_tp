@@ -1,38 +1,26 @@
 package classes;
 
 public class Leader {
-    private String uid;
-    private String email;
+    private String id;
     private String displayName;
-    private String photoUrl;
 
     public Leader() {
 
     }
 
 
-    public Leader(String uid, String email, String displayName, String photoUrl) {
-        this.uid = uid;
-        this.email = email;
+    public Leader(String id, String displayName) {
+        this.id = id;
         this.displayName = displayName;
-        this.photoUrl = photoUrl;
     }
     
 
-    public String getUid() {
-        return this.uid;
+    public String getid() {
+        return this.id;
     }
 
-    public void setUid(String uid) {
-        this.uid = uid;
-    }
-
-    public String getEmail() {
-        return this.email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+    public void setid(String id) {
+        this.id = id;
     }
 
     public String getDisplayName() {
@@ -41,14 +29,6 @@ public class Leader {
 
     public void setDisplayName(String displayName) {
         this.displayName = displayName;
-    }
-
-    public String getPhotoUrl() {
-        return this.photoUrl;
-    }
-
-    public void setPhotoUrl(String photoUrl) {
-        this.photoUrl = photoUrl;
     }
 
 }

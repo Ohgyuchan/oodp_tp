@@ -3,7 +3,6 @@ package classes;
 import java.util.ArrayList;
 
 public class Project {
-    private String projectId;
     private String projectName;
     private ArrayList<Member> members;
     private Leader leader;
@@ -12,19 +11,10 @@ public class Project {
 
     }
 
-    public Project(String projectId, String projectName, ArrayList<Member> members, Leader leader) {
-        this.projectId = projectId;
+    public Project(String projectName, ArrayList<Member> members, Leader leader) {
         this.projectName = projectName;
         this.members = members;
         this.leader = leader;
-    }
-
-    public String getProjectId() {
-        return projectId;
-    }
-
-    public void setProjectId(String projectId) {
-        this.projectId = projectId;
     }
 
     public String getProjectName() {

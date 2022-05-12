@@ -1,0 +1,18 @@
+{
+    "projects": [
+        {
+            "projectName": "oodp",
+            "leader": "terman",
+            "members": [
+                {
+                    "id": "terman"
+                }
+            ], "tasks": [
+                {
+                    "title": "oodp_task"
+                }
+            ]
+
+        }
+    ]
+}
