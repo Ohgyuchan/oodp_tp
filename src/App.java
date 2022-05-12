@@ -17,6 +17,7 @@ public class App {
         System.out.println(pj.getProjectId());
         System.out.println(pj.getMembersCount());
         System.out.println(pj.getLeader().getDisplayName());
+        
         for(int i = 0; i < pj.getMembersCount(); i++) {
             System.out.println(pj.getMembers().get(i).getDisplayName());
         }
