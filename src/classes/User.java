@@ -23,6 +23,10 @@ public class User extends Member{
         this.projects = projects;
     }
 
+    public void addProjects(Project project) {
+        this.projects.add(project);
+    }
+
     public String getPassword() {
         return this.password;
     }
