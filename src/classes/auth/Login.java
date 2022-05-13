@@ -15,29 +15,39 @@ import org.json.simple.parser.ParseException;
 import classes.User;
 
 public class Login {
-    private boolean isLogin;
+    private boolean isLogin = false;
+    private User currentUser = new User();
+
+    private void setIsLogin(boolean isLogin) {
+        this.isLogin = isLogin;
+    }
 
     public boolean getIsLogin() {
         return this.isLogin;
     }
 
-    public Login() {
-        try {
-            this.isLogin = this.login();
-        } catch (IOException | ParseException e) {
-            this.isLogin = false;
-            e.printStackTrace();
-        }
+    public User getCurrentUser() {
+        return currentUser;
     }
 
-    private boolean login() throws JsonMappingException, JsonProcessingException, FileNotFoundException, IOException, ParseException {
-        Object ob = new JSONParser().parse(new FileReader("src/assets/data/users_data.json"));
+    public void setCurrentUser(User currentUser) {
+        this.currentUser = currentUser;
+    }
 
-        JSONObject js = (JSONObject) ob;
-        JSONArray jsonUsers = (JSONArray) js.get("users");
-        ObjectMapper mapper = new ObjectMapper();
+    public Login() {
 
+    }
+
+    public void login()
+            throws JsonMappingException, JsonProcessingException, FileNotFoundException, IOException, ParseException {
+        Object userData = new JSONParser().parse(new FileReader("src/assets/data/users_data.json"));
+
+        JSONObject jsonUser = (JSONObject) userData;
+        JSONArray jsonUsers = (JSONArray) jsonUser.get("users");
+        
         ArrayList<User> users = new ArrayList<>();
+        
+        ObjectMapper mapper = new ObjectMapper();
 
         for (int i = 0; i < jsonUsers.size(); i++) {
             User user = mapper.readValue(jsonUsers.get(i).toString(), User.class);
@@ -57,20 +67,13 @@ public class Login {
         for (User user : users) {
             if (user.getId().equals(uid)) {
                 if (user.getPassword().equals(upw)) {
-                    System.out.println(user.getDisplayName() + "님 환영합니다.");
+                    System.out.println(user.getDisplayName() + " Login Success");
+                    setCurrentUser(user);
+                    setIsLogin(true);
                     sc.close();
-                    return true;
-                } else {
-                    System.out.print("PASSWORD가 일치하지 않습니다.");
+                    break;
                 }
-            } else {
-                System.out.print("ID가 일치하지 않습니다.");
             }
         }
-        sc.close();
-
-        return false;
     }
-
-    
 }

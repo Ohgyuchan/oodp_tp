@@ -4,17 +4,23 @@ import java.util.ArrayList;
 
 public class User extends Member{
     private String password;
-    private ArrayList<String> projectIds;
+    private ArrayList<Project> projects;
     
     public User() {
     }
-
-    public ArrayList<String> getprojectIds() {
-        return projectIds;
+    
+    public User(String id, String password, String displayName, ArrayList<Project> projects) {
+        super(id, displayName);
+        this.password = password;
+        this.projects = projects;
     }
 
-    public void setprojectIds(ArrayList<String> projectIds) {
-        this.projectIds = projectIds;
+    public ArrayList<Project> getprojects() {
+        return projects;
+    }
+
+    public void setprojects(ArrayList<Project> projects) {
+        this.projects = projects;
     }
 
     public String getPassword() {
@@ -23,5 +29,11 @@ public class User extends Member{
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public void printProjects() {
+        for(int i = 0; i < projects.size(); i++) {
+            System.out.println("#"+ (i+1) + ": " + projects.get(i).getProjectName());
+        }
     }
 }
