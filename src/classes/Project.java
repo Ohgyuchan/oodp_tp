@@ -3,8 +3,10 @@ package classes;
 import java.util.ArrayList;
 
 public class Project {
+    private String projectId;
     private String projectName;
     private ArrayList<Member> members;
+    private ArrayList<MainTask> tasks;
     private Leader leader;
 
     public Project() {
@@ -15,6 +17,22 @@ public class Project {
         this.projectName = projectName;
         this.members = members;
         this.leader = leader;
+    }
+
+    public ArrayList<MainTask> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(ArrayList<MainTask> tasks) {
+        this.tasks = tasks;
+    }
+
+    public String getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(String projectId) {
+        this.projectId = projectId;
     }
 
     public String getProjectName() {
@@ -43,5 +61,15 @@ public class Project {
 
     public void setLeader(Leader leader) {
         this.leader = leader;
+    }
+
+    public void print() {
+        System.out.println("projectId: " + projectId);
+        System.out.println("projectName: " + projectName);
+        System.out.print("members: ");
+        for (Member member : members) {
+            System.out.println(member.getDisplayName());
+        }
+        System.out.println("leader" + leader.getDisplayName());
     }
 }
