@@ -2,22 +2,26 @@ package classes;
 
 import java.util.ArrayList;
 
-public class User extends Member {
-    private ArrayList<Project> projects;
+public class User extends Member{
+    private String password;
+    private ArrayList<String> projectIds;
     
     public User() {
     }
-    
-    public User(String id, String displayName, ArrayList<Project> projects) {
-        super(id, displayName);
-        this.projects = projects;
+
+    public ArrayList<String> getprojectIds() {
+        return projectIds;
     }
 
-    public ArrayList<Project> getProjects() {
-        return projects;
+    public void setprojectIds(ArrayList<String> projectIds) {
+        this.projectIds = projectIds;
     }
 
-    public void setProjects(ArrayList<Project> projects) {
-        this.projects = projects;
+    public String getPassword() {
+        return this.password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

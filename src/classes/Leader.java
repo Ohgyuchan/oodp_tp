@@ -15,11 +15,11 @@ public class Leader {
     }
     
 
-    public String getid() {
+    public String getId() {
         return this.id;
     }
 
-    public void setid(String id) {
+    public void setId(String id) {
         this.id = id;
     }
 
