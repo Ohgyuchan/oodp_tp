@@ -85,7 +85,8 @@ public class Project {
     public void menu(Scanner sc) {
         print();
         System.out.println("0: Exit");
-        System.out.println("1: Invite a member");
-        System.out.println("2: Delete a member");
+        System.out.println("1: List tasks");
+        System.out.println("2: Manage tasks");
+        System.out.println("3: Manage Members");
     }
 }
