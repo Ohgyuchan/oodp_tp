@@ -40,7 +40,7 @@ public class Main {
                     currentUser.printProjects();
                     break;
                 case 2:
-                    createProject();
+                    createProject(sc);
                     break;
                 case 3:
                     deleteProject();
