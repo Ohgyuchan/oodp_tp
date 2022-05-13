@@ -38,7 +38,7 @@ public class Login {
 
     }
 
-    public void login()
+    public void login(Scanner sc)
             throws JsonMappingException, JsonProcessingException, FileNotFoundException, IOException, ParseException {
         Object userData = new JSONParser().parse(new FileReader("src/assets/data/users_data.json"));
 
@@ -54,8 +54,6 @@ public class Login {
             users.add(user);
         }
 
-        Scanner sc = new Scanner(System.in);
-
         String uid;
         String upw;
 
@@ -70,7 +68,6 @@ public class Login {
                     System.out.println(user.getDisplayName() + " Login Success");
                     setCurrentUser(user);
                     setIsLogin(true);
-                    sc.close();
                     break;
                 }
             }

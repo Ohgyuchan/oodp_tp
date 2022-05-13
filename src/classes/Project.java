@@ -1,6 +1,8 @@
 package classes;
 
 import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.UUID;
 
 public class Project {
     private String projectId;
@@ -11,6 +13,13 @@ public class Project {
 
     public Project() {
 
+    }
+    
+    public Project(Scanner sc, User currentUser) {
+        this.projectId = UUID.randomUUID().toString();
+        this.projectName = sc.next();
+        this.members.add((Member) currentUser);
+        this.leader = (Leader) currentUser;
     }
 
     public Project(String projectName, ArrayList<Member> members, Leader leader) {
@@ -71,5 +80,12 @@ public class Project {
             System.out.println(member.getDisplayName());
         }
         System.out.println("leader" + leader.getDisplayName());
+    }
+
+    public void menu(Scanner sc) {
+        print();
+        System.out.println("0: Exit");
+        System.out.println("1: Invite a member");
+        System.out.println("2: Delete a member");
     }
 }
