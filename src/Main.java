@@ -63,12 +63,15 @@ public class Main {
 
     private static void deleteProject(Scanner sc) {
         currentUser.printProjects();
+        System.out.print("Pleas Enter the index to delete: ");
+        int indexToDelete = sc.nextInt();
+        currentUser.deleteProject(indexToDelete);
+        
     }
 
     private static void selectProject(Scanner sc) {
         int index = sc.nextInt();
-        currentUser.getprojects().get(index).menu(sc);
-
+        currentUser.getProjects().get(index).menu(sc);
     }
 
     private static void printMenu() {
