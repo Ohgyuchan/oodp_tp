@@ -7,9 +7,9 @@ import java.util.UUID;
 public class Project {
     private String projectId;
     private String projectName;
-    private ArrayList<Member> members;
+    private ArrayList<String> memberIds;
     private ArrayList<MainTask> tasks;
-    private Leader leader;
+    private String leaderId;
 
     public Project() {
 
@@ -18,14 +18,14 @@ public class Project {
     public Project(Scanner sc, User currentUser) {
         this.projectId = UUID.randomUUID().toString();
         this.projectName = sc.next();
-        this.members.add((Member) currentUser);
-        this.leader = (Leader) currentUser;
+        this.memberIds.add((String) currentUser.getId());
+        this.leaderId = (String) currentUser.getId();
     }
 
-    public Project(String projectName, ArrayList<Member> members, Leader leader) {
+    public Project(String projectName, ArrayList<String> memberIds, String leaderId) {
         this.projectName = projectName;
-        this.members = members;
-        this.leader = leader;
+        this.memberIds = memberIds;
+        this.leaderId = leaderId;
     }
 
     public ArrayList<MainTask> getTasks() {
@@ -52,34 +52,34 @@ public class Project {
         this.projectName = projectName;
     }
 
-    public ArrayList<Member> getMembers() {
-        return members;
+    public ArrayList<String> getMembers() {
+        return memberIds;
     }
 
     public int getMembersCount() {
-        return members.size();
+        return memberIds.size();
     }
 
-    public void setMembers(ArrayList<Member> members) {
-        this.members = members;
+    public void setMembers(ArrayList<String> memberIds) {
+        this.memberIds = memberIds;
     }
 
-    public Leader getLeader() {
-        return leader;
+    public String getLeader() {
+        return leaderId;
     }
 
-    public void setLeader(Leader leader) {
-        this.leader = leader;
+    public void setLeader(String leaderId) {
+        this.leaderId = leaderId;
     }
 
     public void print() {
         System.out.println("projectId: " + projectId);
         System.out.println("projectName: " + projectName);
-        System.out.print("members: ");
-        for (Member member : members) {
-            System.out.println(member.getDisplayName());
+        System.out.print("memberIds: ");
+        for (String memberId : memberIds) {
+            System.out.println(memberId);
         }
-        System.out.println("leader" + leader.getDisplayName());
+        System.out.println("leaderId" + leaderId);
     }
 
     public void menu(Scanner sc) {

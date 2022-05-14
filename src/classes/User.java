@@ -15,16 +15,20 @@ public class User extends Member{
         this.projects = projects;
     }
 
-    public ArrayList<Project> getprojects() {
+    public ArrayList<Project> getProjects() {
         return projects;
     }
 
-    public void setprojects(ArrayList<Project> projects) {
+    public void setProject(ArrayList<Project> projects) {
         this.projects = projects;
     }
 
     public void addProjects(Project project) {
         this.projects.add(project);
+    }
+
+    public void deleteProject(int index) {
+        this.projects.remove(index);
     }
 
     public String getPassword() {
