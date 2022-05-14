@@ -43,7 +43,7 @@ public class Main {
                     createProject(sc);
                     break;
                 case 3:
-                    deleteProject();
+                    deleteProject(sc);
                     break;
                 case 4:
                     selectProject(sc);
@@ -61,8 +61,8 @@ public class Main {
         currentUser.addProjects(newProject);
     }
 
-    private static void deleteProject() {
-
+    private static void deleteProject(Scanner sc) {
+        currentUser.printProjects();
     }
 
     private static void selectProject(Scanner sc) {
