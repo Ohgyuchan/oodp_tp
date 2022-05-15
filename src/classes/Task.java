@@ -2,11 +2,19 @@ package classes;
 
 public abstract class Task {
     private String title;
-//    private String state;
-//    private ArrayList<Comment> comments;
-//    private Date dueDate;
+    private State state;
+    // private ArrayList<Comment> comments;
+    // private Date dueDate;
 
     public Task() {
+    }
+
+    public State getState() {
+        return state;
+    }
+
+    public void setState(State state) {
+        this.state = state;
     }
 
     public String getTitle() {
@@ -17,29 +25,29 @@ public abstract class Task {
         this.title = title;
     }
 
-//    public String getState() {
-//        return state;
-//    }
-//
-//    public void setState(String state) {
-//        this.state = state;
-//    }
-//
-//    public ArrayList<Comment> getComments() {
-//        return comments;
-//    }
-//
-//    public void setComments(ArrayList<Comment> comments) {
-//        this.comments = comments;
-//    }
-//
-//    public Date getDueDate() {
-//        return dueDate;
-//    }
-//
-//    public void setDueDate(Date dueDate) {
-//        this.dueDate = dueDate;
-//    }
+    // public String getState() {
+    // return state;
+    // }
+    //
+    // public void setState(String state) {
+    // this.state = state;
+    // }
+    //
+    // public ArrayList<Comment> getComments() {
+    // return comments;
+    // }
+    //
+    // public void setComments(ArrayList<Comment> comments) {
+    // this.comments = comments;
+    // }
+    //
+    // public Date getDueDate() {
+    // return dueDate;
+    // }
+    //
+    // public void setDueDate(Date dueDate) {
+    // this.dueDate = dueDate;
+    // }
 
     public void stateUpdate() {
 
