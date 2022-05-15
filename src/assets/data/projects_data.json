@@ -1,7 +1,7 @@
 {
   "projects": [
     {
-      "id": "0",
+      "projectId": "0",
       "projectName": "oodp",
       "leader": {
         "id": "terman",
@@ -24,7 +24,7 @@
       ]
     },
     {
-      "id": "1",
+      "projectId": "1",
       "projectName": "oodp1",
       "leader": {
         "id": "terman",

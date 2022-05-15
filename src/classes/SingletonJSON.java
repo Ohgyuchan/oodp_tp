@@ -2,6 +2,10 @@ package classes;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -59,7 +63,19 @@ public class SingletonJSON {
 
     public Project getProjectFromJson() {
         return new Project();
+    }
 
+    public ArrayList<Project> getProjectsFromJson(ArrayList<String> projectIds) {
+        ArrayList<Project> projects = new ArrayList<>();
+        ObjectMapper mapper = new ObjectMapper();
+        for (String projectId : projectIds) {
+            try {
+                projects.add(mapper.readValue(projectsJson.get(projectId).toString(), Project.class));
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
+        }
+        return projects;
     }
 
     public User getUserFromJSON() {
