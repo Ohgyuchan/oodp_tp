@@ -48,7 +48,7 @@ public class SingletonJSON {
     }
 
     @SuppressWarnings("unchecked")
-    public static Map<String, Object> getMapFromJsonObject(JSONObject jsonObject) {
+    public Map<String, Object> getProjectMapFromJsonObject(JSONObject jsonObject) {
         Map<String, Object> map = null;
         try {
             map = new ObjectMapper().readValue(jsonObject.toJSONString(), Map.class);
@@ -62,38 +62,62 @@ public class SingletonJSON {
         return map;
     }
 
-    public static ArrayList<Map<String, Object>> getListMapFromJsonArray(JSONArray jsonArray) {
+    public ArrayList<Map<String, Object>> getProjectListMapFromJsonArray(JSONArray jsonArray) {
 
         ArrayList<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 
         if (jsonArray != null) {
             int jsonSize = jsonArray.size();
-            
+
             for (int i = 0; i < jsonSize; i++) {
-                Map<String, Object> map = getMapFromJsonObject((JSONObject) jsonArray.get(i));
+                Map<String, Object> map = getProjectMapFromJsonObject((JSONObject) jsonArray.get(i));
                 list.add(map);
             }
         }
         return list;
     }
 
-    public JSONObject getUsersJson() {
-        return this.usersJson;
+    @SuppressWarnings("unchecked")
+    public Map<String, Object> getUserMapFromJsonObject(JSONObject jsonObject) {
+        Map<String, Object> map = null;
+        try {
+            map = new ObjectMapper().readValue(jsonObject.toJSONString(), Map.class);
+        } catch (JsonParseException e) {
+            e.printStackTrace();
+        } catch (JsonMappingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return map;
     }
 
-    public JSONObject getProjectsJson() {
-        return this.projectsJson;
+    public ArrayList<Map<String, Object>> getUserListMapFromJsonArray(JSONArray jsonArray) {
+
+        ArrayList<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+
+        if (jsonArray != null) {
+            int jsonSize = jsonArray.size();
+
+            for (int i = 0; i < jsonSize; i++) {
+                Map<String, Object> map = getUserMapFromJsonObject((JSONObject) jsonArray.get(i));
+                list.add(map);
+            }
+        }
+        return list;
     }
 
-    public JSONArray getUsersJsonArray() {
-        return this.usersJsonArray;
-    }
-
-    public JSONArray getProjectsJsonArray() {
-        return this.projectsJsonArray;
-    }
-
-    public Project getProjectFromJson(String projectId) {
+    public Project getProject(String projectId) {
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            for (Map<String, Object> projectMap : getProjectListMapFromJsonArray(projectsJsonArray)) {
+                if (projectMap.get("projectId").equals(projectId)) {
+                    return mapper.convertValue(projectMap, Project.class);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return new Project();
     }
 
@@ -102,7 +126,7 @@ public class SingletonJSON {
         ObjectMapper mapper = new ObjectMapper();
         for (String projectId : projectIds) {
             try {
-                for (Map<String, Object> projectMap : getListMapFromJsonArray(projectsJsonArray)) {
+                for (Map<String, Object> projectMap : getProjectListMapFromJsonArray(projectsJsonArray)) {
                     if (projectMap.get("projectId").equals(projectId)) {
                         projects.add(mapper.convertValue(projectMap, Project.class));
                     }
@@ -114,8 +138,34 @@ public class SingletonJSON {
         return projects;
     }
 
-    public User getUserFromJSON() {
+    public User getUser(String userId) {
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            for (Map<String, Object> userMap : getProjectListMapFromJsonArray(usersJsonArray)) {
+                if (userMap.get("userId").equals(userId)) {
+                    return mapper.convertValue(userMap, User.class);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return new User();
     }
 
+    public ArrayList<User> getUsers(ArrayList<String> userIds) {
+        ArrayList<User> users = new ArrayList<>();
+        ObjectMapper mapper = new ObjectMapper();
+        for (String userId : userIds) {
+            try {
+                for (Map<String, Object> userMap : getProjectListMapFromJsonArray(usersJsonArray)) {
+                    if (userMap.get("userId").equals(userId)) {
+                        users.add(mapper.convertValue(userMap, User.class));
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return users;
+    }
 }
