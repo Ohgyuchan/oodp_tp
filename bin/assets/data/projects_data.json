@@ -15,9 +15,11 @@
       ], "tasks": [
         {
           "title": "title",
+          "state": "TODO",
           "subTasks": [
             {
-              "title": "subTitle"
+              "title": "subTitle",
+              "state": "TODO"
             }
           ]
         }
@@ -38,9 +40,11 @@
       ], "tasks": [
         {
           "title": "title1",
+          "state": "TODO",
           "subTasks": [
             {
-              "title": "subTitle1"
+              "title": "subTitle1",
+              "state": "TODO"
             }
           ]
         }
