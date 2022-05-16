@@ -29,14 +29,6 @@ public abstract class Task {
         this.title = title;
     }
 
-    // public String getState() {
-    // return state;
-    // }
-    //
-    // public void setState(String state) {
-    // this.state = state;
-    // }
-    //
     // public ArrayList<Comment> getComments() {
     // return comments;
     // }
