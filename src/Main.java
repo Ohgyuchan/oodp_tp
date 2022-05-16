@@ -58,7 +58,7 @@ public class Main {
 
     private static void createProject(Scanner sc) {
         Project newProject = new Project(sc, currentUser);
-        currentUser.addProjects(newProject);
+        currentUser.addProjectIds(newProject.getProjectId());
     }
 
     private static void deleteProject(Scanner sc) {
@@ -71,7 +71,7 @@ public class Main {
 
     private static void selectProject(Scanner sc) {
         int index = sc.nextInt();
-        currentUser.getProjects().get(index).menu(sc);
+        currentUser.getProjectIds().get(index).menu(sc);
     }
 
     private static void printMenu() {
@@ -82,6 +82,14 @@ public class Main {
         System.out.println("3: DELETE A PROJECT");
         System.out.println("4: SELECT A PROJECT");
         System.out.println("5: PRINT MENU");
+        System.out.println("===========================");
+    }
+
+    private static void printLoginMenu() {
+        System.out.println("===========================");
+        System.out.println("0: EXIT");
+        System.out.println("1: SIGN IN");
+        System.out.println("2: SIGN UP");
         System.out.println("===========================");
     }
 }
