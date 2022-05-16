@@ -3,8 +3,11 @@ package classes;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Map;
 
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.json.simple.JSONArray;
@@ -45,6 +48,35 @@ public class SingletonJSON {
 
     }
 
+    public static Map<String, Object> getMapFromJsonObject(JSONObject jsonObject) {
+        Map<String, Object> map = null;
+        try {
+            map = new ObjectMapper().readValue(jsonObject.toJSONString(), Map.class);
+        } catch (JsonParseException e) {
+            e.printStackTrace();
+        } catch (JsonMappingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return map;
+    }
+
+    public static ArrayList<Map<String, Object>> getListMapFromJsonArray(JSONArray jsonArray) {
+
+        ArrayList<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+
+        if (jsonArray != null) {
+            int jsonSize = jsonArray.size();
+            
+            for (int i = 0; i < jsonSize; i++) {
+                Map<String, Object> map = getMapFromJsonObject((JSONObject) jsonArray.get(i));
+                list.add(map);
+            }
+        }
+        return list;
+    }
+
     public JSONObject getUsersJson() {
         return this.usersJson;
     }
@@ -57,11 +89,11 @@ public class SingletonJSON {
         return this.usersJsonArray;
     }
 
-    public JSONArray getPrJsonArray() {
+    public JSONArray getProjectsJsonArray() {
         return this.projectsJsonArray;
     }
 
-    public Project getProjectFromJson() {
+    public Project getProjectFromJson(String projectId) {
         return new Project();
     }
 
@@ -70,8 +102,20 @@ public class SingletonJSON {
         ObjectMapper mapper = new ObjectMapper();
         for (String projectId : projectIds) {
             try {
-                projects.add(mapper.readValue(projectsJson.get(projectId).toString(), Project.class));
-            } catch (JsonProcessingException e) {
+                for (Object projectJS : projectsJsonArray) {
+                    // System.out.println(projectJS);
+                    JSONObject pjso = (JSONObject) projectJS;
+                    if (pjso.get("projectId").equals(projectId)) {
+                        projects.add(mapper.readValue(pjso.toString(), Project.class));
+                        // System.out.println(pjso.get("projectId").toString());
+                    }
+                }
+                // if(mapper.readValue(projectsJson.get("projectId").toString(),
+                // Project.class).getProjectId().equals(projectId)) {
+                // projects.add(mapper.readValue(projectsJson.get("projectId").toString(),
+                // Project.class));
+                // }
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }

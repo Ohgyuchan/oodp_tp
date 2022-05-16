@@ -4,6 +4,7 @@ import java.util.Scanner;
 import org.json.simple.parser.ParseException;
 
 import classes.Project;
+import classes.SingletonJSON;
 import classes.User;
 import classes.auth.Login;
 
@@ -15,6 +16,7 @@ import classes.auth.Login;
 
 public class Main {
     private static User currentUser;
+    private static Project currentProject;
 
     public static void main(String[] args) {
         Login login = new Login();
@@ -28,12 +30,14 @@ public class Main {
         }
 
         currentUser = login.getCurrentUser();
+        currentProject = new Project();
         boolean flag = true;
         printMenu();
         while (flag) {
             int tag = sc.nextInt();
             switch (tag) {
                 case 0:
+                //sign out
                     flag = false;
                     break;
                 case 1:
@@ -71,7 +75,8 @@ public class Main {
 
     private static void selectProject(Scanner sc) {
         int index = sc.nextInt();
-        currentUser.getProjectIds().get(index).menu(sc);
+        currentProject = SingletonJSON.getInstance().getProjectFromJson(currentUser.getProjectIds().get(index));
+        currentProject.print();
     }
 
     private static void printMenu() {
