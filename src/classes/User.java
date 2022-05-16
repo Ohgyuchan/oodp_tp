@@ -40,10 +40,11 @@ public class User extends Member{
     }
 
     public void printProjects() {
-        ArrayList<Project> projects = new ArrayList<>();
-        projects = SingletonJSON.getInstance().getProjectsFromJson(projectIds);
-        for(int i = 0; i < projects.size(); i++) {
-            System.out.println("#"+ (i+1) + ": " + projects.get(i).getProjectName());
+        int i = 0;
+        for (Project project : SingletonJSON.getInstance().getProjects(projectIds)) {
+            i++;
+            System.out.println("#"+ (i) + ": " + project.getProjectName());
         }
+        
     }
 }

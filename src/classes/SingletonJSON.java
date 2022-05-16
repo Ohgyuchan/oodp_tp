@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -48,6 +47,7 @@ public class SingletonJSON {
 
     }
 
+    @SuppressWarnings("unchecked")
     public static Map<String, Object> getMapFromJsonObject(JSONObject jsonObject) {
         Map<String, Object> map = null;
         try {
@@ -97,24 +97,16 @@ public class SingletonJSON {
         return new Project();
     }
 
-    public ArrayList<Project> getProjectsFromJson(ArrayList<String> projectIds) {
+    public ArrayList<Project> getProjects(ArrayList<String> projectIds) {
         ArrayList<Project> projects = new ArrayList<>();
         ObjectMapper mapper = new ObjectMapper();
         for (String projectId : projectIds) {
             try {
-                for (Object projectJS : projectsJsonArray) {
-                    // System.out.println(projectJS);
-                    JSONObject pjso = (JSONObject) projectJS;
-                    if (pjso.get("projectId").equals(projectId)) {
-                        projects.add(mapper.readValue(pjso.toString(), Project.class));
-                        // System.out.println(pjso.get("projectId").toString());
+                for (Map<String, Object> projectMap : getListMapFromJsonArray(projectsJsonArray)) {
+                    if (projectMap.get("projectId").equals(projectId)) {
+                        projects.add(mapper.convertValue(projectMap, Project.class));
                     }
                 }
-                // if(mapper.readValue(projectsJson.get("projectId").toString(),
-                // Project.class).getProjectId().equals(projectId)) {
-                // projects.add(mapper.readValue(projectsJson.get("projectId").toString(),
-                // Project.class));
-                // }
             } catch (Exception e) {
                 e.printStackTrace();
             }

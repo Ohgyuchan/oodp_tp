@@ -3,16 +3,9 @@
     {
       "projectId": "0",
       "projectName": "oodp",
-      "leader": {
-        "id": "terman",
-        "displayName": "오규찬"
-      },
-      "members": [
-        {
-          "id": "terman",
-          "displayName": "오규찬"
-        }
-      ], "tasks": [
+      "leaderId": "terman",
+      "memberIds": ["terman"],
+      "tasks": [
         {
           "title": "title",
           "state": "TODO",
@@ -28,16 +21,9 @@
     {
       "projectId": "1",
       "projectName": "oodp1",
-      "leader": {
-        "id": "terman",
-        "displayName": "오규찬"
-      },
-      "members": [
-        {
-          "id": "terman",
-          "displayName": "오규찬"
-        }
-      ], "tasks": [
+      "leaderId": "terman",
+      "memberIds": ["terman"],
+      "tasks": [
         {
           "title": "title1",
           "state": "TODO",

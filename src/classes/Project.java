@@ -52,7 +52,7 @@ public class Project {
         this.projectName = projectName;
     }
 
-    public ArrayList<String> getMembers() {
+    public ArrayList<String> getMemberIds() {
         return memberIds;
     }
 
@@ -60,15 +60,15 @@ public class Project {
         return memberIds.size();
     }
 
-    public void setMembers(ArrayList<String> memberIds) {
+    public void setMemberIds(ArrayList<String> memberIds) {
         this.memberIds = memberIds;
     }
 
-    public String getLeader() {
+    public String getLeaderId() {
         return leaderId;
     }
 
-    public void setLeader(String leaderId) {
+    public void setLeaderId(String leaderId) {
         this.leaderId = leaderId;
     }
 
@@ -79,7 +79,7 @@ public class Project {
         for (String memberId : memberIds) {
             System.out.println(memberId);
         }
-        System.out.println("leaderId" + leaderId);
+        System.out.println("leaderId: " + leaderId);
     }
 
     public void menu(Scanner sc) {
