@@ -75,7 +75,7 @@ public class Main {
 
     private static void selectProject(Scanner sc) {
         int index = sc.nextInt();
-        currentProject = SingletonJSON.getInstance().getProjectFromJson(currentUser.getProjectIds().get(index));
+        currentProject = SingletonJSON.getInstance().getProject(currentUser.getProjectIds().get(index));
         currentProject.print();
     }
 
