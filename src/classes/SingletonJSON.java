@@ -168,4 +168,16 @@ public class SingletonJSON {
         }
         return users;
     }
+
+    public void addUser() {
+        //TODO: JSON Update
+    }
+
+    public void addProject() {
+        //TODO: JSON Update
+    }
+
+    public void updateProject() {
+        //TODO: JSON Update
+    }
 }
