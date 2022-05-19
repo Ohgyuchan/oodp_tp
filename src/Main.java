@@ -32,8 +32,8 @@ public class Main {
         currentUser = login.getCurrentUser();
         currentProject = new Project();
         boolean flag = true;
-        printMenu();
         while (flag) {
+            printMenu();
             int tag = sc.nextInt();
             switch (tag) {
                 case 0:
@@ -97,7 +97,7 @@ public class Main {
         System.out.println("2: CREATE A PROJECT");
         System.out.println("3: DELETE A PROJECT");
         System.out.println("4: SELECT A PROJECT");
-        System.out.println("5: PRINT MENU");
+        System.out.println("DEFAULT: PRINT MENU");
         System.out.println("===========================");
     }
 

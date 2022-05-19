@@ -182,12 +182,10 @@ public class SingletonJSON {
         
         JSONObject projectJson = (JSONObject) parser.parse(projectJsonInString);
         JSONObject userJson = (JSONObject) parser.parse(userJsonInString);
-        System.out.println(projectsJson);
-        System.out.println();
-        System.out.println();
         
         projectsJsonArray.add(projectJson);
         usersJsonArray.add(userJson);
+
         for (Object object : usersJsonArray) {
             JSONObject jo = (JSONObject) object;
             if(userJson.get("id").toString().equals(jo.get("id").toString())) {
