@@ -37,14 +37,19 @@ public class Main {
             int tag = sc.nextInt();
             switch (tag) {
                 case 0:
-                //sign out
+                    // sign out
                     flag = false;
                     break;
                 case 1:
                     currentUser.printProjects();
                     break;
                 case 2:
+                    // try {
                     createProject(sc);
+                    // } catch (IOException e) {
+                    // // TODO Auto-generated catch block
+                    // e.printStackTrace();
+                    // }
                     break;
                 case 3:
                     deleteProject(sc);
@@ -61,8 +66,14 @@ public class Main {
     }
 
     private static void createProject(Scanner sc) {
+        currentUser.print();
         Project newProject = new Project(sc, currentUser);
         currentUser.addProjectIds(newProject.getProjectId());
+        try {
+            SingletonJSON.getInstance().saveJson(newProject, currentUser);
+        } catch (IOException | ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     private static void deleteProject(Scanner sc) {
@@ -70,7 +81,7 @@ public class Main {
         System.out.print("Pleas Enter the index to delete: ");
         int indexToDelete = sc.nextInt();
         currentUser.deleteProject(indexToDelete);
-        
+
     }
 
     private static void selectProject(Scanner sc) {

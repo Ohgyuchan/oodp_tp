@@ -1,9 +1,9 @@
 {
   "users": [
     {
-      "id": "terman",
-      "displayName": "오규찬",
       "password": "1234",
+      "displayName": "오규찬",
+      "id": "terman",
       "projectIds": ["0", "1"]
     }
   ]

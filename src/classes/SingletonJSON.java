@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -172,18 +173,22 @@ public class SingletonJSON {
         return users;
     }
 
-    public void saveJson() {
+    public void saveJson(Project project, User currentUser) throws IOException, ParseException {
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonInString = mapper.writeValueAsString(project);
+        System.out.println(jsonInString);
+        System.out.println();
+        JSONParser parser = new JSONParser();
+        JSONObject json = (JSONObject) parser.parse(jsonInString);
+        projectsJsonArray.add(json);
+        System.out.println(projectsJsonArray);
         String projectsJsonString = projectsJson.toString();
         String usersJsonString = usersJson.toString();
         File projectsJsonFile = new File("src/assets/data/projects_data.json");
         File usersJsonFile = new File("src/assets/data/users_data.json");
 
-        try {
-            writeStringToFile(projectsJsonString, projectsJsonFile);
-            writeStringToFile(usersJsonString, usersJsonFile);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        writeStringToFile(projectsJsonString, projectsJsonFile);
+        writeStringToFile(usersJsonString, usersJsonFile);
     }
 
     private void writeStringToFile(String str, File file) throws IOException {
@@ -193,14 +198,14 @@ public class SingletonJSON {
     }
 
     public void addUser() {
-        //TODO: JSON Update
+        // TODO: JSON Update
     }
 
     public void addProject() {
-        //TODO: JSON Update
+        // TODO: JSON Update
     }
 
     public void updateProject() {
-        //TODO: JSON Update
+        // TODO: JSON Update
     }
 }

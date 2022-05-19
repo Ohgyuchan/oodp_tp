@@ -3,7 +3,7 @@ package classes;
 import java.util.ArrayList;
 
 public class MainTask extends Task{
-    private ArrayList<SubTask> subTasks;
+    private ArrayList<SubTask> subTasks = new ArrayList<SubTask>();
 //    private ArrayList<Meeting> meetings;
 
 

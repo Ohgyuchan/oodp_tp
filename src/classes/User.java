@@ -47,4 +47,8 @@ public class User extends Member{
         }
         
     }
+
+    public void print() {
+        System.out.println(this.getId());
+    }
 }
