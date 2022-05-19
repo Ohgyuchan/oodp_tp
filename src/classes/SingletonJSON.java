@@ -1,6 +1,9 @@
 package classes;
 
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
@@ -167,6 +170,26 @@ public class SingletonJSON {
             }
         }
         return users;
+    }
+
+    public void saveJson() {
+        String projectsJsonString = projectsJson.toString();
+        String usersJsonString = usersJson.toString();
+        File projectsJsonFile = new File("src/assets/data/projects_data.json");
+        File usersJsonFile = new File("src/assets/data/users_data.json");
+
+        try {
+            writeStringToFile(projectsJsonString, projectsJsonFile);
+            writeStringToFile(usersJsonString, usersJsonFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void writeStringToFile(String str, File file) throws IOException {
+        BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+        writer.write(str);
+        writer.close();
     }
 
     public void addUser() {
