@@ -4,25 +4,28 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.UUID;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 public class Project {
     private String projectId;
     private String projectName;
-    private ArrayList<String> memberIds;
-    private ArrayList<MainTask> tasks;
+    private ArrayList<String> memberIds = new ArrayList<>();
+    private ArrayList<MainTask> tasks = new ArrayList<MainTask>();
     private String leaderId;
 
     public Project() {
 
     }
-    
+
     public Project(Scanner sc, User currentUser) {
         this.projectId = UUID.randomUUID().toString();
         this.projectName = sc.next();
-        this.memberIds.add((String) currentUser.getId());
-        this.leaderId = (String) currentUser.getId();
+        this.memberIds.add(currentUser.getId());
+        this.leaderId = currentUser.getId();
     }
 
     public Project(String projectName, ArrayList<String> memberIds, String leaderId) {
+        this.projectId = UUID.randomUUID().toString();
         this.projectName = projectName;
         this.memberIds = memberIds;
         this.leaderId = leaderId;
@@ -56,9 +59,9 @@ public class Project {
         return memberIds;
     }
 
-    public int getMembersCount() {
-        return memberIds.size();
-    }
+    // public int getMembersCount() {
+    //     return memberIds.size();
+    // }
 
     public void setMemberIds(ArrayList<String> memberIds) {
         this.memberIds = memberIds;

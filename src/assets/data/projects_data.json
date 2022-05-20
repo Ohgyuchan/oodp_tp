@@ -1,40 +1,37 @@
 {
   "projects": [
     {
-      "projectId": "0",
       "projectName": "oodp",
-      "leaderId": "terman",
+      "projectId": "0",
       "memberIds": ["terman"],
       "tasks": [
         {
-          "title": "title",
+          "subTasks": [{ "state": "TODO", "title": "subTitle" }],
           "state": "TODO",
-          "subTasks": [
-            {
-              "title": "subTitle",
-              "state": "TODO"
-            }
-          ]
+          "title": "title"
         }
-      ]
+      ],
+      "leaderId": "terman"
     },
     {
-      "projectId": "1",
       "projectName": "oodp1",
-      "leaderId": "terman",
+      "projectId": "1",
       "memberIds": ["terman"],
       "tasks": [
         {
-          "title": "title1",
+          "subTasks": [{ "state": "TODO", "title": "subTitle1" }],
           "state": "TODO",
-          "subTasks": [
-            {
-              "title": "subTitle1",
-              "state": "TODO"
-            }
-          ]
+          "title": "title1"
         }
-      ]
+      ],
+      "leaderId": "terman"
+    },
+    {
+      "projectName": "qwer",
+      "projectId": "03a6677e-5e0c-45e7-899f-7e4eb6fc79a4",
+      "memberIds": ["terman"],
+      "tasks": [],
+      "leaderId": "terman"
     }
   ]
 }
