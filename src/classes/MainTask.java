@@ -6,8 +6,13 @@ public class MainTask extends Task{
     private ArrayList<SubTask> subTasks = new ArrayList<SubTask>();
 //    private ArrayList<Meeting> meetings;
 
+    public MainTask() {
+        
+    }
+
     public MainTask(String title, State state) {
         super(title, state);
+        this.subTasks = new ArrayList<>();
     }
 
     public ArrayList<SubTask> getSubTasks() {
