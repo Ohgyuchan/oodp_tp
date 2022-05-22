@@ -37,28 +37,42 @@ public class Main {
             int tag = sc.nextInt();
             switch (tag) {
                 case 0:
-                    // sign out
                     flag = false;
                     break;
                 case 1:
                     currentUser.printProjects();
                     break;
                 case 2:
-                    // try {
                     createProject(sc);
-                    // } catch (IOException e) {
-                    // // TODO Auto-generated catch block
-                    // e.printStackTrace();
-                    // }
                     break;
                 case 3:
                     deleteProject(sc);
                     break;
                 case 4:
                     selectProject(sc);
+                    if (currentProject.getProjectId() != null) {
+                        boolean FLAG = true;
+                        while (FLAG) {
+                            printProjectMenu();
+                            int TAG = sc.nextInt();
+                            switch (TAG) {
+                                case 0:
+                                    FLAG = false;
+                                    break;
+                                case 1:
+                                    currentProject.print();
+                                    break;
+                                case 2:
+                                    break;
+                                case 3:
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+                    }
                     break;
                 default:
-                    printMenu();
                     break;
             }
         }
@@ -85,9 +99,11 @@ public class Main {
     }
 
     private static void selectProject(Scanner sc) {
-        int index = sc.nextInt();
-        currentProject = SingletonJSON.getInstance().getProject(currentUser.getProjectIds().get(index));
-        currentProject.print();
+        currentUser.printProjects();
+        System.out.print("Pleas Enter the index: ");
+        int indexToSelect = sc.nextInt();
+        String selectedProjectId = currentUser.getProjectIds().get(indexToSelect);
+        currentProject = SingletonJSON.getInstance().getProject(selectedProjectId);
     }
 
     private static void printMenu() {
@@ -98,6 +114,15 @@ public class Main {
         System.out.println("3: DELETE A PROJECT");
         System.out.println("4: SELECT A PROJECT");
         System.out.println("DEFAULT: PRINT MENU");
+        System.out.println("===========================");
+    }
+
+    private static void printProjectMenu() {
+        System.out.println("===========================");
+        System.out.println("0: EXIT");
+        System.out.println("1: PRINT ALL");
+        System.out.println("2: ADD TASK");
+        System.out.println("3: INVITE A MEMBER");
         System.out.println("===========================");
     }
 

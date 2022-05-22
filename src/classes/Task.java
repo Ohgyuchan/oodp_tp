@@ -9,6 +9,11 @@ public abstract class Task {
     public Task() {
     }
 
+    public Task(String title, State state) {
+        this.title = title;
+        this.state = State.TODO;
+    }
+
     public State getState() {
         return state;
     }

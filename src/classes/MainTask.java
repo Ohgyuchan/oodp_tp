@@ -1,14 +1,14 @@
 package classes;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class MainTask extends Task{
     private ArrayList<SubTask> subTasks = new ArrayList<SubTask>();
 //    private ArrayList<Meeting> meetings;
 
-
-
-    public MainTask() {
+    public MainTask(Scanner sc) {
+        super(sc.nextLine(), State.TODO);
     }
 
     public ArrayList<SubTask> getSubTasks() {
