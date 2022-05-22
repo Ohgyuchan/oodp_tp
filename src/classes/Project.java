@@ -7,25 +7,26 @@ import java.util.UUID;
 public class Project {
     private String projectId;
     private String projectName;
-    private ArrayList<Member> members;
-    private ArrayList<MainTask> tasks;
-    private Leader leader;
+    private ArrayList<String> memberIds = new ArrayList<>();
+    private ArrayList<MainTask> tasks = new ArrayList<MainTask>();
+    private String leaderId;
 
     public Project() {
 
     }
-    
+
     public Project(Scanner sc, User currentUser) {
         this.projectId = UUID.randomUUID().toString();
         this.projectName = sc.next();
-        this.members.add((Member) currentUser);
-        this.leader = (Leader) currentUser;
+        this.memberIds.add(currentUser.getId());
+        this.leaderId = currentUser.getId();
     }
 
-    public Project(String projectName, ArrayList<Member> members, Leader leader) {
+    public Project(String projectName, ArrayList<String> memberIds, String leaderId) {
+        this.projectId = UUID.randomUUID().toString();
         this.projectName = projectName;
-        this.members = members;
-        this.leader = leader;
+        this.memberIds = memberIds;
+        this.leaderId = leaderId;
     }
 
     public ArrayList<MainTask> getTasks() {
@@ -34,6 +35,10 @@ public class Project {
 
     public void setTasks(ArrayList<MainTask> tasks) {
         this.tasks = tasks;
+    }
+
+    public void addTask(MainTask task) {
+        tasks.add(task);
     }
 
     public String getProjectId() {
@@ -52,34 +57,38 @@ public class Project {
         this.projectName = projectName;
     }
 
-    public ArrayList<Member> getMembers() {
-        return members;
+    public ArrayList<String> getMemberIds() {
+        return memberIds;
     }
 
-    public int getMembersCount() {
-        return members.size();
+    public void addMemberId(String memberId) {
+        this.memberIds.add(memberId);
     }
 
-    public void setMembers(ArrayList<Member> members) {
-        this.members = members;
+    // public int getMembersCount() {
+    //     return memberIds.size();
+    // }
+
+    public void setMemberIds(ArrayList<String> memberIds) {
+        this.memberIds = memberIds;
     }
 
-    public Leader getLeader() {
-        return leader;
+    public String getLeaderId() {
+        return leaderId;
     }
 
-    public void setLeader(Leader leader) {
-        this.leader = leader;
+    public void setLeaderId(String leaderId) {
+        this.leaderId = leaderId;
     }
 
     public void print() {
         System.out.println("projectId: " + projectId);
         System.out.println("projectName: " + projectName);
-        System.out.print("members: ");
-        for (Member member : members) {
-            System.out.println(member.getDisplayName());
+        System.out.print("memberIds: ");
+        for (String memberId : memberIds) {
+            System.out.println(memberId);
         }
-        System.out.println("leader" + leader.getDisplayName());
+        System.out.println("leaderId: " + leaderId);
     }
 
     public void menu(Scanner sc) {

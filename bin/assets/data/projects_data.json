@@ -1,50 +1,30 @@
 {
   "projects": [
     {
-      "id": "0",
       "projectName": "oodp",
-      "leader": {
-        "id": "terman",
-        "displayName": "오규찬"
-      },
-      "members": [
+      "projectId": "0",
+      "memberIds": ["terman"],
+      "tasks": [
         {
-          "id": "terman",
-              "displayName": "오규찬"
+          "subTasks": [{ "state": "TODO", "title": "subTitle" }],
+          "state": "TODO",
+          "title": "title"
         }
-      ], "tasks": [
-        {
-          "title": "title",
-          "subTasks": [
-            {
-              "title": "subTitle"
-            }
-          ]
-        }
-      ]
+      ],
+      "leaderId": "terman"
     },
     {
-      "id": "1",
       "projectName": "oodp1",
-      "leader": {
-        "id": "terman",
-        "displayName": "오규찬"
-      },
-      "members": [
+      "projectId": "1",
+      "memberIds": ["terman"],
+      "tasks": [
         {
-          "id": "terman",
-          "displayName": "오규찬"
+          "subTasks": [{ "state": "TODO", "title": "subTitle1" }],
+          "state": "TODO",
+          "title": "title1"
         }
-      ], "tasks": [
-        {
-          "title": "title1",
-          "subTasks": [
-            {
-              "title": "subTitle1"
-            }
-          ]
-        }
-      ]
+      ],
+      "leaderId": "terman"
     }
   ]
 }

@@ -1,39 +1,10 @@
 {
   "users": [
     {
-      "id": "terman",
-      "displayName": "오규찬",
       "password": "1234",
-      "projects": [
-        {
-          "projectId": "0",
-          "projectName": "oodp",
-          "leader": {
-            "id": "terman",
-            "displayName": "오규찬"
-          },
-          "members": [
-            {
-              "id": "terman",
-              "displayName": "오규찬"
-            }
-          ]
-        },
-        {
-          "projectId": "1",
-          "projectName": "oodp1",
-          "leader": {
-            "id": "terman",
-            "displayName": "오규찬"
-          },
-          "members": [
-            {
-              "id": "terman",
-              "displayName": "오규찬"
-            }
-          ]
-        }
-      ]
+      "displayName": "오규찬",
+      "id": "terman",
+      "projectIds": ["0", "1", "03a6677e-5e0c-45e7-899f-7e4eb6fc79a4"]
     }
   ]
 }

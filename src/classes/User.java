@@ -4,27 +4,31 @@ import java.util.ArrayList;
 
 public class User extends Member{
     private String password;
-    private ArrayList<Project> projects;
+    private ArrayList<String> projectIds;
     
     public User() {
     }
     
-    public User(String id, String password, String displayName, ArrayList<Project> projects) {
+    public User(String id, String password, String displayName, ArrayList<String> projectIds) {
         super(id, displayName);
         this.password = password;
-        this.projects = projects;
+        this.projectIds = projectIds;
     }
 
-    public ArrayList<Project> getprojects() {
-        return projects;
+    public ArrayList<String> getProjectIds() {
+        return projectIds;
     }
 
-    public void setprojects(ArrayList<Project> projects) {
-        this.projects = projects;
+    public void setProject(ArrayList<String> projectIds) {
+        this.projectIds = projectIds;
     }
 
-    public void addProjects(Project project) {
-        this.projects.add(project);
+    public void addProjectIds(String projectId) {
+        this.projectIds.add(projectId);
+    }
+
+    public void deleteProject(int index) {
+        this.projectIds.remove(index);
     }
 
     public String getPassword() {
@@ -36,8 +40,15 @@ public class User extends Member{
     }
 
     public void printProjects() {
-        for(int i = 0; i < projects.size(); i++) {
-            System.out.println("#"+ (i+1) + ": " + projects.get(i).getProjectName());
+        int i = 0;
+        for (Project project : SingletonJSON.getInstance().getProjects(projectIds)) {
+            i++;
+            System.out.println("#"+ (i) + ": " + project.getProjectName());
         }
+        
+    }
+
+    public void print() {
+        System.out.println(this.getId());
     }
 }
