@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.UUID;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 public class Project {
     private String projectId;
     private String projectName;
@@ -39,6 +37,10 @@ public class Project {
         this.tasks = tasks;
     }
 
+    public void addTask(MainTask task) {
+        tasks.add(task);
+    }
+
     public String getProjectId() {
         return projectId;
     }
@@ -57,6 +59,10 @@ public class Project {
 
     public ArrayList<String> getMemberIds() {
         return memberIds;
+    }
+
+    public void addMemberId(String memberId) {
+        this.memberIds.add(memberId);
     }
 
     // public int getMembersCount() {

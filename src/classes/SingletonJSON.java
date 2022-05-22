@@ -7,6 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Scanner;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -176,30 +177,28 @@ public class SingletonJSON {
     public void saveJson(Project project, User currentUser) throws IOException, ParseException {
         ObjectMapper mapper = new ObjectMapper();
         JSONParser parser = new JSONParser();
-        
+
         String projectJsonInString = mapper.writeValueAsString(project);
         String userJsonInString = mapper.writeValueAsString(currentUser);
-        
+
         JSONObject projectJson = (JSONObject) parser.parse(projectJsonInString);
         JSONObject userJson = (JSONObject) parser.parse(userJsonInString);
-        
+
         projectsJsonArray.add(projectJson);
         usersJsonArray.add(userJson);
 
         for (Object object : usersJsonArray) {
             JSONObject jo = (JSONObject) object;
-            if(userJson.get("id").toString().equals(jo.get("id").toString())) {
-                if(!jo.equals(userJson)) {
+            if (userJson.get("id").toString().equals(jo.get("id").toString())) {
+                if (!jo.equals(userJson)) {
                     usersJsonArray.remove(jo);
                 }
             }
         }
-        
-
 
         String projectsJsonString = projectsJson.toString();
         String usersJsonString = usersJson.toString();
-        
+
         File projectsJsonFile = new File("src/assets/data/projects_data.json");
         File usersJsonFile = new File("src/assets/data/users_data.json");
 
@@ -211,6 +210,32 @@ public class SingletonJSON {
         BufferedWriter writer = new BufferedWriter(new FileWriter(file));
         writer.write(str);
         writer.close();
+    }
+
+    public void invite(Scanner sc, Project project) throws JsonMappingException, JsonProcessingException {
+        ArrayList<User> users = new ArrayList<>();
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        for (int i = 0; i < usersJsonArray.size(); i++) {
+            User user = mapper.readValue(usersJsonArray.get(i).toString(), User.class);
+            if (project.getMemberIds().contains(user.getId()))
+                continue;
+            users.add(user);
+        }
+
+        for (int i = 0; i < users.size(); i++) {
+            System.out.println("#" + i + " " + users.get(i).getId());
+        }
+
+        int index = sc.nextInt();
+        project.addMemberId(users.get(index).getId());
+        users.get(index).addProjectIds(project.getProjectId());
+        try {
+            saveJson(project, users.get(index));
+        } catch (IOException | ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     public void addUser() {
