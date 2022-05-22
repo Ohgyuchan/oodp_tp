@@ -61,6 +61,10 @@ public class Project {
         return memberIds;
     }
 
+    public void addMemberId(String memberId) {
+        this.memberIds.add(memberId);
+    }
+
     // public int getMembersCount() {
     //     return memberIds.size();
     // }

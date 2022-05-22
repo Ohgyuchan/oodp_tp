@@ -1,10 +1,14 @@
 import java.io.IOException;
 import java.util.Scanner;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+
 import org.json.simple.parser.ParseException;
 
+import classes.MainTask;
 import classes.Project;
 import classes.SingletonJSON;
+import classes.State;
 import classes.User;
 import classes.auth.Login;
 
@@ -63,8 +67,10 @@ public class Main {
                                     currentProject.print();
                                     break;
                                 case 2:
+                                    createTask(sc);
                                     break;
                                 case 3:
+                                    inviteMember(sc);
                                     break;
                                 default:
                                     break;
@@ -104,6 +110,29 @@ public class Main {
         int indexToSelect = sc.nextInt();
         String selectedProjectId = currentUser.getProjectIds().get(indexToSelect);
         currentProject = SingletonJSON.getInstance().getProject(selectedProjectId);
+    }
+
+    private static void createTask(Scanner sc) {
+        System.out.print("Title: ");
+        String title = sc.nextLine();
+        for (int i = 0; i < State.values().length; i++) {
+            System.out.println("Select State");
+            System.out.println("(" + i + "): " + State.values()[i]);
+        }
+        currentProject.addTask(new MainTask(title, State.values()[sc.nextInt()]));
+        try {
+            SingletonJSON.getInstance().saveJson(currentProject, currentUser);
+        } catch (IOException | ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void inviteMember(Scanner sc) {
+        try {
+            SingletonJSON.getInstance().invite(sc, currentProject);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
     }
 
     private static void printMenu() {
