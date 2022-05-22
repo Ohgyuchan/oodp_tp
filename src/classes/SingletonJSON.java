@@ -20,7 +20,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 public class SingletonJSON {
-    private static SingletonJSON instance = new SingletonJSON();
+    private static SingletonJSON instance;
     private JSONObject usersJson;
     private JSONObject projectsJson;
     private JSONArray usersJsonArray;
@@ -31,6 +31,9 @@ public class SingletonJSON {
     }
 
     public static SingletonJSON getInstance() {
+        if(instance == null){
+            instance = new SingletonJSON();
+        }
         return instance;
     }
 
