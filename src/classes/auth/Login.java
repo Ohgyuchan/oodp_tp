@@ -14,6 +14,7 @@ import org.json.simple.parser.ParseException;
 
 import classes.User;
 
+// Mediator
 public class Login {
     private boolean isLogin = false;
     private User currentUser = new User();
