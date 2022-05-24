@@ -11,6 +11,11 @@ import classes.SingletonJSON;
 import classes.State;
 import classes.User;
 import classes.auth.Login;
+import classes.auth.strategy.Auth;
+import classes.auth.strategy.SignInAction;
+import classes.auth.strategy.SignOutAction;
+import classes.auth.strategy.SignUpAction;
+import classes.auth.strategy.SignWithAuth;
 
 // 로그인 회원가입
 // 프로젝트리스트
@@ -23,8 +28,16 @@ public class Main {
     private static Project currentProject;
 
     public static void main(String[] args) {
-        Login login = new Login();
+        SignWithAuth sign = new SignWithAuth(new SignInAction());
+        sign.authAction();
+        sign.setAuth(new SignUpAction());
+        sign.authAction();
+        sign.setAuth(new SignOutAction());
+        sign.authAction();
+        
         Scanner sc = new Scanner(System.in);
+        sc.nextLine();
+        Login login = new Login();
         while (!login.getIsLogin()) {
             try {
                 login.login(sc);
