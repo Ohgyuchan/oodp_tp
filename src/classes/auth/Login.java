@@ -5,13 +5,9 @@ import java.util.*;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import classes.SingletonJSON;
 import classes.User;
 
 // Mediator
@@ -41,19 +37,11 @@ public class Login {
 
     public void login(Scanner sc)
             throws JsonMappingException, JsonProcessingException, FileNotFoundException, IOException, ParseException {
-        Object userData = new JSONParser().parse(new FileReader("src/assets/data/users_data.json"));
-
-        JSONObject jsonUser = (JSONObject) userData;
-        JSONArray jsonUsers = (JSONArray) jsonUser.get("users");
+        
         
         ArrayList<User> users = new ArrayList<>();
-        
-        ObjectMapper mapper = new ObjectMapper();
-
-        for (int i = 0; i < jsonUsers.size(); i++) {
-            User user = mapper.readValue(jsonUsers.get(i).toString(), User.class);
-            users.add(user);
-        }
+        SingletonJSON.getInstance();
+        users = SingletonJSON.getInstance().getUserList();
 
         String uid;
         String upw;
