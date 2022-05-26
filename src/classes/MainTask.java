@@ -1,13 +1,15 @@
 package classes;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Scanner;
 
-public class MainTask extends Task{
+public class MainTask extends Task {
     private ArrayList<SubTask> subTasks = new ArrayList<SubTask>();
-//    private ArrayList<Meeting> meetings;
+    private ArrayList<Meeting> meetings;
 
     public MainTask() {
-        
+
     }
 
     public MainTask(String title, State state) {
@@ -32,7 +34,25 @@ public class MainTask extends Task{
 
     }
 
-    public void addMetting() {
+    public void addMeeting(Scanner sc) {
+        System.out.println("Meeting title : ");
+        String title = sc.next();
+        System.out.println("Meeting Start Time : ");
+        String time = sc.next();
+
+        Meeting nmeet = new Meeting(time, title);
+        meetings.add(nmeet);
+    }
+
+    public void dateList() {
+        Collections.sort(meetings);
+        for (Meeting m : meetings) {
+            System.out.println(m.toString());
+        }
+    }
+
+    public void editMeeting() {
 
     }
+
 }

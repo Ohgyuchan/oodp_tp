@@ -40,12 +40,12 @@ public class Main {
                     System.out.println("=====EXIT=====");
                     return;
                 case 1:
-                sign.setAuth(new SignInAction());
-                sign.authAction();
+                    sign.setAuth(new SignInAction());
+                    sign.authAction();
                     break;
                 case 2:
-                sign.setAuth(new SignUpAction());
-                sign.authAction();
+                    sign.setAuth(new SignUpAction());
+                    sign.authAction();
                     break;
                 default:
                     printMenu();
