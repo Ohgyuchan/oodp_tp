@@ -103,6 +103,7 @@ public class Main {
             }
         }
         sign.setAuth(new SignOutAction());
+        sign.authAction();
         System.out.println("=====EXIT=====");
         sc.close();
     }
