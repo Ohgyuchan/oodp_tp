@@ -10,6 +10,8 @@ import classes.Project;
 import classes.State;
 import classes.User;
 import classes.auth.strategy.SignInAction;
+import classes.auth.strategy.SignOutAction;
+import classes.auth.strategy.SignUpAction;
 import classes.auth.strategy.SignWithAuth;
 import classes.singleton.SingletonAuth;
 import classes.singleton.SingletonJSON;
@@ -26,25 +28,33 @@ public class Main {
     private static User currentUser;
 
     public static void main(String[] args) {
-        SignWithAuth sign = new SignWithAuth(new SignInAction());
-        sign.authAction();
-        // sign.setAuth(new SignUpAction());
-        // sign.authAction();
-        // sign.setAuth(new SignOutAction());
-        // sign.authAction();
-        // sc.nextLine();
-        // Login login = new Login();
-        // while (!login.getIsLogin()) {
-        //     try {
-        //         login.login(sc);
-        //     } catch (IOException | ParseException e) {
-        //         e.printStackTrace();
-        //     }
-        // }
+        Scanner sc = SingletonScanner.getInstance().getScanner();
+        SignWithAuth sign = new SignWithAuth();
+        printLoginMenu();
+        int mode = sc.nextInt();
+        while (mode != 0) {
+            switch (mode) {
+                case 0:
+                    mode = 0;
+                    sc.close();
+                    System.out.println("=====EXIT=====");
+                    return;
+                case 1:
+                sign.setAuth(new SignInAction());
+                sign.authAction();
+                    break;
+                case 2:
+                sign.setAuth(new SignUpAction());
+                sign.authAction();
+                    break;
+                default:
+                    printMenu();
+                    break;
+            }
+        }
 
         currentProject = new Project();
         currentUser = SingletonAuth.getInstance().getCurrentUser();
-        Scanner sc = SingletonScanner.getInstance().getScanner();
         boolean flag = true;
         while (flag) {
             printMenu();
@@ -92,6 +102,7 @@ public class Main {
                     break;
             }
         }
+        sign.setAuth(new SignOutAction());
         System.out.println("=====EXIT=====");
         sc.close();
     }
