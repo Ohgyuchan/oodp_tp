@@ -3,6 +3,10 @@ package classes.auth.strategy;
 public class SignWithAuth {
     private Auth auth;
 
+    public SignWithAuth() {
+        
+    }
+
     public SignWithAuth(Auth auth) {
         this.auth = auth;
     }
