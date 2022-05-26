@@ -32,7 +32,7 @@ public class Main {
         SignWithAuth sign = new SignWithAuth();
         printLoginMenu();
         int mode = sc.nextInt();
-        while (mode != 0) {
+        // while (mode != 0) {
             switch (mode) {
                 case 0:
                     mode = 0;
@@ -51,7 +51,7 @@ public class Main {
                     printMenu();
                     break;
             }
-        }
+        // }
 
         currentProject = new Project();
         currentUser = SingletonAuth.getInstance().getCurrentUser();
