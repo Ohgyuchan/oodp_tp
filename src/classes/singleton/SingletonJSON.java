@@ -1,4 +1,4 @@
-package classes;
+package classes.singleton;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -19,6 +19,9 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import classes.Project;
+import classes.User;
+
 public class SingletonJSON {
     private static SingletonJSON instance;
     private JSONObject usersJson;
@@ -27,7 +30,7 @@ public class SingletonJSON {
     private JSONArray projectsJsonArray;
 
     private SingletonJSON() {
-        System.out.println("Constructor SingletonJSON");
+        System.out.println("SingletonJSON constructed");
         this.setJson();
     }
 

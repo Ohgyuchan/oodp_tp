@@ -7,14 +7,13 @@ import org.json.simple.parser.ParseException;
 
 import classes.MainTask;
 import classes.Project;
-import classes.SingletonJSON;
 import classes.State;
 import classes.User;
-import classes.auth.Login;
 import classes.auth.strategy.SignInAction;
-import classes.auth.strategy.SignOutAction;
-import classes.auth.strategy.SignUpAction;
 import classes.auth.strategy.SignWithAuth;
+import classes.singleton.SingletonAuth;
+import classes.singleton.SingletonJSON;
+import classes.singleton.SingletonScanner;
 
 // 로그인 회원가입
 // 프로젝트리스트
@@ -23,30 +22,29 @@ import classes.auth.strategy.SignWithAuth;
 // task, subtask 추가
 
 public class Main {
-    private static User currentUser;
     private static Project currentProject;
+    private static User currentUser;
 
     public static void main(String[] args) {
-        // SignWithAuth sign = new SignWithAuth(new SignInAction());
-        // sign.authAction();
+        SignWithAuth sign = new SignWithAuth(new SignInAction());
+        sign.authAction();
         // sign.setAuth(new SignUpAction());
         // sign.authAction();
         // sign.setAuth(new SignOutAction());
         // sign.authAction();
-        
-        Scanner sc = new Scanner(System.in);
         // sc.nextLine();
-        Login login = new Login();
-        while (!login.getIsLogin()) {
-            try {
-                login.login(sc);
-            } catch (IOException | ParseException e) {
-                e.printStackTrace();
-            }
-        }
+        // Login login = new Login();
+        // while (!login.getIsLogin()) {
+        //     try {
+        //         login.login(sc);
+        //     } catch (IOException | ParseException e) {
+        //         e.printStackTrace();
+        //     }
+        // }
 
-        currentUser = login.getCurrentUser();
         currentProject = new Project();
+        currentUser = SingletonAuth.getInstance().getCurrentUser();
+        Scanner sc = SingletonScanner.getInstance().getScanner();
         boolean flag = true;
         while (flag) {
             printMenu();

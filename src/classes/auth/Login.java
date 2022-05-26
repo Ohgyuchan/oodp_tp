@@ -7,8 +7,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import org.json.simple.parser.ParseException;
 
-import classes.SingletonJSON;
 import classes.User;
+import classes.singleton.SingletonJSON;
 
 // Mediator
 public class Login {
@@ -40,7 +40,6 @@ public class Login {
         
         
         ArrayList<User> users = new ArrayList<>();
-        SingletonJSON.getInstance();
         users = SingletonJSON.getInstance().getUserList();
 
         String uid;
