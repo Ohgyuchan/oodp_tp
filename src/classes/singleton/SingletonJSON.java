@@ -1,4 +1,4 @@
-package classes;
+package classes.singleton;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -19,6 +19,9 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import classes.Project;
+import classes.User;
+
 public class SingletonJSON {
     private static SingletonJSON instance;
     private JSONObject usersJson;
@@ -27,7 +30,8 @@ public class SingletonJSON {
     private JSONArray projectsJsonArray;
 
     private SingletonJSON() {
-        this.setUsersJson();
+        System.out.println("SingletonJSON constructed");
+        this.setJson();
     }
 
     public static SingletonJSON getInstance() {
@@ -37,7 +41,7 @@ public class SingletonJSON {
         return instance;
     }
 
-    private void setUsersJson() {
+    private void setJson() {
         Object usersData;
         Object projectsData;
         try {
@@ -96,20 +100,40 @@ public class SingletonJSON {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (NullPointerException e) {
+            System.out.println("MAP HAS NULL VALUE");
+            System.out.println(map);
+            e.printStackTrace();
         }
         return map;
     }
 
-    public ArrayList<Map<String, Object>> getUserListMapFromJsonArray(JSONArray jsonArray) {
+    // public ArrayList<Map<String, Object>> getUserListMapFromJsonArray() {
 
-        ArrayList<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+    //     ArrayList<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 
-        if (jsonArray != null) {
-            int jsonSize = jsonArray.size();
+    //     if (usersJson != null) {
+    //         int jsonSize = usersJson.size();
+
+    //         for (int i = 0; i < jsonSize; i++) {
+    //             Map<String, Object> map = getUserMapFromJsonObject((JSONObject) usersJson.get(i));
+    //             list.add(map);
+    //         }
+    //     }
+    //     return list;
+    // }
+
+    public ArrayList<User> getUserList() {
+        ArrayList<User> list = new ArrayList<>();
+        ObjectMapper mapper = new ObjectMapper();
+        JSONArray JsonArray = usersJsonArray;
+        if (usersJsonArray != null) {
+            int jsonSize = JsonArray.size();
 
             for (int i = 0; i < jsonSize; i++) {
-                Map<String, Object> map = getUserMapFromJsonObject((JSONObject) jsonArray.get(i));
-                list.add(map);
+                Map<String, Object> map = getUserMapFromJsonObject((JSONObject) JsonArray.get(i));
+                User user = mapper.convertValue(map, User.class);
+                list.add(user);
             }
         }
         return list;
@@ -146,7 +170,7 @@ public class SingletonJSON {
         return projects;
     }
 
-    public User getUser(String userId) {
+    public User getUserFromUserId(String userId) {
         ObjectMapper mapper = new ObjectMapper();
         try {
             for (Map<String, Object> userMap : getProjectListMapFromJsonArray(usersJsonArray)) {
@@ -160,7 +184,7 @@ public class SingletonJSON {
         return new User();
     }
 
-    public ArrayList<User> getUsers(ArrayList<String> userIds) {
+    public ArrayList<User> getUsersFromUserIds(ArrayList<String> userIds) {
         ArrayList<User> users = new ArrayList<>();
         ObjectMapper mapper = new ObjectMapper();
         for (String userId : userIds) {
@@ -177,6 +201,7 @@ public class SingletonJSON {
         return users;
     }
 
+    @SuppressWarnings("unchecked")
     public void saveJson(Project project, User currentUser) throws IOException, ParseException {
         ObjectMapper mapper = new ObjectMapper();
         JSONParser parser = new JSONParser();
@@ -186,7 +211,7 @@ public class SingletonJSON {
 
         JSONObject projectJson = (JSONObject) parser.parse(projectJsonInString);
         JSONObject userJson = (JSONObject) parser.parse(userJsonInString);
-
+        
         projectsJsonArray.add(projectJson);
         usersJsonArray.add(userJson);
 

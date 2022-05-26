@@ -2,6 +2,8 @@ package classes;
 
 import java.util.ArrayList;
 
+import classes.singleton.SingletonJSON;
+
 public class User extends Member{
     private String password;
     private ArrayList<String> projectIds;
