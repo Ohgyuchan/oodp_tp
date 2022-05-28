@@ -33,24 +33,24 @@ public class Main {
         printLoginMenu();
         int mode = sc.nextInt();
         // while (mode != 0) {
-            switch (mode) {
-                case 0:
-                    mode = 0;
-                    sc.close();
-                    System.out.println("=====EXIT=====");
-                    return;
-                case 1:
+        switch (mode) {
+            case 0:
+                mode = 0;
+                sc.close();
+                System.out.println("=====EXIT=====");
+                return;
+            case 1:
                 sign.setAuth(new SignInAction());
                 sign.authAction();
-                    break;
-                case 2:
+                break;
+            case 2:
                 sign.setAuth(new SignUpAction());
                 sign.authAction();
-                    break;
-                default:
-                    printMenu();
-                    break;
-            }
+                break;
+            default:
+                printMenu();
+                break;
+        }
         // }
 
         currentProject = new Project();
