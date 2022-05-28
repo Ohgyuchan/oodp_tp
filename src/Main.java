@@ -7,10 +7,15 @@ import org.json.simple.parser.ParseException;
 
 import classes.MainTask;
 import classes.Project;
-import classes.SingletonJSON;
 import classes.State;
 import classes.User;
-import classes.auth.Login;
+import classes.auth.strategy.SignInAction;
+import classes.auth.strategy.SignOutAction;
+import classes.auth.strategy.SignUpAction;
+import classes.auth.strategy.SignWithAuth;
+import classes.singleton.SingletonAuth;
+import classes.singleton.SingletonJSON;
+import classes.singleton.SingletonScanner;
 
 // 로그인 회원가입
 // 프로젝트리스트
@@ -19,22 +24,37 @@ import classes.auth.Login;
 // task, subtask 추가
 
 public class Main {
-    private static User currentUser;
     private static Project currentProject;
+    private static User currentUser;
 
     public static void main(String[] args) {
-        Login login = new Login();
-        Scanner sc = new Scanner(System.in);
-        while (!login.getIsLogin()) {
-            try {
-                login.login(sc);
-            } catch (IOException | ParseException e) {
-                e.printStackTrace();
+        Scanner sc = SingletonScanner.getInstance().getScanner();
+        SignWithAuth sign = new SignWithAuth();
+        printLoginMenu();
+        int mode = sc.nextInt();
+        // while (mode != 0) {
+            switch (mode) {
+                case 0:
+                    mode = 0;
+                    sc.close();
+                    System.out.println("=====EXIT=====");
+                    return;
+                case 1:
+                sign.setAuth(new SignInAction());
+                sign.authAction();
+                    break;
+                case 2:
+                sign.setAuth(new SignUpAction());
+                sign.authAction();
+                    break;
+                default:
+                    printMenu();
+                    break;
             }
-        }
+        // }
 
-        currentUser = login.getCurrentUser();
         currentProject = new Project();
+        currentUser = SingletonAuth.getInstance().getCurrentUser();
         boolean flag = true;
         while (flag) {
             printMenu();
@@ -82,6 +102,9 @@ public class Main {
                     break;
             }
         }
+        sign.setAuth(new SignOutAction());
+        sign.authAction();
+        System.out.println("=====EXIT=====");
         sc.close();
     }
 
