@@ -43,7 +43,7 @@ public class MainTask extends Task {
         Meeting nmeet = new Meeting(time, title);
         meetings.add(nmeet);
     }
-
+    
     public void dateList() {
         Collections.sort(meetings);
         for (Meeting m : meetings) {

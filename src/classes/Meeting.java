@@ -10,7 +10,8 @@ public class Meeting implements Comparable<Meeting> {
     private String content;
     private String dir;
     private ArrayList<Comment> comments;
-
+    
+    
     public Meeting() {
     }
 

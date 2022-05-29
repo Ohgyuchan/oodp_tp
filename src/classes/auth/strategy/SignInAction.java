@@ -28,10 +28,10 @@ public class SignInAction implements Auth {
                 if (user.getPassword().equals(upw)) {
                     SingletonAuth.getInstance().setCurrentUser(user);
                     System.out.println(SingletonAuth.getInstance().getCurrentUser().getDisplayName() + " Login Success");
-                    break;
+                    return true;
                 }
             }
         }
-        return true;
+        return false;
     }
 }

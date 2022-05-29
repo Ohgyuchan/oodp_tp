@@ -2,18 +2,32 @@ package classes;
 import java.io.File;
 import java.io.FileWriter;
 
+import classes.log.strategy.LeaderWrite;
+import classes.log.strategy.MemberWrite;
+import classes.log.strategy.Writing;
+
+
 public class MeetingLog {
 	private String txt = "내용이 없는데요?" ;
 	private String fileName = "C:\\test11.txt" ;
+	
+	public void WriteMeetingLog(String text, String fileName ,User currentUser, Project currentProject) {
 		
-	public void WriteMeetingLog(String text, String fileName) {
 		try{	
 			if(fileName != null) {//파일 이름 입력
 				this.setFileName("C:\\"+fileName+".txt");
 			}
 			
-			if(text !=null) {//내용 입력
-				this.txt = text;
+		
+			if(text !=null&&currentUser.getId().equals(currentProject.getLeaderId())){	//내용 입력, [strategy패턴] leader이면
+				Writing leader = new Writing(new LeaderWrite()); 
+				String state = leader.stWrite();
+				this.txt = state+text;
+			}
+			else if(text!=null) {	//strategy 패턴 멤버이라면
+				Writing leader = new Writing(new MemberWrite()); 
+				String state = leader.stWrite();
+				this.txt = state+text;
 			}
 			
 			File file = new File(fileName);
