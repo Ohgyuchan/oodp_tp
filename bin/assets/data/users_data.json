@@ -4,10 +4,7 @@
       "password": "1234",
       "displayName": "오규찬",
       "id": "terman",
-      "projectIds": [
-        "0",
-        "1"
-      ]
+      "projectIds": ["0", "1", "d5d6c30d-5b42-4572-a8c2-15927846f245"]
     }
   ]
 }
