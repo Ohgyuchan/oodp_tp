@@ -25,7 +25,7 @@ import classes.singleton.SingletonScanner;
 // task, subtask 추가
 
 public class Main {
-    private static Project currentProject;
+    private static Project currentProject = new Project();
     private static User currentUser;
 
     public static void main(String[] args) {
@@ -54,8 +54,9 @@ public class Main {
         }
         // }
 
-        currentProject = new Project();
+        currentProject.init();
         currentUser = SingletonAuth.getInstance().getCurrentUser();
+
         boolean flag = true;
         while (flag) {
             printMenu();
@@ -83,6 +84,7 @@ public class Main {
                             switch (TAG) {
                                 case 0:
                                     FLAG = false;
+                                    currentProject.init();
                                     break;
                                 case 1:
                                     currentProject.print();
@@ -110,8 +112,8 @@ public class Main {
     }
 
     private static void createProject(Scanner sc) {
-    	Facade facade = new Facade();
-    	facade.createProject(sc, currentUser);
+        Facade facade = new Facade();
+        facade.createProject(sc, currentUser);
     }
 
     private static void deleteProject(Scanner sc) {
