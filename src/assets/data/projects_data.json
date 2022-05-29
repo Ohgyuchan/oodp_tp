@@ -1,1 +1,47 @@
-{"projects":[{"projectName":"oodp","projectId":"0","memberIds":["terman"],"tasks":[{"subTasks":[{"state":"TODO","title":"subTitle"}],"state":"TODO","title":"title"}],"leaderId":"terman"},{"projectName":"oodp1","projectId":"1","memberIds":["terman"],"tasks":[{"subTasks":[{"state":"TODO","title":"subTitle1"}],"state":"TODO","title":"title1"}],"leaderId":"terman"},{"projectName":"terman","projectId":"38f74e02-a090-41ba-b4c2-87860c3d8c23","memberIds":["terman"],"tasks":[],"leaderId":"terman"}]}
+<<<<<<< HEAD
+{
+  "projects": [
+    {
+      "projectName": "merong",
+      "projectId": "aceaad80-8e76-4744-bf48-6df9fc5399af",
+      "memberIds": ["terman"],
+      "tasks": [
+        {
+          "backgroundColor": "White",
+          "subTasks": [],
+          "num": 0,
+          "title": "예시 task"
+        }
+      ],
+      "leaderId": "terman"
+    },
+    {
+      "projectName": "meorong2",
+      "projectId": "313bd42b-cee5-4fb6-9330-72b9170688eb",
+      "memberIds": ["terman"],
+      "tasks": [
+        {
+          "backgroundColor": "White",
+          "subTasks": [],
+          "num": 0,
+          "title": "예시 task"
+        }
+      ],
+      "leaderId": "terman"
+    },
+    {
+      "projectName": "merong4",
+      "projectId": "17cbbfdd-f266-4343-b5ba-5997752c525c",
+      "memberIds": ["terman"],
+      "tasks": [
+        {
+          "backgroundColor": "White",
+          "subTasks": [],
+          "num": 0,
+          "title": "예시 task"
+        }
+      ],
+      "leaderId": "terman"
+    }
+  ]
+}>>>>>>> a1591397e4b4b1a1f472a12987d0272ba0a94edd

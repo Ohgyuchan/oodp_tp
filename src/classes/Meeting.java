@@ -1,7 +1,6 @@
 package classes;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 public class Meeting implements Comparable<Meeting> {
     private String startTime;
@@ -10,8 +9,8 @@ public class Meeting implements Comparable<Meeting> {
     private String content;
     private String dir;
     private ArrayList<Comment> comments;
-    
-    
+    private MeetingLog Log;
+
     public Meeting() {
     }
 
@@ -76,6 +75,15 @@ public class Meeting implements Comparable<Meeting> {
     @Override
     public String toString() {
         return "Meeting [startTime=" + startTime + ", title=" + title + "]";
+    }
+
+    public void read() {
+        IRead proxy = new Proxy();
+        proxy.Load(Log.getFileName());
+    }
+
+    public void write(String text, String fileName, User user, Project project) {
+        Log.WriteMeetingLog(text, fileName, user, project);
     }
 
 }

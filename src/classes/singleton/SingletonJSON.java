@@ -207,6 +207,9 @@ public class SingletonJSON {
         JSONParser parser = new JSONParser();
 
         String projectJsonInString = mapper.writeValueAsString(project);
+        System.out.println("==========");
+        System.out.println(projectJsonInString);
+        System.out.println("==========");
         String userJsonInString = mapper.writeValueAsString(currentUser);
 
         JSONObject projectJson = (JSONObject) parser.parse(projectJsonInString);
