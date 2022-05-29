@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.Scanner;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -6,6 +7,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import org.json.simple.parser.ParseException;
 
 import classes.MainTask;
+import classes.OnGoing;
 import classes.Project;
 import classes.State;
 import classes.User;
@@ -87,9 +89,12 @@ public class Main {
                                     currentProject.print();
                                     break;
                                 case 2:
-                                    createTask(sc);
+                                    viewTasks(sc, tag);
                                     break;
                                 case 3:
+                                    createTask(sc);
+                                    break;
+                                case 4:
                                     inviteMember(sc);
                                     break;
                                 default:
@@ -136,17 +141,147 @@ public class Main {
     }
 
     private static void createTask(Scanner sc) {
-        System.out.print("Title: ");
+        MainTask t = new MainTask("");
+        boolean check = true ;
+
+        System.out.print("Enter the Task Title: ");
+        sc.nextLine();
         String title = sc.nextLine();
-        for (int i = 0; i < State.values().length; i++) {
-            System.out.println("Select State");
-            System.out.println("(" + i + "): " + State.values()[i]);
+        t.setTitle(title);
+        t.setNum(currentProject.getTasks().size());
+
+        while (check) {
+            printInputSubtask();
+            int subtaskInput = sc.nextInt();
+
+            switch (subtaskInput) {
+                case 1 :
+                    System.out.print("Subtask Title 입력 : ");
+                    sc.nextLine();
+                    String subTitle = sc.nextLine();
+                    t.setSutbtask(subTitle, t.getSubtask().size());
+                    break ;
+                case 2 :
+                    System.out.println("[SAVE] Subtask");
+                    check = false ;
+                    break ;
+                default :
+                    System.out.println("[ERROR] Retry");
+                    break ;
+            }
         }
-        currentProject.addTask(new MainTask(title, State.values()[sc.nextInt()]));
+        currentProject.addTask(t);
+        currentProject.getTasks().sort(Comparator.comparing(MainTask::getNum));
+
         try {
             SingletonJSON.getInstance().saveJson(currentProject, currentUser);
         } catch (IOException | ParseException e) {
             e.printStackTrace();
+        }
+    }
+
+    private static void viewTasks(Scanner sc, int index) {
+        boolean check = true ;
+
+        if (currentProject.getTasks().size() == 0) {
+            System.out.println("");
+            System.out.println("입력된 Task가 없습니다.");
+            System.out.println("");
+        }
+        else {
+            System.out.println("===========================");
+            for (MainTask p: currentProject.getTasks()) {
+                System.out.println(p.toString());
+            }
+            System.out.println("===========================");
+            while (check) {
+                printSelectTask();
+                int taskInput = sc.nextInt();
+
+                switch (taskInput) {
+                    case 1 :
+                        viewTaskDetail(sc);
+                        break ;
+                    case 2 :
+                        check = false ;
+                        break ;
+                    default :
+                        break ;
+                }
+            }
+        }
+    }
+
+    private static void viewTaskDetail(Scanner sc) {
+        boolean check = true ;
+        System.out.println("1: ENTER THE INDEX");
+        int taskIndex = sc.nextInt();
+
+        System.out.println("");
+        System.out.println("Task : " + currentProject.getTasks().get(taskIndex).getTitle());
+        System.out.println("SubTask");
+        System.out.println(currentProject.getTasks().get(taskIndex).getSubtask());
+        System.out.println("");
+
+        while (check) {
+            printStateChange();
+            sc.nextLine();
+            int inputIndex = sc.nextInt();
+
+            switch (inputIndex) {
+                case 1 :
+                    checkingTask(sc, taskIndex);
+                    break ;
+                case 2 :
+                    checkingSubTask(sc, taskIndex);
+                    break ;
+                case 3 :
+                    check = false ;
+                    break ;
+                default :
+                    break ;
+            }
+        }
+    }
+
+    private static void checkingTask(Scanner sc, int index) {
+        System.out.println("");
+        OnGoing onGoing = new OnGoing();
+        printState();
+        sc.nextLine();
+        int inputIndex = sc.nextInt();
+    
+        switch (inputIndex) {
+            case 1 :
+                currentProject.getTasks().get(index).setTaskState(onGoing); // State Pattern
+                break ;
+            case 2 :
+                currentProject.getTasks().get(index).upgradeComplete();; // Observer Pattern
+                break ;
+            case 3 :
+                break ;
+        }
+    }
+
+    private static void checkingSubTask(Scanner sc, int index) {
+        System.out.println("");
+        System.out.print("Subtask 선택 : ");
+        sc.nextLine();
+        int subtaskIndex = sc.nextInt();
+
+        printState();
+        sc.nextLine();
+        int inputIndex = sc.nextInt();
+
+        switch (inputIndex) {
+            case 1 :
+                currentProject.getTasks().get(index).getSubtask().get(subtaskIndex).setState("진행중");
+                break ;
+            case 2 :
+                currentProject.getTasks().get(index).getSubtask().get(subtaskIndex).setState("완료");
+                break ;
+            case 3 :
+                break ;
         }
     }
 
@@ -172,9 +307,40 @@ public class Main {
     private static void printProjectMenu() {
         System.out.println("===========================");
         System.out.println("0: EXIT");
-        System.out.println("1: PRINT ALL");
-        System.out.println("2: ADD TASK");
-        System.out.println("3: INVITE A MEMBER");
+        System.out.println("1: CURRENT PROJECT INFO");
+        System.out.println("2: VIEW ALL TASK");
+        System.out.println("3: ADD TASK");
+        System.out.println("4: INVITE A MEMBER");
+        System.out.println("===========================");
+    }
+
+    private static void printInputSubtask() {
+        System.out.println("===========================");
+        System.out.println("1: ADD SUBTASK");
+        System.out.println("2: EXIT");
+        System.out.println("===========================");
+    }
+
+    private static void printSelectTask() {
+        System.out.println("===========================");
+        System.out.println("1: VIEW TASK DETAIL");
+        System.out.println("2: EXIT");
+        System.out.println("===========================");
+    }
+
+    private static void printStateChange() {
+        System.out.println("===========================");
+        System.out.println("1: CHANGE TASK'S STATE");
+        System.out.println("2: CHANGE SUBTASK'S STATE");
+        System.out.println("3: EXIT");
+        System.out.println("===========================");
+    }
+
+    private static void printState() {
+        System.out.println("===========================");
+        System.out.println("1: ONGOING");
+        System.out.println("2: COMPLETE");
+        System.out.println("3: EXIT");
         System.out.println("===========================");
     }
 
