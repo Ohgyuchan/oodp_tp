@@ -82,8 +82,8 @@ public class Meeting implements Comparable<Meeting> {
         proxy.Load(Log.getFileName());
     }
 
-    public void write(String text, String fileName) {
-        Log.WriteMeetingLog(text, fileName);
+    public void write(String text, String fileName, User user, Project project) {
+        Log.WriteMeetingLog(text, fileName, user, project);
     }
 
 }
