@@ -9,7 +9,7 @@ public class MainTask extends AbstractTask implements Todo {
     private int num ;
     private String title ;
     private String backgroundColor ;
-    private ArrayList<Subtask> subtaskList ;
+    private ArrayList<SubTask> subtaskList ;
     private ArrayList<Subtodo> subtodos = new ArrayList<>() ; // Observer Pattern
     private TaskState taskState; // State Pattern
     private ArrayList<Meeting> meetings;
@@ -22,21 +22,21 @@ public class MainTask extends AbstractTask implements Todo {
         this.title = title ;
         this.backgroundColor = "White" ;
         this.taskState = new Waiting(); // State Pattern
-        this.subtaskList = new ArrayList<Subtask>();
+        this.subtaskList = new ArrayList<SubTask>();
     }
 
-    public ArrayList<Subtask> getSubtask() {
+    public ArrayList<SubTask> getSubtask() {
         return subtaskList;
     }
 
     public void setSutbtask(String title, int num) {
-        Subtask st = new Subtask() ;
+        SubTask st = new SubTask() ;
         st.setTitle(title);
         st.setNum(num);
         st.setState("대기중");
         this.subscribe(st); // Observer Pattern
         this.subtaskList.add(st);
-        this.subtaskList.sort(Comparator.comparing(Subtask::getNum));
+        this.subtaskList.sort(Comparator.comparing(SubTask::getNum));
     }
 
     public String getTitle() {

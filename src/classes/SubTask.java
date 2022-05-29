@@ -1,15 +1,15 @@
 package classes;
 
-public class Subtask implements Subtodo {
+public class SubTask implements Subtodo {
     private int num;
     private String title;
     private String state;
 
-    public Subtask() {
+    public SubTask() {
 
     }
 
-    public Subtask(String title) {
+    public SubTask(String title) {
         this.title = title;
     }
 
