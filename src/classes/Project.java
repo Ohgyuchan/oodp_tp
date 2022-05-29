@@ -29,6 +29,13 @@ public class Project {
         this.leaderId = leaderId;
     }
 
+    public void init() {
+        this.projectId = null;
+        this.projectName = null;
+        this.memberIds = null;
+        this.leaderId = null;
+    }
+
     public ArrayList<MainTask> getTasks() {
         return tasks;
     }
