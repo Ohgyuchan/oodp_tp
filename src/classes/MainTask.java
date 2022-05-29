@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
 
-public class MainTask extends Task {
+public class MainTask extends AbstractTask {
     private ArrayList<SubTask> subTasks = new ArrayList<SubTask>();
     private ArrayList<Meeting> meetings;
 

@@ -1,6 +1,6 @@
 package classes;
 
-public class SubTask extends Task{
+public class SubTask extends AbstractTask{
     public SubTask() {
     }
 
