@@ -1,15 +1,15 @@
 package classes;
 
-public abstract class Task {
+public abstract class AbstractTask {
     private String title;
     private State state;
     // private ArrayList<Comment> comments;
     // private Date dueDate;
 
-    public Task() {
+    public AbstractTask() {
     }
 
-    public Task(String title, State state) {
+    public AbstractTask(String title, State state) {
         this.title = title;
         this.state = State.TODO;
     }
