@@ -111,7 +111,7 @@ public class Main {
 
     private static void createProject(Scanner sc) {
     	Facade facade = new Facade();
-    	facade.createProject(sc, currentUser);
+    	facade.createProject(sc, SingletonAuth.getInstance().getCurrentUser());
     }
 
     private static void deleteProject(Scanner sc) {
