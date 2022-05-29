@@ -3,7 +3,7 @@ package classes;
 import java.util.ArrayList;
 
 public class MementoProject {
-	ArrayList<String> projectIds;
+	private ArrayList<String> projectIds;
 	
 	public MementoProject(ArrayList<String> saveIds){
 		projectIds=saveIds;
