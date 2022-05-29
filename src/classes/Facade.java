@@ -10,7 +10,6 @@ import classes.singleton.SingletonJSON;
 
 public class Facade {
 	private String title = "예시 task";
-	private State state = State.TODO;
 			
 	
 	public void createProject(Scanner sc, User user) {

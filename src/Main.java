@@ -10,7 +10,6 @@ import classes.Facade;
 import classes.MainTask;
 import classes.OnGoing;
 import classes.Project;
-import classes.State;
 import classes.User;
 import classes.auth.strategy.SignInAction;
 import classes.auth.strategy.SignOutAction;
@@ -27,15 +26,16 @@ import classes.singleton.SingletonScanner;
 // task, subtask 추가
 
 public class Main {
-    private static Project currentProject = new Project();
-    private static User currentUser;
+    private static Project currentProject = null;
+    private static User currentUser = null;
 
     public static void main(String[] args) {
         Scanner sc = SingletonScanner.getInstance().getScanner();
         SignWithAuth sign = new SignWithAuth();
+
         printLoginMenu();
         int mode = sc.nextInt();
-        while (mode != 0 || currentUser != null) {
+        while (currentUser == null) {
             switch (mode) {
                 case 0:
                     mode = 0;
@@ -53,14 +53,12 @@ public class Main {
                     sign.setAuth(new SignUpAction());
                     sign.authAction();
                     break;
-                    
+
                 default:
                     printMenu();
                     break;
             }
         }
-
-        currentProject.init();
 
         boolean flag = true;
         while (flag) {
@@ -136,13 +134,13 @@ public class Main {
         currentUser.printProjects();
         System.out.print("Pleas Enter the index: ");
         int indexToSelect = sc.nextInt();
-        String selectedProjectId = currentUser.getProjectIds().get(indexToSelect);
+        String selectedProjectId = currentUser.getProjectIds().get(indexToSelect - 1);
         currentProject = SingletonJSON.getInstance().getProject(selectedProjectId);
     }
 
     private static void createTask(Scanner sc) {
         MainTask t = new MainTask("");
-        boolean check = true ;
+        boolean check = true;
 
         System.out.print("Enter the Task Title: ");
         sc.nextLine();
@@ -155,19 +153,19 @@ public class Main {
             int subtaskInput = sc.nextInt();
 
             switch (subtaskInput) {
-                case 1 :
+                case 1:
                     System.out.print("Subtask Title 입력 : ");
                     sc.nextLine();
                     String subTitle = sc.nextLine();
-                    t.setSutbtask(subTitle, t.getSubtask().size());
-                    break ;
-                case 2 :
+                    t.setSubTasks(subTitle, t.getSubTasks().size());
+                    break;
+                case 2:
                     System.out.println("[SAVE] Subtask");
-                    check = false ;
-                    break ;
-                default :
+                    check = false;
+                    break;
+                default:
                     System.out.println("[ERROR] Retry");
-                    break ;
+                    break;
             }
         }
         currentProject.addTask(t);
@@ -181,16 +179,15 @@ public class Main {
     }
 
     private static void viewTasks(Scanner sc, int index) {
-        boolean check = true ;
+        boolean check = true;
 
         if (currentProject.getTasks().size() == 0) {
             System.out.println("");
             System.out.println("입력된 Task가 없습니다.");
             System.out.println("");
-        }
-        else {
+        } else {
             System.out.println("===========================");
-            for (MainTask p: currentProject.getTasks()) {
+            for (MainTask p : currentProject.getTasks()) {
                 System.out.println(p.toString());
             }
             System.out.println("===========================");
@@ -199,28 +196,28 @@ public class Main {
                 int taskInput = sc.nextInt();
 
                 switch (taskInput) {
-                    case 1 :
+                    case 1:
                         viewTaskDetail(sc);
-                        break ;
-                    case 2 :
-                        check = false ;
-                        break ;
-                    default :
-                        break ;
+                        break;
+                    case 2:
+                        check = false;
+                        break;
+                    default:
+                        break;
                 }
             }
         }
     }
 
     private static void viewTaskDetail(Scanner sc) {
-        boolean check = true ;
+        boolean check = true;
         System.out.println("1: ENTER THE INDEX");
         int taskIndex = sc.nextInt();
 
         System.out.println("");
         System.out.println("Task : " + currentProject.getTasks().get(taskIndex).getTitle());
         System.out.println("SubTask");
-        System.out.println(currentProject.getTasks().get(taskIndex).getSubtask());
+        System.out.println(currentProject.getTasks().get(taskIndex).getSubTasks());
         System.out.println("");
 
         while (check) {
@@ -229,17 +226,17 @@ public class Main {
             int inputIndex = sc.nextInt();
 
             switch (inputIndex) {
-                case 1 :
+                case 1:
                     checkingTask(sc, taskIndex);
-                    break ;
-                case 2 :
+                    break;
+                case 2:
                     checkingSubTask(sc, taskIndex);
-                    break ;
-                case 3 :
-                    check = false ;
-                    break ;
-                default :
-                    break ;
+                    break;
+                case 3:
+                    check = false;
+                    break;
+                default:
+                    break;
             }
         }
     }
@@ -250,16 +247,17 @@ public class Main {
         printState();
         sc.nextLine();
         int inputIndex = sc.nextInt();
-    
+
         switch (inputIndex) {
-            case 1 :
+            case 1:
                 currentProject.getTasks().get(index).setTaskState(onGoing); // State Pattern
-                break ;
-            case 2 :
-                currentProject.getTasks().get(index).upgradeComplete();; // Observer Pattern
-                break ;
-            case 3 :
-                break ;
+                break;
+            case 2:
+                currentProject.getTasks().get(index).upgradeComplete();
+                ; // Observer Pattern
+                break;
+            case 3:
+                break;
         }
     }
 
@@ -274,14 +272,14 @@ public class Main {
         int inputIndex = sc.nextInt();
 
         switch (inputIndex) {
-            case 1 :
-                currentProject.getTasks().get(index).getSubtask().get(subtaskIndex).setState("진행중");
-                break ;
-            case 2 :
-                currentProject.getTasks().get(index).getSubtask().get(subtaskIndex).setState("완료");
-                break ;
-            case 3 :
-                break ;
+            case 1:
+                currentProject.getTasks().get(index).getSubTasks().get(subtaskIndex).setState("진행중");
+                break;
+            case 2:
+                currentProject.getTasks().get(index).getSubTasks().get(subtaskIndex).setState("완료");
+                break;
+            case 3:
+                break;
         }
     }
 

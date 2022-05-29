@@ -1,5 +1,5 @@
 package classes;
 
-public interface Subtodo {
+public interface SubTodo {
     void update(String msg);
 }

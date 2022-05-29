@@ -1,6 +1,6 @@
 package classes;
 
-public class SubTask implements Subtodo {
+public class SubTask implements SubTodo {
     private int num;
     private String title;
     private String state;

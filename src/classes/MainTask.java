@@ -6,66 +6,62 @@ import java.util.Comparator;
 import java.util.Scanner;
 
 public class MainTask extends AbstractTask implements Todo {
-    private int num ;
-    private String title ;
-    private String backgroundColor ;
-    private ArrayList<SubTask> subtaskList ;
-    private ArrayList<Subtodo> subtodos = new ArrayList<>() ; // Observer Pattern
-    private TaskState taskState; // State Pattern
-    private ArrayList<Meeting> meetings;
+    private int num;
+    private String title;
+    private String backgroundColor = "White";
+    private ArrayList<SubTask> subTasks = new ArrayList<>();
+    private ArrayList<SubTodo> subTodos = new ArrayList<>(); // Observer Pattern
+    private TaskState taskState = new Waiting(); // State Pattern
+    private ArrayList<Meeting> meetings = new ArrayList<>();
 
     public MainTask() {
-
     }
 
     public MainTask(String title) {
-        this.title = title ;
-        this.backgroundColor = "White" ;
-        this.taskState = new Waiting(); // State Pattern
-        this.subtaskList = new ArrayList<SubTask>();
+        this.title = title;
     }
 
-    public ArrayList<SubTask> getSubtask() {
-        return subtaskList;
+    public ArrayList<SubTask> getSubTasks() {
+        return subTasks;
     }
 
-    public void setSutbtask(String title, int num) {
-        SubTask st = new SubTask() ;
+    public void setSubTasks(String title, int num) {
+        SubTask st = new SubTask();
         st.setTitle(title);
         st.setNum(num);
         st.setState("대기중");
         this.subscribe(st); // Observer Pattern
-        this.subtaskList.add(st);
-        this.subtaskList.sort(Comparator.comparing(SubTask::getNum));
+        this.subTasks.add(st);
+        this.subTasks.sort(Comparator.comparing(SubTask::getNum));
     }
 
     public String getTitle() {
-        return title ;
+        return title;
     }
 
     public void setTitle(String title) {
-        this.title = title ;
+        this.title = title;
     }
 
     public int getNum() {
-        return num ;
+        return num;
     }
 
     public void setNum(int num) {
-        this.num = num ;
+        this.num = num;
     }
 
     public String getBackgroundColor() {
-        return backgroundColor ;
+        return backgroundColor;
     }
 
     public void setBackgroundColor(String backgroundColor) {
-        this.backgroundColor = backgroundColor ;
+        this.backgroundColor = backgroundColor;
     }
 
     // State Pattern
     public void setTaskState(TaskState tastState) {
-        this.taskState = new OnGoing() ;
+        this.taskState = new OnGoing();
     }
 
     // State Pattern
@@ -75,7 +71,7 @@ public class MainTask extends AbstractTask implements Todo {
 
     // Observer Patter
     public void upgradeComplete() {
-        this.backgroundColor = "Blue" ;
+        this.backgroundColor = "Blue";
         // this.state = "완료" ;
         this.taskState = new Complete();
         notifySubtodo("완료");
@@ -100,24 +96,24 @@ public class MainTask extends AbstractTask implements Todo {
 
     // Observer Patter
     @Override
-    public void subscribe(Subtodo subtodo) {
-        subtodos.add(subtodo);
+    public void subscribe(SubTodo subtodo) {
+        subTodos.add(subtodo);
     }
 
     // Observer Patter
     @Override
-    public void unsubscribe(Subtodo subtodo) {
-        subtodos.remove(subtodo);
+    public void unsubscribe(SubTodo subtodo) {
+        subTodos.remove(subtodo);
     }
 
     // Observer Patter
     @Override
     public void notifySubtodo(String msg) {
-        subtodos.forEach(crew -> crew.update(msg));
+        subTodos.forEach(crew -> crew.update(msg));
     }
 
-    @Override
     public String toString() {
-        return "[" + this.getNum() + "] Task : " + this.getTitle() + " (상태 : " + this.taskState.stateChange() + "/배경색 : " + this.getBackgroundColor() + ")" + "\nSubtask : " + this.getSubtask() + "\n";
+        return "[" + this.getNum() + "] Task : " + this.getTitle() + " (상태 : " + this.taskState.stateChange()
+                + "/배경색 : " + this.getBackgroundColor() + ")" + "\nSubtask : " + this.getSubTasks() + "\n";
     }
 }

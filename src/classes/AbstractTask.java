@@ -2,28 +2,14 @@ package classes;
 
 public abstract class AbstractTask {
     private String title;
-    private State state;
     // private ArrayList<Comment> comments;
     // private Date dueDate;
 
     public AbstractTask() {
     }
 
-    public AbstractTask(String title, State state) {
+    public AbstractTask(String title) {
         this.title = title;
-        this.state = State.TODO;
-    }
-
-    public State getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = State.valueOf(state);
-    }
-
-    public void setState(State state) {
-        this.state = state;
     }
 
     public String getTitle() {
