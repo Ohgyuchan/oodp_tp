@@ -20,10 +20,10 @@ public class User extends Member{
     public ArrayList<String> getProjectIds() {
         return projectIds;
     }
-
     public void setProject(ArrayList<String> projectIds) {
         this.projectIds = projectIds;
     }
+
 
     public void addProjectIds(String projectId) {
         this.projectIds.add(projectId);
@@ -47,7 +47,6 @@ public class User extends Member{
             i++;
             System.out.println("#"+ (i) + ": " + project.getProjectName());
         }
-        
     }
 
     public void print() {
