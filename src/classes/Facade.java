@@ -10,13 +10,12 @@ import classes.singleton.SingletonJSON;
 
 public class Facade {
 	private String title = "예시 task";
-	private State state = State.TODO;
 			
 	
 	public void createProject(Scanner sc, User user) {
 		user.print();
 		Project project = new Project(sc, user);
-		MainTask task = new MainTask(title, state);
+		MainTask task = new MainTask(title);
 		project.addTask(task);
 		user.addProjectIds(project.getProjectId());
 		try {
@@ -29,7 +28,7 @@ public class Facade {
 	
 	public void createProjectWithName(String name, ArrayList<String> memberIds, String leaderId) {
 		Project project = new Project(name, memberIds, leaderId);
-		MainTask task = new MainTask(title, state);
+		MainTask task = new MainTask(title);
 		project.addTask(task);
 		System.out.println("Project 생성");
 	}
