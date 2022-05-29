@@ -356,7 +356,7 @@ public class Main {
 
     private static void printState() {
         System.out.println("===========================");
-        System.out.println("1: ONGOING");
+        System.out.println("1: ON-GOING");
         System.out.println("2: COMPLETE");
         System.out.println("3: EXIT");
         System.out.println("===========================");
