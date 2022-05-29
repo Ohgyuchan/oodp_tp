@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 
 import org.json.simple.parser.ParseException;
 
+import classes.Facade;
 import classes.MainTask;
 import classes.Project;
 import classes.State;
@@ -52,7 +53,7 @@ public class Main {
                 break;
         }
         // }
-        
+
         currentProject.init();
         currentUser = SingletonAuth.getInstance().getCurrentUser();
 
@@ -111,14 +112,8 @@ public class Main {
     }
 
     private static void createProject(Scanner sc) {
-        currentUser.print();
-        Project newProject = new Project(sc, currentUser);
-        currentUser.addProjectIds(newProject.getProjectId());
-        try {
-            SingletonJSON.getInstance().saveJson(newProject, currentUser);
-        } catch (IOException | ParseException e) {
-            e.printStackTrace();
-        }
+        Facade facade = new Facade();
+        facade.createProject(sc, currentUser);
     }
 
     private static void deleteProject(Scanner sc) {
