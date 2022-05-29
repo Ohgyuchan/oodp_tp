@@ -9,7 +9,6 @@ public class Meeting implements Comparable<Meeting> {
     private String content;
     private String dir;
     private ArrayList<Comment> comments;
-    
     private MeetingLog Log;
 
     public Meeting() {
@@ -77,14 +76,14 @@ public class Meeting implements Comparable<Meeting> {
     public String toString() {
         return "Meeting [startTime=" + startTime + ", title=" + title + "]";
     }
-    
+
     public void read() {
-    	IRead proxy = new Proxy();
-    	proxy.Load(Log.getFileName());
+        IRead proxy = new Proxy();
+        proxy.Load(Log.getFileName());
     }
-    
+
     public void write(String text, String fileName) {
-    	Log.WriteMeetingLog(text, fileName);
+        Log.WriteMeetingLog(text, fileName);
     }
 
 }
