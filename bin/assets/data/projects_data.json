@@ -25,13 +25,6 @@
         }
       ],
       "leaderId": "terman"
-    },
-    {
-      "projectName": "merong",
-      "projectId": "d5d6c30d-5b42-4572-a8c2-15927846f245",
-      "memberIds": ["terman"],
-      "tasks": [{ "subTasks": [], "state": 0, "title": "예시 task" }],
-      "leaderId": "terman"
     }
   ]
 }
