@@ -19,7 +19,7 @@ import classes.singleton.SingletonAuth;
 import classes.singleton.SingletonJSON;
 import classes.singleton.SingletonScanner;
 
-// 로그인 회원가입
+// 회원가입, 로그아웃
 // 프로젝트리스트
 // 프로젝트 추가 삭제
 // 멤버 초대

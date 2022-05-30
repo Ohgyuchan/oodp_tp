@@ -31,4 +31,8 @@ public class Leader {
         this.displayName = displayName;
     }
 
+    public void print() {
+        System.out.println(this.getId());
+    }
+
 }

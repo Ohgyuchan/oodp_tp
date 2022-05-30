@@ -6,30 +6,27 @@ import java.io.IOException;
 
 public class ReadMeetingLog implements IRead {
 	private String text;
-	
+
 	@Override
 	public String Load(String fileName) {
-		// TODO Auto-generated method stub
-		 FileReader reader = null;
+		FileReader reader = null;
 		try {
-			reader = new FileReader("./asset/"+fileName+".txt");
+			reader = new FileReader("./asset/" + fileName + ".txt");
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}         
-		 
-		int ch;        
+		}
+
+		int ch;
 		try {
 			while ((ch = reader.read()) != -1) {
-				text += (char)ch;
+				text += (char) ch;
 				System.out.print((char) ch);
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return text;
 	}
-	
+
 }
