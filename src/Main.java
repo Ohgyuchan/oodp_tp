@@ -1,19 +1,14 @@
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.List;
 import java.util.Scanner;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
-import org.json.simple.parser.ParseException;
-
 import classes.Facade;
 import classes.MainTask;
-import classes.MementoProject;
 import classes.OnGoing;
 import classes.Project;
-import classes.User;
+import classes.user.User;
 import classes.auth.strategy.SignInAction;
 import classes.auth.strategy.SignOutAction;
 import classes.auth.strategy.SignUpAction;
@@ -31,7 +26,7 @@ import classes.singleton.SingletonScanner;
 public class Main {
     private static Project currentProject;
     private static User currentUser;
-    List<MementoProject> savedProjects = new ArrayList<MementoProject>(); 
+    // private static List<MementoProject> savedProjects = new ArrayList<MementoProject>(); 
     
     public static void main(String[] args) {
         Scanner sc = SingletonScanner.getInstance().getScanner();
@@ -189,11 +184,13 @@ public class Main {
         currentProject.addTask(t);
         currentProject.getTasks().sort(Comparator.comparing(MainTask::getNum));
 
-        try {
-            SingletonJSON.getInstance().saveJson(currentProject, currentUser);
-        } catch (IOException | ParseException e) {
-            e.printStackTrace();
-        }
+        
+            try {
+                SingletonJSON.getInstance().saveJson(currentProject, currentUser);
+            } catch (IOException | org.json.simple.parser.ParseException e) {
+                e.printStackTrace();
+            }
+        
     }
     
     

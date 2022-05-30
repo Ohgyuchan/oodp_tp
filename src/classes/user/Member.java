@@ -1,4 +1,4 @@
-package classes;
+package classes.user;
 
 public class Member extends Leader{
     

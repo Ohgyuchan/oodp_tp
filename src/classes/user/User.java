@@ -1,7 +1,8 @@
-package classes;
+package classes.user;
 
 import java.util.ArrayList;
 
+import classes.Project;
 import classes.singleton.SingletonJSON;
 
 public class User extends Member{

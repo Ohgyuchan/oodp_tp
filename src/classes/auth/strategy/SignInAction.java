@@ -3,10 +3,11 @@ package classes.auth.strategy;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import classes.User;
+
 import classes.singleton.SingletonAuth;
 import classes.singleton.SingletonJSON;
 import classes.singleton.SingletonScanner;
+import classes.user.User;
 
 public class SignInAction implements Auth {
     @Override

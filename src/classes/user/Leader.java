@@ -1,4 +1,4 @@
-package classes;
+package classes.user;
 
 public class Leader {
     private String id;

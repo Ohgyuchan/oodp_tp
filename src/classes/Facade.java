@@ -7,6 +7,7 @@ import java.util.Scanner;
 import org.json.simple.parser.ParseException;
 
 import classes.singleton.SingletonJSON;
+import classes.user.User;
 
 public class Facade {
 	private String title = "예시 task";

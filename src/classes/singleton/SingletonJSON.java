@@ -20,10 +20,10 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import classes.Project;
-import classes.User;
+import classes.user.User;
 
 public class SingletonJSON {
-    private static SingletonJSON instance;
+    private static SingletonJSON instance = null;
     private JSONObject usersJson;
     private JSONObject projectsJson;
     private JSONArray usersJsonArray;
@@ -45,11 +45,11 @@ public class SingletonJSON {
         Object usersData;
         Object projectsData;
         try {
-            usersData = new JSONParser().parse(new FileReader("src/assets/data/users_data.json"));
+            usersData = new JSONParser().parse(new FileReader("assets/data/users_data.json"));
             this.usersJson = (JSONObject) usersData;
             this.usersJsonArray = (JSONArray) this.usersJson.get("users");
 
-            projectsData = new JSONParser().parse(new FileReader("src/assets/data/projects_data.json"));
+            projectsData = new JSONParser().parse(new FileReader("assets/data/projects_data.json"));
             this.projectsJson = (JSONObject) projectsData;
             this.projectsJsonArray = (JSONArray) this.projectsJson.get("projects");
 

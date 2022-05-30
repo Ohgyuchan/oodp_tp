@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.UUID;
 
+import classes.user.User;
+
 public class Project {
     private String projectId;
     private String projectName;

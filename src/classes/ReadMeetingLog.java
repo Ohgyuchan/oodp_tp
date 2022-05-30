@@ -12,7 +12,7 @@ public class ReadMeetingLog implements IRead {
 		// TODO Auto-generated method stub
 		 FileReader reader = null;
 		try {
-			reader = new FileReader("C:\\"+fileName+".txt");
+			reader = new FileReader("./asset/"+fileName+".txt");
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
