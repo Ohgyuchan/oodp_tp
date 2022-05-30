@@ -107,4 +107,8 @@ public class Project {
         System.out.println("2: Manage tasks");
         System.out.println("3: Manage Members");
     }
+    
+    public void set(String projectId) {
+    	this.projectId = projectId;
+    }
 }

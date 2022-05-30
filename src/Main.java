@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Scanner;
 
@@ -6,6 +7,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 
 import classes.Facade;
 import classes.MainTask;
+import classes.MementoProject;
 import classes.OnGoing;
 import classes.Project;
 import classes.user.User;
@@ -26,8 +28,8 @@ import classes.singleton.SingletonScanner;
 public class Main {
     private static Project currentProject;
     private static User currentUser;
-    // private static List<MementoProject> savedProjects = new ArrayList<MementoProject>(); 
-    
+    private ArrayList<MementoProject> savedProjects = new ArrayList<MementoProject>();
+
     public static void main(String[] args) {
         Scanner sc = SingletonScanner.getInstance().getScanner();
         SignWithAuth sign = new SignWithAuth();
@@ -115,7 +117,6 @@ public class Main {
         System.out.println("=====EXIT=====");
         sc.close();
     }
-    
 
     private static void createProject(Scanner sc) {
         Facade facade = new Facade();
@@ -127,22 +128,18 @@ public class Main {
         System.out.print("Pleas Enter the index to delete: ");
         int indexToDelete = sc.nextInt();
         currentUser.deleteProject(indexToDelete);
+    }
 
+    private void storeProjects() {
+        savedProjects.add(currentUser.savetoMemento());
     }
- /*   
-    public void storeProject() {	//Memento 패턴
-    	System.out.println("현재 프로젝트가 저장되었습니다");
-    	MementoProject pj = new MementoProject(currentUser.getProjectIds());
-    	savedProjects.add(pj);
+
+    private void restoreProjects(Scanner sc) {
+        System.out.println("input the index of stored lists");
+        int i = sc.nextInt();
+        currentUser.restoreFromMemento(savedProjects.get(i));
     }
-    
-    public void restoreProject(int index) {	//Memento 패턴 
-    	MementoProject men;
-    	men=savedProjects.get(index);
-    	currentUser.setProject(men.getProjectIds());
-    }
-    
-   */ //메멘토 패턴 부분 
+
     private static void selectProject(Scanner sc) {
         currentUser.printProjects();
         System.out.print("Pleas Enter the index: ");
@@ -184,16 +181,13 @@ public class Main {
         currentProject.addTask(t);
         currentProject.getTasks().sort(Comparator.comparing(MainTask::getNum));
 
-        
-            try {
-                SingletonJSON.getInstance().saveJson(currentProject, currentUser);
-            } catch (IOException | org.json.simple.parser.ParseException e) {
-                e.printStackTrace();
-            }
-        
+        try {
+            SingletonJSON.getInstance().saveJson(currentProject, currentUser);
+        } catch (IOException | org.json.simple.parser.ParseException e) {
+            e.printStackTrace();
+        }
+
     }
-    
-    
 
     private static void viewTasks(Scanner sc, int index) {
         boolean check = true;
@@ -315,6 +309,8 @@ public class Main {
         System.out.println("2: CREATE A PROJECT");
         System.out.println("3: DELETE A PROJECT");
         System.out.println("4: SELECT A PROJECT");
+        // System.out.println("5: STORE A PROJECTS");
+        // System.out.println("6: Restore A PROJECTS");
         System.out.println("DEFAULT: PRINT MENU");
         System.out.println("===========================");
     }
