@@ -1,6 +1,7 @@
 package classes.user;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import classes.MementoProject;
 import classes.Project;
@@ -11,6 +12,13 @@ public class User extends Member {
     private ArrayList<String> projectIds;
 
     public User() {
+    }
+
+    public User(Scanner sc) {
+        super(sc);
+        System.out.print("Input password: ");
+        this.password = sc.nextLine();
+        this.projectIds = new ArrayList<>();
     }
 
     public User(String id, String password, String displayName, ArrayList<String> projectIds) {
@@ -49,10 +57,6 @@ public class User extends Member {
             i++;
             System.out.println("#" + (i) + ": " + project.getProjectName());
         }
-    }
-
-    public void print() {
-        System.out.println(this.getId());
     }
 
     public MementoProject savetoMemento() { // 메멘토패턴, 프로젝트 리스트 저장

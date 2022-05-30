@@ -2,7 +2,7 @@ package classes;
 
 // Observer Pattern
 public interface Todo {
-    void subscribe(SubTodo subtodo);
-    void unsubscribe(SubTodo subtodo);
-    void notifySubtodo(String msg);
+    void subscribe(SubTodo subTodo);
+    void unsubscribe(SubTodo subTodo);
+    void notifySubTodo(String msg);
 }

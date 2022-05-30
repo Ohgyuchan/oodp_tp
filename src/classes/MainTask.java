@@ -74,7 +74,7 @@ public class MainTask extends AbstractTask implements Todo {
         this.backgroundColor = "Blue";
         // this.state = "완료" ;
         this.taskState = new Complete();
-        notifySubtodo("완료");
+        notifySubTodo("완료");
     }
 
     public void addMeeting(Scanner sc) {
@@ -108,7 +108,7 @@ public class MainTask extends AbstractTask implements Todo {
 
     // Observer Patter
     @Override
-    public void notifySubtodo(String msg) {
+    public void notifySubTodo(String msg) {
         subTodos.forEach(crew -> crew.update(msg));
     }
 

@@ -19,8 +19,8 @@ public class SignWithAuth {
         this.auth = auth;
     }
     
-    public void authAction() {
-        auth.authAction();
+    public boolean authAction() {
+        return auth.authAction();
     }
 
 }

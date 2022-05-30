@@ -19,7 +19,7 @@ import classes.singleton.SingletonAuth;
 import classes.singleton.SingletonJSON;
 import classes.singleton.SingletonScanner;
 
-// 로그인 회원가입
+// 회원가입, 로그아웃
 // 프로젝트리스트
 // 프로젝트 추가 삭제
 // 멤버 초대
@@ -32,27 +32,95 @@ public class Main {
 
     public static void main(String[] args) {
         Scanner sc = SingletonScanner.getInstance().getScanner();
-        SignWithAuth sign = new SignWithAuth();
 
+        SignWithAuth auth = new SignWithAuth();
+        while (loginMenu(auth, sc)) {
+            boolean flag = true;
+            while (flag) {
+                printMenu();
+                int tag = sc.nextInt();
+                switch (tag) {
+                    case 0:
+                        flag = false;
+                        break;
+                    case 1:
+                        currentUser.printProjects();
+                        break;
+                    case 2:
+                        createProject(sc);
+                        break;
+                    case 3:
+                        deleteProject(sc);
+                        break;
+                    case 4:
+                        selectProject(sc);
+                        if (currentProject.getProjectId() != null) {
+                            boolean FLAG = true;
+                            while (FLAG) {
+                                printProjectMenu();
+                                int TAG = sc.nextInt();
+                                switch (TAG) {
+                                    case 0:
+                                        FLAG = false;
+                                        currentProject.init();
+                                        break;
+                                    case 1:
+                                        currentProject.print();
+                                        break;
+                                    case 2:
+                                        viewTasks(sc, tag);
+                                        break;
+                                    case 3:
+                                        createTask(sc);
+                                        break;
+                                    case 4:
+                                        inviteMember(sc);
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+    }
+
+    private static boolean loginMenu(SignWithAuth auth, Scanner sc) {
         printLoginMenu();
-        int mode = sc.nextInt();
         while (currentUser == null) {
+            int mode = sc.nextInt();
             switch (mode) {
                 case 0:
-                    mode = 0;
                     sc.close();
                     System.out.println("=====EXIT=====");
-                    return;
+                    return false;
 
                 case 1:
-                    sign.setAuth(new SignInAction());
-                    sign.authAction();
-                    currentUser = SingletonAuth.getInstance().getCurrentUser();
-                    break;
+                    auth.setAuth(new SignInAction());
+                    boolean result = auth.authAction();
+                    if (result) {
+                        currentUser = SingletonAuth.getInstance().getCurrentUser();
+                        if (currentUser != null)
+                            return result;
+                        else {
+                            System.out.println("===== Sign In Failed ======");
+                            return !result;
+                        }
+                    }
+                    return result;
 
                 case 2:
-                    sign.setAuth(new SignUpAction());
-                    sign.authAction();
+                    auth.setAuth(new SignUpAction());
+                    if (auth.authAction()) {
+                        System.out.println("===== Sign Up Success ======");
+                    } else {
+                        System.out.println("===== Sign Up Failed ======");
+                    }
+                    printLoginMenu();
                     break;
 
                 default:
@@ -60,62 +128,7 @@ public class Main {
                     break;
             }
         }
-
-        boolean flag = true;
-        while (flag) {
-            printMenu();
-            int tag = sc.nextInt();
-            switch (tag) {
-                case 0:
-                    flag = false;
-                    break;
-                case 1:
-                    currentUser.printProjects();
-                    break;
-                case 2:
-                    createProject(sc);
-                    break;
-                case 3:
-                    deleteProject(sc);
-                    break;
-                case 4:
-                    selectProject(sc);
-                    if (currentProject.getProjectId() != null) {
-                        boolean FLAG = true;
-                        while (FLAG) {
-                            printProjectMenu();
-                            int TAG = sc.nextInt();
-                            switch (TAG) {
-                                case 0:
-                                    FLAG = false;
-                                    currentProject.init();
-                                    break;
-                                case 1:
-                                    currentProject.print();
-                                    break;
-                                case 2:
-                                    viewTasks(sc, tag);
-                                    break;
-                                case 3:
-                                    createTask(sc);
-                                    break;
-                                case 4:
-                                    inviteMember(sc);
-                                    break;
-                                default:
-                                    break;
-                            }
-                        }
-                    }
-                    break;
-                default:
-                    break;
-            }
-        }
-        sign.setAuth(new SignOutAction());
-        sign.authAction();
-        System.out.println("=====EXIT=====");
-        sc.close();
+        return false;
     }
 
     private static void createProject(Scanner sc) {
@@ -304,7 +317,7 @@ public class Main {
 
     private static void printMenu() {
         System.out.println("===========================");
-        System.out.println("0: EXIT");
+        System.out.println("0: SIGN OUT");
         System.out.println("1: PRINT MY PROJECTS");
         System.out.println("2: CREATE A PROJECT");
         System.out.println("3: DELETE A PROJECT");
