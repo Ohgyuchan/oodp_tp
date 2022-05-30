@@ -52,4 +52,13 @@ public class User extends Member{
     public void print() {
         System.out.println(this.getId());
     }
+    
+    public MementoProject savetoMemento() {	//메멘토패턴, 프로젝트 리스트 저장
+    	System.out.println("save the projects");
+    	return new MementoProject(this.projectIds);
+    }
+    
+    public void restoreFromMemento (MementoProject memento) { //메멘토패턴, 프로젝트 리스트 불러오기
+    	this.projectIds=memento.getProjectIds();
+    }
 }

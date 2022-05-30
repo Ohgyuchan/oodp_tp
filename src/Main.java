@@ -31,7 +31,7 @@ import classes.singleton.SingletonScanner;
 public class Main {
     private static Project currentProject;
     private static User currentUser;
-    List<MementoProject> savedProjects = new ArrayList<MementoProject>(); 
+    private List<MementoProject> savedProjects = new ArrayList<MementoProject>(); 
     
     public static void main(String[] args) {
         Scanner sc = SingletonScanner.getInstance().getScanner();
@@ -132,20 +132,17 @@ public class Main {
         System.out.print("Pleas Enter the index to delete: ");
         int indexToDelete = sc.nextInt();
         currentUser.deleteProject(indexToDelete);
-
+    }
+    private void storeProjects() {
+    	savedProjects.add(currentUser.savetoMemento());
+    }
+    private void restoreProjects(Scanner sc) {
+    	System.out.println("input the index of stored lists");
+    	int i= sc.nextInt();
+    	currentUser.restoreFromMemento(savedProjects.get(i));
     }
  /*   
-    public void storeProject() {	//Memento 패턴
-    	System.out.println("현재 프로젝트가 저장되었습니다");
-    	MementoProject pj = new MementoProject(currentUser.getProjectIds());
-    	savedProjects.add(pj);
-    }
-    
-    public void restoreProject(int index) {	//Memento 패턴 
-    	MementoProject men;
-    	men=savedProjects.get(index);
-    	currentUser.setProject(men.getProjectIds());
-    }
+	
     
    */ //메멘토 패턴 부분 
     private static void selectProject(Scanner sc) {
@@ -318,6 +315,8 @@ public class Main {
         System.out.println("2: CREATE A PROJECT");
         System.out.println("3: DELETE A PROJECT");
         System.out.println("4: SELECT A PROJECT");
+ //       System.out.println("5: STORE A PROJECTS");
+ //       System.out.println("6: Restore A PROJECTS");
         System.out.println("DEFAULT: PRINT MENU");
         System.out.println("===========================");
     }
