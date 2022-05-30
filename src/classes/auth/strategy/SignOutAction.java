@@ -1,9 +1,15 @@
 package classes.auth.strategy;
 
-public class SignOutAction implements Auth{
+import classes.singleton.SingletonAuth;
+
+public class SignOutAction implements Auth {
     @Override
     public boolean authAction() {
-        System.out.println("SignOut");
-        return true;
+        SingletonAuth.getInstance().setCurrentUser(null);
+        System.out.println("====== SignOut ======");
+        if (SingletonAuth.getInstance().getCurrentUser() != null)
+            return false;
+        else
+            return true;
     }
 }
