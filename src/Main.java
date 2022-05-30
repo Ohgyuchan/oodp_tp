@@ -27,7 +27,6 @@ import classes.singleton.SingletonScanner;
 
 public class Main {
     private static Project currentProject;
-    private static User currentUser;
     private ArrayList<MementoProject> savedProjects = new ArrayList<MementoProject>();
 
     public static void main(String[] args) {
@@ -41,10 +40,11 @@ public class Main {
                 int tag = sc.nextInt();
                 switch (tag) {
                     case 0:
-                        flag = false;
+                        auth.setAuth(new SignOutAction());
+                        flag = !auth.authAction();
                         break;
                     case 1:
-                        currentUser.printProjects();
+                        SingletonAuth.getInstance().getCurrentUser().printProjects();
                         break;
                     case 2:
                         createProject(sc);
@@ -91,7 +91,7 @@ public class Main {
 
     private static boolean loginMenu(SignWithAuth auth, Scanner sc) {
         printLoginMenu();
-        while (currentUser == null) {
+        while (SingletonAuth.getInstance().getCurrentUser() == null) {
             int mode = sc.nextInt();
             switch (mode) {
                 case 0:
@@ -103,8 +103,7 @@ public class Main {
                     auth.setAuth(new SignInAction());
                     boolean result = auth.authAction();
                     if (result) {
-                        currentUser = SingletonAuth.getInstance().getCurrentUser();
-                        if (currentUser != null)
+                        if (SingletonAuth.getInstance().getCurrentUser() != null)
                             return result;
                         else {
                             System.out.println("===== Sign In Failed ======");
@@ -124,7 +123,7 @@ public class Main {
                     break;
 
                 default:
-                    printMenu();
+                    printLoginMenu();
                     break;
             }
         }
@@ -133,31 +132,31 @@ public class Main {
 
     private static void createProject(Scanner sc) {
         Facade facade = new Facade();
-        facade.createProject(sc, currentUser);
+        facade.createProject(sc, SingletonAuth.getInstance().getCurrentUser());
     }
 
     private static void deleteProject(Scanner sc) {
-        currentUser.printProjects();
+        SingletonAuth.getInstance().getCurrentUser().printProjects();
         System.out.print("Pleas Enter the index to delete: ");
         int indexToDelete = sc.nextInt();
-        currentUser.deleteProject(indexToDelete);
+        SingletonAuth.getInstance().getCurrentUser().deleteProject(indexToDelete);
     }
 
     private void storeProjects() {
-        savedProjects.add(currentUser.savetoMemento());
+        savedProjects.add(SingletonAuth.getInstance().getCurrentUser().savetoMemento());
     }
 
     private void restoreProjects(Scanner sc) {
         System.out.println("input the index of stored lists");
         int i = sc.nextInt();
-        currentUser.restoreFromMemento(savedProjects.get(i));
+        SingletonAuth.getInstance().getCurrentUser().restoreFromMemento(savedProjects.get(i));
     }
 
     private static void selectProject(Scanner sc) {
-        currentUser.printProjects();
+        SingletonAuth.getInstance().getCurrentUser().printProjects();
         System.out.print("Pleas Enter the index: ");
         int indexToSelect = sc.nextInt();
-        String selectedProjectId = currentUser.getProjectIds().get(indexToSelect - 1);
+        String selectedProjectId = SingletonAuth.getInstance().getCurrentUser().getProjectIds().get(indexToSelect - 1);
         currentProject = SingletonJSON.getInstance().getProject(selectedProjectId);
     }
 
@@ -195,7 +194,7 @@ public class Main {
         currentProject.getTasks().sort(Comparator.comparing(MainTask::getNum));
 
         try {
-            SingletonJSON.getInstance().saveJson(currentProject, currentUser);
+            SingletonJSON.getInstance().saveJson(currentProject, SingletonAuth.getInstance().getCurrentUser());
         } catch (IOException | org.json.simple.parser.ParseException e) {
             e.printStackTrace();
         }
