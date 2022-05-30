@@ -130,16 +130,6 @@ public class Main {
         currentUser.deleteProject(indexToDelete);
     }
 
-    private void storeProjects() {
-        savedProjects.add(currentUser.savetoMemento());
-    }
-
-    private void restoreProjects(Scanner sc) {
-        System.out.println("input the index of stored lists");
-        int i = sc.nextInt();
-        currentUser.restoreFromMemento(savedProjects.get(i));
-    }
-
     private static void selectProject(Scanner sc) {
         currentUser.printProjects();
         System.out.print("Pleas Enter the index: ");
