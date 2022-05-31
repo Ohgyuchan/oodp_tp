@@ -28,6 +28,8 @@ public class SingletonJSON {
     private JSONObject projectsJson;
     private JSONArray usersJsonArray;
     private JSONArray projectsJsonArray;
+    private String usersJsonPath = "assets/data/users_data.json";
+    private String projectsJsonPath = "assets/data/projects_data.json";
 
     private SingletonJSON() {
         System.out.println("SingletonJSON constructed");
@@ -45,11 +47,11 @@ public class SingletonJSON {
         Object usersData;
         Object projectsData;
         try {
-            usersData = new JSONParser().parse(new FileReader("assets/data/users_data.json"));
+            usersData = new JSONParser().parse(new FileReader(usersJsonPath));
             this.usersJson = (JSONObject) usersData;
             this.usersJsonArray = (JSONArray) this.usersJson.get("users");
 
-            projectsData = new JSONParser().parse(new FileReader("assets/data/projects_data.json"));
+            projectsData = new JSONParser().parse(new FileReader(projectsJsonPath));
             this.projectsJson = (JSONObject) projectsData;
             this.projectsJsonArray = (JSONArray) this.projectsJson.get("projects");
 
@@ -111,12 +113,11 @@ public class SingletonJSON {
     public ArrayList<User> getUserList() {
         ArrayList<User> list = new ArrayList<>();
         ObjectMapper mapper = new ObjectMapper();
-        JSONArray JsonArray = usersJsonArray;
         if (usersJsonArray != null) {
-            int jsonSize = JsonArray.size();
+            int jsonSize = usersJsonArray.size();
 
             for (int i = 0; i < jsonSize; i++) {
-                Map<String, Object> map = getUserMapFromJsonObject((JSONObject) JsonArray.get(i));
+                Map<String, Object> map = getUserMapFromJsonObject((JSONObject) usersJsonArray.get(i));
                 User user = mapper.convertValue(map, User.class);
                 list.add(user);
             }
@@ -204,7 +205,7 @@ public class SingletonJSON {
         }
 
         String usersJsonString = usersJson.toString();
-        File usersJsonFile = new File("src/assets/data/users_data.json");
+        File usersJsonFile = new File(usersJsonPath);
         writeStringToFile(usersJsonString, usersJsonFile);
     }
 
@@ -216,12 +217,20 @@ public class SingletonJSON {
         String projectJsonInString = mapper.writeValueAsString(project);
 
         JSONObject projectJson = (JSONObject) parser.parse(projectJsonInString);
-
         projectsJsonArray.add(projectJson);
+        for (Object object : projectsJsonArray) {
+            JSONObject jo = (JSONObject) object;
+            if (projectJson.get("projectId").toString().equals(jo.get("projectId").toString())) {
+                if (!jo.equals(projectJson)) {
+                    projectsJsonArray.remove(jo);
+                }
+            }
+        }
+        
 
         String projectsJsonString = projectsJson.toString();
 
-        File projectsJsonFile = new File("src/assets/data/projects_data.json");
+        File projectsJsonFile = new File(projectsJsonPath);
 
         writeStringToFile(projectsJsonString, projectsJsonFile);
 
@@ -238,23 +247,14 @@ public class SingletonJSON {
         writer.close();
     }
 
-    public void invite(Scanner sc, Project project) throws JsonMappingException, JsonProcessingException {
-        ArrayList<User> users = new ArrayList<>();
-
-        ObjectMapper mapper = new ObjectMapper();
-
-        for (int i = 0; i < usersJsonArray.size(); i++) {
-            User user = mapper.readValue(usersJsonArray.get(i).toString(), User.class);
-            if (project.getMemberIds().contains(user.getId()))
-                continue;
-            users.add(user);
-        }
+    public Project invite(Scanner sc, Project project) throws JsonMappingException, JsonProcessingException {
+        ArrayList<User> users = getUserList();
 
         for (int i = 0; i < users.size(); i++) {
-            System.out.println("#" + i + " " + users.get(i).getId());
+            System.out.println("#" + (i+1) + " " + users.get(i).getId());
         }
 
-        int index = sc.nextInt();
+        int index = sc.nextInt() - 1;
         project.addMemberId(users.get(index).getId());
         users.get(index).addProjectIds(project.getProjectId());
         try {
@@ -262,6 +262,7 @@ public class SingletonJSON {
         } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
+        return project;
     }
 
     public void addUser() {

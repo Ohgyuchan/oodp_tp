@@ -14,7 +14,7 @@ public class Facade {
 			
 	
 	public void createProject(Scanner sc, User user) {
-		user.print();
+		System.out.println("======= CREATE NEW PROJECT =======");
 		Project project = new Project(sc, user);
 		MainTask task = new MainTask(title);
 		project.addTask(task);
@@ -24,7 +24,7 @@ public class Facade {
         } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
-		System.out.println("Project 생성");
+		System.out.println("====== Project 생성 ======");
 	}
 	
 	public void createProjectWithName(String name, ArrayList<String> memberIds, String leaderId) {

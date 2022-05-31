@@ -11,6 +11,7 @@ public class Leader {
     }
 
     public Leader(Scanner sc) {
+        sc.nextLine();
         System.out.print("Input ID: ");
         this.id = sc.nextLine();
         System.out.print("Input display name: ");
