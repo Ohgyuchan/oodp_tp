@@ -2,6 +2,7 @@ package classes;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 import java.util.Scanner;
 
 import org.json.simple.parser.ParseException;
@@ -14,17 +15,17 @@ public class Facade {
 			
 	
 	public void createProject(Scanner sc, User user) {
-		user.print();
+		System.out.println("======= CREATE NEW PROJECT =======");
 		Project project = new Project(sc, user);
 		MainTask task = new MainTask(title);
 		project.addTask(task);
 		user.addProjectIds(project.getProjectId());
 		try {
             SingletonJSON.getInstance().saveJson(project, user);
-        } catch (IOException | ParseException e) {
-            e.printStackTrace();
+        } catch (IOException | ParseException | ConcurrentModificationException | NullPointerException e) {
+			e.getMessage();
         }
-		System.out.println("Project 생성");
+		System.out.println("====== Project 생성 ======");
 	}
 	
 	public void createProjectWithName(String name, ArrayList<String> memberIds, String leaderId) {

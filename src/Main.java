@@ -1,16 +1,18 @@
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.ConcurrentModificationException;
 import java.util.Scanner;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+
+import org.json.simple.parser.ParseException;
 
 import classes.Facade;
 import classes.MainTask;
 import classes.MementoProject;
 import classes.OnGoing;
 import classes.Project;
-import classes.user.User;
 import classes.auth.strategy.SignInAction;
 import classes.auth.strategy.SignOutAction;
 import classes.auth.strategy.SignUpAction;
@@ -27,7 +29,7 @@ import classes.singleton.SingletonScanner;
 
 public class Main {
     private static Project currentProject;
-    private ArrayList<MementoProject> savedProjects = new ArrayList<MementoProject>();
+    private static ArrayList<MementoProject> savedProjects = new ArrayList<MementoProject>();
 
     public static void main(String[] args) {
         Scanner sc = SingletonScanner.getInstance().getScanner();
@@ -40,11 +42,22 @@ public class Main {
                 int tag = sc.nextInt();
                 switch (tag) {
                     case 0:
+                        try {
+                            SingletonJSON.getInstance().saveJson(SingletonAuth.getInstance().getCurrentUser());
+                            System.out.println("========= SAVE ==========");
+                        } catch (IOException | ParseException e) {
+                            System.out.println("========= FAILED TO SAVE ==========");
+                            e.printStackTrace();
+                        }
                         auth.setAuth(new SignOutAction());
                         flag = !auth.authAction();
                         break;
                     case 1:
-                        SingletonAuth.getInstance().getCurrentUser().printProjects();
+                        if (SingletonAuth.getInstance().getCurrentUser().getProjectIds().isEmpty()) {
+                            System.out.println("======== THE PROJECT LIST IS EMPTY ========");
+                        } else {
+                            SingletonAuth.getInstance().getCurrentUser().printProjects();
+                        }
                         break;
                     case 2:
                         createProject(sc);
@@ -53,33 +66,44 @@ public class Main {
                         deleteProject(sc);
                         break;
                     case 4:
-                        selectProject(sc);
-                        if (currentProject.getProjectId() != null) {
-                            boolean FLAG = true;
-                            while (FLAG) {
-                                printProjectMenu();
-                                int TAG = sc.nextInt();
-                                switch (TAG) {
-                                    case 0:
-                                        FLAG = false;
-                                        currentProject.init();
-                                        break;
-                                    case 1:
-                                        currentProject.print();
-                                        break;
-                                    case 2:
-                                        viewTasks(sc, tag);
-                                        break;
-                                    case 3:
-                                        createTask(sc);
-                                        break;
-                                    case 4:
-                                        inviteMember(sc);
-                                        break;
-                                    default:
-                                        break;
+                        if (SingletonAuth.getInstance().getCurrentUser().getProjectIds().isEmpty()) {
+                            System.out.println("======== THE PROJECT LIST IS EMPTY ========");
+                        } else {
+                            selectProject(sc);
+                            if (currentProject.getProjectId() != null) {
+                                boolean FLAG = true;
+                                while (FLAG) {
+                                    printProjectMenu();
+                                    int TAG = sc.nextInt();
+                                    switch (TAG) {
+                                        case 0:
+                                            FLAG = false;
+                                            currentProject.init();
+                                            break;
+                                        case 1:
+                                            currentProject.print();
+                                            break;
+                                        case 2:
+                                            viewTasks(sc, tag);
+                                            break;
+                                        case 3:
+                                            createTask(sc);
+                                            break;
+                                        case 4:
+                                            inviteMember(sc);
+                                            break;
+                                        default:
+                                            break;
+                                    }
                                 }
                             }
+                        }
+                        break;
+                    case 5:
+                        if (SingletonAuth.getInstance().getCurrentUser().getProjectIds().isEmpty()) {
+                            System.out.println("======== THE PROJECT LIST IS EMPTY ========");
+                        } else {
+                            restoreProjects(sc);
                         }
                         break;
                     default:
@@ -90,8 +114,8 @@ public class Main {
     }
 
     private static boolean loginMenu(SignWithAuth auth, Scanner sc) {
-        printLoginMenu();
         while (SingletonAuth.getInstance().getCurrentUser() == null) {
+            printLoginMenu();
             int mode = sc.nextInt();
             switch (mode) {
                 case 0:
@@ -107,10 +131,11 @@ public class Main {
                             return result;
                         else {
                             System.out.println("===== Sign In Failed ======");
-                            return !result;
+                            break;
                         }
                     }
-                    return result;
+                    System.out.println("===== Sign In Failed ======");
+                    break;
 
                 case 2:
                     auth.setAuth(new SignUpAction());
@@ -119,11 +144,9 @@ public class Main {
                     } else {
                         System.out.println("===== Sign Up Failed ======");
                     }
-                    printLoginMenu();
                     break;
 
                 default:
-                    printLoginMenu();
                     break;
             }
         }
@@ -139,15 +162,16 @@ public class Main {
         SingletonAuth.getInstance().getCurrentUser().printProjects();
         System.out.print("Pleas Enter the index to delete: ");
         int indexToDelete = sc.nextInt();
-        SingletonAuth.getInstance().getCurrentUser().deleteProject(indexToDelete);
+        storeProjects();
+        SingletonAuth.getInstance().getCurrentUser().deleteProject(indexToDelete - 1);
     }
 
-    private void storeProjects() {
+    private static void storeProjects() {
         savedProjects.add(SingletonAuth.getInstance().getCurrentUser().savetoMemento());
     }
 
-    private void restoreProjects(Scanner sc) {
-        System.out.println("input the index of stored lists");
+    private static void restoreProjects(Scanner sc) {
+        System.out.println("Input the index of stored lists");
         int i = sc.nextInt();
         SingletonAuth.getInstance().getCurrentUser().restoreFromMemento(savedProjects.get(i));
     }
@@ -176,7 +200,7 @@ public class Main {
 
             switch (subtaskInput) {
                 case 1:
-                    System.out.print("Subtask Title 입력 : ");
+                    System.out.print("Enter Subtask Title : ");
                     sc.nextLine();
                     String subTitle = sc.nextLine();
                     t.setSubTasks(subTitle, t.getSubTasks().size());
@@ -204,20 +228,20 @@ public class Main {
     private static void viewTasks(Scanner sc, int index) {
         boolean check = true;
 
-        if (currentProject.getTasks().size() == 0) {
+        if (currentProject.getTasks().isEmpty()) {
             System.out.println("");
             System.out.println("입력된 Task가 없습니다.");
             System.out.println("");
         } else {
-            System.out.println("===========================");
-            for (MainTask p : currentProject.getTasks()) {
-                System.out.println(p.toString());
-            }
-            System.out.println("===========================");
             while (check) {
+                System.out.println("===========================");
+                for (MainTask p : currentProject.getTasks()) {
+                    System.out.println(p.toString());
+                    System.out.println();
+                }
+                System.out.println("===========================");
                 printSelectTask();
                 int taskInput = sc.nextInt();
-
                 switch (taskInput) {
                     case 1:
                         viewTaskDetail(sc);
@@ -234,7 +258,7 @@ public class Main {
 
     private static void viewTaskDetail(Scanner sc) {
         boolean check = true;
-        System.out.println("1: ENTER THE INDEX");
+        System.out.println("ENTER THE INDEX");
         int taskIndex = sc.nextInt();
 
         System.out.println("");
@@ -256,6 +280,9 @@ public class Main {
                     checkingSubTask(sc, taskIndex);
                     break;
                 case 3:
+                    currentProject.getTasks().get(taskIndex).addMeeting(sc);
+                    break;
+                case 4:
                     check = false;
                     break;
                 default:
@@ -307,11 +334,12 @@ public class Main {
     }
 
     public static void inviteMember(Scanner sc) {
+
         try {
-            SingletonJSON.getInstance().invite(sc, currentProject);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
+            currentProject = SingletonJSON.getInstance().invite(sc, currentProject);
+        } catch (ConcurrentModificationException | IOException | ParseException e) {
         }
+
     }
 
     private static void printMenu() {
@@ -321,8 +349,7 @@ public class Main {
         System.out.println("2: CREATE A PROJECT");
         System.out.println("3: DELETE A PROJECT");
         System.out.println("4: SELECT A PROJECT");
-        // System.out.println("5: STORE A PROJECTS");
-        // System.out.println("6: Restore A PROJECTS");
+        System.out.println("5: Restore A PROJECTS");
         System.out.println("DEFAULT: PRINT MENU");
         System.out.println("===========================");
     }
@@ -355,7 +382,8 @@ public class Main {
         System.out.println("===========================");
         System.out.println("1: CHANGE TASK'S STATE");
         System.out.println("2: CHANGE SUBTASK'S STATE");
-        System.out.println("3: EXIT");
+        System.out.println("3: ADD MEETING");
+        System.out.println("4: EXIT");
         System.out.println("===========================");
     }
 

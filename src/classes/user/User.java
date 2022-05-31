@@ -53,14 +53,14 @@ public class User extends Member {
 
     public void printProjects() {
         int i = 0;
-        for (Project project : SingletonJSON.getInstance().getProjects(projectIds)) {
+        for (Project project : SingletonJSON.getInstance().getProjects(this.projectIds)) {
             i++;
             System.out.println("#" + (i) + ": " + project.getProjectName());
         }
     }
 
     public MementoProject savetoMemento() { // 메멘토패턴, 프로젝트 리스트 저장
-        System.out.println("save the projects");
+        System.out.println("======= Save the projects =======");
         return new MementoProject(this.projectIds);
     }
 

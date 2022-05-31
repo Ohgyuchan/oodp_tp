@@ -14,6 +14,14 @@ public class MainTask extends AbstractTask implements Todo {
     private TaskState taskState = new Waiting(); // State Pattern
     private ArrayList<Meeting> meetings = new ArrayList<>();
 
+    public ArrayList<Meeting> getMeetings() {
+        return this.meetings;
+    }
+
+    public void setMeetings(ArrayList<Meeting> meetings) {
+        this.meetings = meetings;
+    }
+
     public MainTask() {
     }
 
@@ -114,6 +122,6 @@ public class MainTask extends AbstractTask implements Todo {
 
     public String toString() {
         return "[" + this.getNum() + "] Task : " + this.getTitle() + " (상태 : " + this.taskState.stateChange()
-                + "/배경색 : " + this.getBackgroundColor() + ")" + "\nSubtask : " + this.getSubTasks() + "\n";
+                + "/배경색 : " + this.getBackgroundColor() + ")" + "\nSubtask : " + this.getSubTasks() + "\n" + "Mettings: " + this.getMeetings();
     }
 }
