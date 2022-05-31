@@ -1,1 +1,13 @@
-{"users":[{"password":"1234","displayName":"오규찬","id":"terman","projectIds":["3133da90-f4b8-453a-8dd9-faeb3daa4439"]},{"password":"1234","displayName":"gyuchan","id":"gyu","projectIds":["3133da90-f4b8-453a-8dd9-faeb3daa4439"]}]}
+{
+  "users": [
+    {
+      "password": "1234",
+      "displayName": "오규찬",
+      "id": "terman",
+      "projectIds": [
+        "cb7bfe05-c1ef-485b-90d3-2cded74cfde1",
+        "956ebd1e-df0b-48b0-9782-bc3ae69f4dda"
+      ]
+    }
+  ]
+}

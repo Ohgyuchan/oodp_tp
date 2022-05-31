@@ -1,6 +1,7 @@
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.ConcurrentModificationException;
 import java.util.Scanner;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -333,11 +334,12 @@ public class Main {
     }
 
     public static void inviteMember(Scanner sc) {
+
         try {
             currentProject = SingletonJSON.getInstance().invite(sc, currentProject);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
+        } catch (ConcurrentModificationException | IOException | ParseException e) {
         }
+
     }
 
     private static void printMenu() {

@@ -6,11 +6,11 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 import java.util.Map;
 import java.util.Scanner;
 
 import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -188,20 +188,26 @@ public class SingletonJSON {
     }
 
     @SuppressWarnings("unchecked")
-    public void saveJson(User user) throws IOException, ParseException {
+    public void saveJson(User user) throws IOException, ParseException, ConcurrentModificationException {
+        setJson();
         ObjectMapper mapper = new ObjectMapper();
         JSONParser parser = new JSONParser();
         String userJsonInString = mapper.writeValueAsString(user);
 
         JSONObject userJson = (JSONObject) parser.parse(userJsonInString);
-        usersJsonArray.add(userJson);
-        for (Object object : usersJsonArray) {
-            JSONObject jo = (JSONObject) object;
+
+        boolean isNew = true;
+        for (int i = 0; i < usersJsonArray.size(); i++) {
+            JSONObject jo = (JSONObject) usersJsonArray.get(i);
             if (userJson.get("id").toString().equals(jo.get("id").toString())) {
-                if (!jo.equals(userJson)) {
-                    usersJsonArray.remove(jo);
-                }
+                jo.put("password", userJson.get("password"));
+                jo.put("displayName", userJson.get("displayName"));
+                jo.put("projectIds", userJson.get("projectIds"));
+                isNew =false;
             }
+        }
+        if (isNew) {
+            projectsJsonArray.add(userJson);
         }
 
         String usersJsonString = usersJson.toString();
@@ -210,23 +216,29 @@ public class SingletonJSON {
     }
 
     @SuppressWarnings("unchecked")
-    public void saveJson(Project project) throws IOException, ParseException {
+    public void saveJson(Project project) throws IOException, ParseException, ConcurrentModificationException {
+        setJson();
         ObjectMapper mapper = new ObjectMapper();
         JSONParser parser = new JSONParser();
 
         String projectJsonInString = mapper.writeValueAsString(project);
 
         JSONObject projectJson = (JSONObject) parser.parse(projectJsonInString);
-        projectsJsonArray.add(projectJson);
-        for (Object object : projectsJsonArray) {
-            JSONObject jo = (JSONObject) object;
+
+        boolean isNew = true;
+        for (int i = 0; i < projectsJsonArray.size(); i++) {
+            JSONObject jo = (JSONObject) projectsJsonArray.get(i);
             if (projectJson.get("projectId").toString().equals(jo.get("projectId").toString())) {
-                if (!jo.equals(projectJson)) {
-                    projectsJsonArray.remove(jo);
-                }
+                isNew = false;
+                jo.put("projectName", projectJson.get("projectName"));
+                jo.put("memberIds", projectJson.get("memberIds"));
+                jo.put("tasks", projectJson.get("tasks"));
             }
         }
-        
+
+        if (isNew) {
+            projectsJsonArray.add(projectJson);
+        }
 
         String projectsJsonString = projectsJson.toString();
 
@@ -236,7 +248,8 @@ public class SingletonJSON {
 
     }
 
-    public void saveJson(Project project, User user) throws IOException, ParseException {
+    public void saveJson(Project project, User user)
+            throws IOException, ParseException, ConcurrentModificationException {
         saveJson(project);
         saveJson(user);
     }
@@ -247,21 +260,20 @@ public class SingletonJSON {
         writer.close();
     }
 
-    public Project invite(Scanner sc, Project project) throws JsonMappingException, JsonProcessingException {
+    public Project invite(Scanner sc, Project project)
+            throws ConcurrentModificationException, IOException, ParseException {
         ArrayList<User> users = getUserList();
 
         for (int i = 0; i < users.size(); i++) {
-            System.out.println("#" + (i+1) + " " + users.get(i).getId());
+            System.out.println("#" + (i + 1) + " " + users.get(i).getId());
         }
 
         int index = sc.nextInt() - 1;
         project.addMemberId(users.get(index).getId());
         users.get(index).addProjectIds(project.getProjectId());
-        try {
-            saveJson(project, users.get(index));
-        } catch (IOException | ParseException e) {
-            e.printStackTrace();
-        }
+
+        saveJson(project, users.get(index));
+
         return project;
     }
 
