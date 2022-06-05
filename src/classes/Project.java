@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.UUID;
 
+import classes.user.User;
+
 public class Project {
     private String projectId;
     private String projectName;
@@ -17,6 +19,7 @@ public class Project {
 
     public Project(Scanner sc, User currentUser) {
         this.projectId = UUID.randomUUID().toString();
+        System.out.print("Input Project Name ");
         this.projectName = sc.next();
         this.memberIds.add(currentUser.getId());
         this.leaderId = currentUser.getId();
@@ -91,10 +94,7 @@ public class Project {
     public void print() {
         System.out.println("projectId: " + projectId);
         System.out.println("projectName: " + projectName);
-        System.out.print("memberIds: ");
-        for (String memberId : memberIds) {
-            System.out.println(memberId);
-        }
+        System.out.println("memberIds: " + memberIds.toString());
         System.out.println("leaderId: " + leaderId);
     }
 
@@ -104,5 +104,9 @@ public class Project {
         System.out.println("1: List tasks");
         System.out.println("2: Manage tasks");
         System.out.println("3: Manage Members");
+    }
+    
+    public void set(String projectId) {
+    	this.projectId = projectId;
     }
 }

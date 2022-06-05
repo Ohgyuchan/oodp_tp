@@ -2,6 +2,8 @@ package classes;
 
 import java.util.ArrayList;
 
+import classes.user.User;
+
 public class Meeting implements Comparable<Meeting> {
     private String startTime;
     private String title;

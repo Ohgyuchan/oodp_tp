@@ -1,9 +1,9 @@
 package classes.singleton;
 
-import classes.User;
+import classes.user.User;
 
 public class SingletonAuth {
-    private static SingletonAuth instance;
+    private static SingletonAuth instance = null;
     private User currentUser;
 
     private SingletonAuth() {

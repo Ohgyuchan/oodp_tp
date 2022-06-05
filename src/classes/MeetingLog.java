@@ -5,17 +5,18 @@ import java.io.FileWriter;
 import classes.log.strategy.LeaderWrite;
 import classes.log.strategy.MemberWrite;
 import classes.log.strategy.Writing;
+import classes.user.User;
 
 
 public class MeetingLog {
 	private String txt = "내용이 없는데요?" ;
-	private String fileName = "C:\\test11.txt" ;
+	private String fileName = "test11.txt" ;
 	
 	public void WriteMeetingLog(String text, String fileName ,User currentUser, Project currentProject) {
 		
 		try{	
 			if(fileName != null) {//파일 이름 입력
-				this.setFileName("C:\\"+fileName+".txt");
+				this.setFileName("./assets/"+fileName+".txt");
 			}
 			
 		
@@ -47,7 +48,7 @@ public class MeetingLog {
 
 
 	public String getFileName() {
-		return fileName;
+		return this.fileName;
 	}
 
 

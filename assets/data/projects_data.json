@@ -1,0 +1,34 @@
+{
+  "projects": [
+    {
+      "projectName": "oodp",
+      "projectId": "cb7bfe05-c1ef-485b-90d3-2cded74cfde1",
+      "memberIds": ["terman"],
+      "tasks": [
+        {
+          "backgroundColor": "White",
+          "subTasks": [],
+          "num": 0,
+          "meetings": [],
+          "title": "예시 task"
+        }
+      ],
+      "leaderId": "terman"
+    },
+    {
+      "projectName": "oodp2",
+      "projectId": "956ebd1e-df0b-48b0-9782-bc3ae69f4dda",
+      "memberIds": ["terman"],
+      "tasks": [
+        {
+          "backgroundColor": "White",
+          "subTasks": [],
+          "num": 0,
+          "meetings": [],
+          "title": "예시 task"
+        }
+      ],
+      "leaderId": "terman"
+    }
+  ]
+}

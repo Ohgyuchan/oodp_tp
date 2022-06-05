@@ -3,7 +3,7 @@ package classes.singleton;
 import java.util.Scanner;
 
 public class SingletonScanner {
-    private static SingletonScanner instance;
+    private static SingletonScanner instance = null;
     private Scanner scanner;
 
     private SingletonScanner() {

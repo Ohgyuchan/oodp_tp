@@ -3,9 +3,9 @@ package classes;
 import java.util.ArrayList;
 
 public class MementoProject {
-	ArrayList<String> projectIds;
+	private ArrayList<String> projectIds;
 	
-	public MementoProject(ArrayList<String> saveIds){
+	public MementoProject(ArrayList<String> saveIds){	//메멘토 패턴, 접근자 default
 		projectIds=saveIds;
 	}
 	
@@ -17,9 +17,5 @@ public class MementoProject {
 
 	public void setProjectIds(ArrayList<String> projectIds) {
 		this.projectIds = projectIds;
-	}
-
-	public ArrayList<String> getSavedState() {
-		return projectIds;
 	}
 }

@@ -1,5 +1,7 @@
 package classes;
 
+import classes.user.Member;
+
 public class Comment {
     private Member writer;
 
