@@ -77,4 +77,9 @@ public class Comment {
         }
 
     }
+
+    @Override
+    public String toString() {
+        return "\n" + this.getWriter() + " : " + this.getContent();
+    }
 }
