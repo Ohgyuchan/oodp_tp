@@ -1,1 +1,40 @@
-{"projects":[{"projectName":"merong","projectId":"aceaad80-8e76-4744-bf48-6df9fc5399af","memberIds":["terman"],"tasks":[{"backgroundColor":"White","subTasks":[],"num":0,"title":"예시 task"}],"leaderId":"terman"},{"projectName":"meorong2","projectId":"313bd42b-cee5-4fb6-9330-72b9170688eb","memberIds":["terman"],"tasks":[{"backgroundColor":"White","subTasks":[],"num":0,"title":"예시 task"}],"leaderId":"terman"},{"projectName":"merong4","projectId":"17cbbfdd-f266-4343-b5ba-5997752c525c","memberIds":["terman"],"tasks":[{"backgroundColor":"White","subTasks":[],"num":0,"title":"예시 task"}],"leaderId":"terman"},{"projectName":"merong4","projectId":"17cbbfdd-f266-4343-b5ba-5997752c525c","memberIds":["terman"],"tasks":[{"backgroundColor":"White","subTasks":[],"num":0,"title":"예시 task"},{"backgroundColor":"White","subTasks":[{"num":0,"state":"대기중","title":"Sub1"},{"num":1,"state":"대기중","title":"Sub2"}],"num":1,"title":"Task1"}],"leaderId":"terman"},{"projectName":"merong4","projectId":"17cbbfdd-f266-4343-b5ba-5997752c525c","memberIds":["terman"],"tasks":[{"backgroundColor":"White","subTasks":[],"num":0,"title":"예시 task"},{"backgroundColor":"Blue","subTasks":[{"num":0,"state":"완료","title":"Sub1"},{"num":1,"state":"완료","title":"Sub2"}],"num":1,"title":"Task1"},{"backgroundColor":"White","subTasks":[{"num":0,"state":"대기중","title":"Sub1"},{"num":1,"state":"대기중","title":"Sub2"}],"num":2,"title":"Task2"}],"leaderId":"terman"},{"projectName":"merong4","projectId":"17cbbfdd-f266-4343-b5ba-5997752c525c","memberIds":["terman"],"tasks":[{"backgroundColor":"White","subTasks":[],"num":0,"title":"예시 task"},{"backgroundColor":"White","subTasks":[{"num":0,"state":"대기중","title":"Sub1"},{"num":1,"state":"대기중","title":"Sub2"}],"num":1,"title":"Task1"}],"leaderId":"terman"}]}
+{
+    "projects": [{
+            "projectName": "oodp",
+            "projectId": "cb7bfe05-c1ef-485b-90d3-2cded74cfde1",
+            "memberIds": ["terman"],
+            "tasks": [{
+                    "backgroundColor": "White",
+                    "subTasks": [],
+                    "num": 0,
+                    "meetings": [],
+                    "title": "예시 task"
+                },
+                {
+                    "backgroundColor": "White",
+                    "subTasks": [
+                        { "num": 0, "state": "대기중", "title": "iter3-1" },
+                        { "num": 1, "state": "대기중", "title": "iter3-2" }
+                    ],
+                    "num": 1,
+                    "meetings": [],
+                    "title": "iter3"
+                }
+            ],
+            "leaderId": "terman"
+        },
+        {
+            "projectName": "oodp2",
+            "projectId": "956ebd1e-df0b-48b0-9782-bc3ae69f4dda",
+            "memberIds": ["terman"],
+            "tasks": [{
+                "backgroundColor": "White",
+                "subTasks": [],
+                "num": 0,
+                "meetings": [],
+                "title": "예시 task"
+            }],
+            "leaderId": "terman"
+        }
+    ]
+}

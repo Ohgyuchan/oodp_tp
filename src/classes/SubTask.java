@@ -4,6 +4,7 @@ public class SubTask implements Observer {
     private int num;
     private String title;
     private String state;
+    private String person;
 
     public SubTask() {
 
@@ -37,6 +38,14 @@ public class SubTask implements Observer {
         this.state = state;
     }
 
+    public String getPerson() {
+        return person;
+    }
+
+    public void setPerson(String person) {
+        this.person = person;
+    }
+
     // Obeserver Pattern
     @Override
     public void update(String msg) {
@@ -45,6 +54,6 @@ public class SubTask implements Observer {
 
     @Override
     public String toString() {
-        return "\n" + this.getNum() + ".Subtask : " + this.getTitle() + " | 상태 : " + this.getState();
+        return "\n" + this.getNum() + ".Subtask : " + this.getTitle() + " | 상태 : " + this.getState() + " | 담당자 : " + this.getPerson();
     }
 }

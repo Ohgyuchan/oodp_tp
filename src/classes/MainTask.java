@@ -33,9 +33,10 @@ public class MainTask extends AbstractTask implements Todo {
         return subTasks;
     }
 
-    public void setSubTasks(String title, int num) {
+    public void setSubTasks(String title, String person, int num) {
         SubTask st = new SubTask();
         st.setTitle(title);
+        st.setPerson(person);
         st.setNum(num);
         st.setState("대기중");
         this.subscribe(st); // Observer Pattern
@@ -70,6 +71,10 @@ public class MainTask extends AbstractTask implements Todo {
     // State Pattern
     public void setTaskState(TaskState tastState) {
         this.taskState = new OnGoing();
+    }
+
+    public String getTaskState() {
+        return taskState.toString();
     }
 
     // State Pattern
@@ -122,6 +127,6 @@ public class MainTask extends AbstractTask implements Todo {
 
     public String toString() {
         return "[" + this.getNum() + "] Task : " + this.getTitle() + " (상태 : " + this.taskState.stateChange()
-                + "/배경색 : " + this.getBackgroundColor() + ")" + "\nSubtask : " + this.getSubTasks() + "\n" + "Mettings: " + this.getMeetings();
+                + " / 배경색 : " + this.getBackgroundColor() + ")" + "\nSubtask : " + this.getSubTasks() + "\n" + "Mettings: " + this.getMeetings();
     }
 }

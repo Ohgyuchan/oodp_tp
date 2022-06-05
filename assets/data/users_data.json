@@ -1,17 +1,1 @@
-<<<<<<< HEAD:bin/assets/data/users_data.json
-{"users":[{"password":"1234","displayName":"오규찬","id":"terman","projectIds":["aceaad80-8e76-4744-bf48-6df9fc5399af","313bd42b-cee5-4fb6-9330-72b9170688eb","17cbbfdd-f266-4343-b5ba-5997752c525c"]},{"password":"1234","displayName":"오규찬","id":"terman","projectIds":["aceaad80-8e76-4744-bf48-6df9fc5399af","313bd42b-cee5-4fb6-9330-72b9170688eb","17cbbfdd-f266-4343-b5ba-5997752c525c"]},{"password":"1234","displayName":"오규찬","id":"terman","projectIds":["aceaad80-8e76-4744-bf48-6df9fc5399af","313bd42b-cee5-4fb6-9330-72b9170688eb","17cbbfdd-f266-4343-b5ba-5997752c525c"]},{"password":"1234","displayName":"오규찬","id":"terman","projectIds":["aceaad80-8e76-4744-bf48-6df9fc5399af","313bd42b-cee5-4fb6-9330-72b9170688eb","17cbbfdd-f266-4343-b5ba-5997752c525c"]}]}
-=======
-{
-  "users": [
-    {
-      "password": "1234",
-      "displayName": "오규찬",
-      "id": "terman",
-      "projectIds": [
-        "cb7bfe05-c1ef-485b-90d3-2cded74cfde1",
-        "956ebd1e-df0b-48b0-9782-bc3ae69f4dda"
-      ]
-    }
-  ]
-}
->>>>>>> c602e44b46cd91b8e8a8ce77502144bfcec5ddab:assets/data/users_data.json
+{"users":[{"password":"1234","displayName":"오규찬","id":"terman","projectIds":["cb7bfe05-c1ef-485b-90d3-2cded74cfde1","956ebd1e-df0b-48b0-9782-bc3ae69f4dda"]}]}

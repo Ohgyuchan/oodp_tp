@@ -40,11 +40,12 @@ public class Main {
             while (flag) {
                 printMenu();
                 int tag = sc.nextInt();
+                System.out.println("===========================");
                 switch (tag) {
                     case 0:
                         try {
                             SingletonJSON.getInstance().saveJson(SingletonAuth.getInstance().getCurrentUser());
-                            System.out.println("========= SAVE ==========");
+                            System.out.println("========== SAVE ===========");
                         } catch (IOException | ParseException e) {
                             System.out.println("========= FAILED TO SAVE ==========");
                             e.printStackTrace();
@@ -74,6 +75,7 @@ public class Main {
                                 boolean FLAG = true;
                                 while (FLAG) {
                                     printProjectMenu();
+                                    System.out.print("Please Enter the index : ");
                                     int TAG = sc.nextInt();
                                     switch (TAG) {
                                         case 0:
@@ -120,7 +122,7 @@ public class Main {
             switch (mode) {
                 case 0:
                     sc.close();
-                    System.out.println("=====EXIT=====");
+                    System.out.println("========== EXIT ==========");
                     return false;
 
                 case 1:
@@ -160,7 +162,7 @@ public class Main {
 
     private static void deleteProject(Scanner sc) {
         SingletonAuth.getInstance().getCurrentUser().printProjects();
-        System.out.print("Pleas Enter the index to delete: ");
+        System.out.print("Please Enter the index to delete: ");
         int indexToDelete = sc.nextInt();
         storeProjects();
         SingletonAuth.getInstance().getCurrentUser().deleteProject(indexToDelete - 1);
@@ -178,7 +180,8 @@ public class Main {
 
     private static void selectProject(Scanner sc) {
         SingletonAuth.getInstance().getCurrentUser().printProjects();
-        System.out.print("Pleas Enter the index: ");
+        System.out.println("===========================");
+        System.out.print("Please Enter the index : ");
         int indexToSelect = sc.nextInt();
         String selectedProjectId = SingletonAuth.getInstance().getCurrentUser().getProjectIds().get(indexToSelect - 1);
         currentProject = SingletonJSON.getInstance().getProject(selectedProjectId);
@@ -188,6 +191,7 @@ public class Main {
         MainTask t = new MainTask("");
         boolean check = true;
 
+        System.out.println("===========================");
         System.out.print("Enter the Task Title: ");
         sc.nextLine();
         String title = sc.nextLine();
@@ -196,20 +200,26 @@ public class Main {
 
         while (check) {
             printInputSubtask();
+            System.out.print("Please Enter the index : ");
             int subtaskInput = sc.nextInt();
 
             switch (subtaskInput) {
                 case 1:
+                    System.out.println("===========================");
                     System.out.print("Enter Subtask Title : ");
                     sc.nextLine();
                     String subTitle = sc.nextLine();
-                    t.setSubTasks(subTitle, t.getSubTasks().size());
+                    System.out.print("Enter The Person in Charge : ");
+                    String person = sc.nextLine();
+                    t.setSubTasks(subTitle, person, t.getSubTasks().size());
                     break;
-                case 2:
+                case 0:
+                    System.out.println("===========================");
                     System.out.println("[SAVE] Subtask");
                     check = false;
                     break;
                 default:
+                    System.out.println("===========================");
                     System.out.println("[ERROR] Retry");
                     break;
             }
@@ -237,16 +247,15 @@ public class Main {
                 System.out.println("===========================");
                 for (MainTask p : currentProject.getTasks()) {
                     System.out.println(p.toString());
-                    System.out.println();
                 }
-                System.out.println("===========================");
                 printSelectTask();
+                System.out.print("Please Enter the index : ");
                 int taskInput = sc.nextInt();
                 switch (taskInput) {
                     case 1:
                         viewTaskDetail(sc);
                         break;
-                    case 2:
+                    case 0:
                         check = false;
                         break;
                     default:
@@ -258,31 +267,42 @@ public class Main {
 
     private static void viewTaskDetail(Scanner sc) {
         boolean check = true;
-        System.out.println("ENTER THE INDEX");
+        System.out.println("===========================");
+        for (MainTask p : currentProject.getTasks()) {
+            System.out.println(p.toString());
+        }
+        System.out.println("===========================");
+        System.out.print("Please Enter the index of the task : ");
         int taskIndex = sc.nextInt();
-
-        System.out.println("");
-        System.out.println("Task : " + currentProject.getTasks().get(taskIndex).getTitle());
+        System.out.println("===========================");
+        System.out.println("Task : " + currentProject.getTasks().get(taskIndex).getTitle() + " > State : " + currentProject.getTasks().get(taskIndex).stateChange());
         System.out.println("SubTask");
         System.out.println(currentProject.getTasks().get(taskIndex).getSubTasks());
-        System.out.println("");
 
         while (check) {
             printStateChange();
             sc.nextLine();
+            System.out.println("===========================");
+            System.out.print("Please Enter the index : ");
             int inputIndex = sc.nextInt();
 
             switch (inputIndex) {
                 case 1:
+                    System.out.println("===========================");
+                    System.out.println("Task : " + currentProject.getTasks().get(taskIndex).getTitle() + " > State : " + currentProject.getTasks().get(taskIndex).stateChange());
                     checkingTask(sc, taskIndex);
                     break;
                 case 2:
+                    System.out.println("===========================");
+                    System.out.println("Task : " + currentProject.getTasks().get(taskIndex).getTitle() + " > State : " + currentProject.getTasks().get(taskIndex).stateChange());
+                    System.out.println("SubTask");
+                    System.out.println(currentProject.getTasks().get(taskIndex).getSubTasks());
                     checkingSubTask(sc, taskIndex);
                     break;
                 case 3:
                     currentProject.getTasks().get(taskIndex).addMeeting(sc);
                     break;
-                case 4:
+                case 0:
                     check = false;
                     break;
                 default:
@@ -292,43 +312,64 @@ public class Main {
     }
 
     private static void checkingTask(Scanner sc, int index) {
-        System.out.println("");
         OnGoing onGoing = new OnGoing();
         printState();
         sc.nextLine();
+        System.out.print("Please Enter the index : ");
         int inputIndex = sc.nextInt();
 
         switch (inputIndex) {
             case 1:
+                System.out.println("===========================");
                 currentProject.getTasks().get(index).setTaskState(onGoing); // State Pattern
+                System.out.println("Task : " + currentProject.getTasks().get(index).getTitle() + " > State : " + currentProject.getTasks().get(index).stateChange());
+                System.out.println("SubTask");
+                System.out.println(currentProject.getTasks().get(index).getSubTasks());
                 break;
             case 2:
+                System.out.println("===========================");
                 currentProject.getTasks().get(index).upgradeComplete();
+                System.out.println("Task : " + currentProject.getTasks().get(index).getTitle() + " > State : " + currentProject.getTasks().get(index).stateChange());
+                System.out.println("SubTask");
+                System.out.println(currentProject.getTasks().get(index).getSubTasks());
                 ; // Observer Pattern
                 break;
-            case 3:
+            case 0:
                 break;
         }
     }
 
     private static void checkingSubTask(Scanner sc, int index) {
-        System.out.println("");
-        System.out.print("Subtask 선택 : ");
+        System.out.println("===========================");
+        System.out.print("Please Enter the index of the Subtask : ");
         sc.nextLine();
         int subtaskIndex = sc.nextInt();
 
+        System.out.println("===========================");
+        System.out.println("Task : " + currentProject.getTasks().get(index).getTitle() + " > State : " + currentProject.getTasks().get(index).stateChange());
+        System.out.println("SubTask");
+        System.out.println(currentProject.getTasks().get(index).getSubTasks());
         printState();
         sc.nextLine();
+        System.out.print("Please Enter the index : ");
         int inputIndex = sc.nextInt();
 
         switch (inputIndex) {
             case 1:
                 currentProject.getTasks().get(index).getSubTasks().get(subtaskIndex).setState("진행중");
+                System.out.println("===========================");
+                System.out.println("Task : " + currentProject.getTasks().get(index).getTitle() + " > State : " + currentProject.getTasks().get(index).stateChange());
+                System.out.println("SubTask");
+                System.out.println(currentProject.getTasks().get(index).getSubTasks());
                 break;
             case 2:
                 currentProject.getTasks().get(index).getSubTasks().get(subtaskIndex).setState("완료");
+                System.out.println("===========================");
+                System.out.println("Task : " + currentProject.getTasks().get(index).getTitle() + " > State : " + currentProject.getTasks().get(index).stateChange());
+                System.out.println("SubTask");
+                System.out.println(currentProject.getTasks().get(index).getSubTasks());
                 break;
-            case 3:
+            case 0:
                 break;
         }
     }
@@ -350,8 +391,8 @@ public class Main {
         System.out.println("3: DELETE A PROJECT");
         System.out.println("4: SELECT A PROJECT");
         System.out.println("5: Restore A PROJECTS");
-        System.out.println("DEFAULT: PRINT MENU");
         System.out.println("===========================");
+        System.out.print("Please Enter the index : ");
     }
 
     private static void printProjectMenu() {
@@ -366,32 +407,31 @@ public class Main {
 
     private static void printInputSubtask() {
         System.out.println("===========================");
+        System.out.println("0: EXIT");
         System.out.println("1: ADD SUBTASK");
-        System.out.println("2: EXIT");
         System.out.println("===========================");
     }
 
     private static void printSelectTask() {
         System.out.println("===========================");
+        System.out.println("0: EXIT");
         System.out.println("1: VIEW TASK DETAIL");
-        System.out.println("2: EXIT");
         System.out.println("===========================");
     }
 
     private static void printStateChange() {
         System.out.println("===========================");
+        System.out.println("0: EXIT");
         System.out.println("1: CHANGE TASK'S STATE");
         System.out.println("2: CHANGE SUBTASK'S STATE");
         System.out.println("3: ADD MEETING");
-        System.out.println("4: EXIT");
-        System.out.println("===========================");
     }
 
     private static void printState() {
         System.out.println("===========================");
+        System.out.println("0: EXIT");
         System.out.println("1: ON-GOING");
         System.out.println("2: COMPLETE");
-        System.out.println("3: EXIT");
         System.out.println("===========================");
     }
 
