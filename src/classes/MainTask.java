@@ -10,7 +10,7 @@ public class MainTask extends AbstractTask implements Todo {
     private String title;
     private String backgroundColor = "White";
     private ArrayList<SubTask> subTasks = new ArrayList<>();
-    private ArrayList<SubTodo> subTodos = new ArrayList<>(); // Observer Pattern
+    private ArrayList<Observer> subTodos = new ArrayList<>(); // Observer Pattern
     private TaskState taskState = new Waiting(); // State Pattern
     private ArrayList<Meeting> meetings = new ArrayList<>();
 
@@ -104,13 +104,13 @@ public class MainTask extends AbstractTask implements Todo {
 
     // Observer Patter
     @Override
-    public void subscribe(SubTodo subtodo) {
+    public void subscribe(Observer subtodo) {
         subTodos.add(subtodo);
     }
 
     // Observer Patter
     @Override
-    public void unsubscribe(SubTodo subtodo) {
+    public void unsubscribe(Observer subtodo) {
         subTodos.remove(subtodo);
     }
 
