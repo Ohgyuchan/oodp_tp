@@ -1,7 +1,3 @@
-<<<<<<< HEAD
 {
   "projects": []
 }
-=======
-{"projects":[{"projectName":"oodp","projectId":"cb7bfe05-c1ef-485b-90d3-2cded74cfde1","memberIds":["terman"],"tasks":[{"backgroundColor":"White","subTasks":[],"num":0,"meetings":[],"title":"예시 task"},{"backgroundColor":"White","subTasks":[{"num":0,"state":"대기중","title":"iter3-1"},{"num":1,"state":"대기중","title":"iter3-2"}],"num":1,"meetings":[],"title":"iter3"}],"leaderId":"terman"},{"projectName":"oodp2","projectId":"956ebd1e-df0b-48b0-9782-bc3ae69f4dda","memberIds":["terman"],"tasks":[{"backgroundColor":"White","subTasks":[],"num":0,"meetings":[],"state":"대기중","title":"예시 task"},{"backgroundColor":"White","subTasks":[{"comments":[],"person":"Oh","num":0,"state":"대기중","title":"S1"}],"num":1,"meetings":[],"state":"대기중","title":"T1"},{"backgroundColor":"Blue","subTasks":[{"comments":[{"num":0,"writer":"오규찬","content":"Hi"}],"person":"Oh","num":0,"state":"완료","title":"Sub1"},{"comments":[{"num":0,"writer":"오규찬","content":"Good!"},{"num":1,"writer":"오규찬","content":"Job!"}],"person":"Kim","num":1,"state":"완료","title":"Sub2"},{"comments":[],"person":"Lee","num":2,"state":"완료","title":"Sub3"}],"num":2,"meetings":[],"state":"완료","title":"Task2"}],"leaderId":"terman"}]}
->>>>>>> 1ddfc66a4351aa2fe1ae4ce2388198f4c64b6a7f
