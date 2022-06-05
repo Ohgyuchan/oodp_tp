@@ -5,9 +5,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Scanner;
 
-import classes.singleton.SingletonAuth;
-import classes.singleton.SingletonJSON;
-
 public class MainTask extends AbstractTask implements Todo {
     private int num;
     private String title;
