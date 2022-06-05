@@ -11,7 +11,7 @@ public class ReadMeetingLog implements IRead {
 	public String Load(String fileName) {
 		FileReader reader = null;
 		try {
-			reader = new FileReader("./asset/" + fileName + ".txt");
+			reader = new FileReader(fileName);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
