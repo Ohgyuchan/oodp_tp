@@ -18,12 +18,6 @@ import classes.singleton.SingletonJSON;
 import classes.singleton.SingletonScanner;
 import classes.user.User;
 
-// 회원가입, 로그아웃
-// 프로젝트리스트
-// 프로젝트 추가 삭제
-// 멤버 초대
-// task, subtask 추가
-
 public class Main {
     private static Project currentProject;
     private static ArrayList<MementoProject> savedProjects = new ArrayList<MementoProject>();
@@ -112,7 +106,9 @@ public class Main {
                         break;
                     case 6:
                         auth.setAuth(af.createAuth("UpdateUserInfo"));
-                        auth.authAction();
+                        while (auth.authAction()) {
+                            auth.authAction();
+                        }
                         break;
                     default:
                         break;
@@ -503,7 +499,7 @@ public class Main {
         System.out.println("6: UPDATE USER INFO");
         System.out.println("DEFAULT: PRINT MENU");
         System.out.println("===========================");
-        System.out.print("Please Enter the index : ");
+        System.out.print("Please Enter the number : ");
     }
 
     private static void printProjectMenu() {
