@@ -275,7 +275,7 @@ public class Main {
         System.out.print("Please Enter the index of the task : ");
         int taskIndex = sc.nextInt();
         System.out.println("===========================");
-        System.out.println("Task : " + currentProject.getTasks().get(taskIndex).getTitle() + " > State : " + currentProject.getTasks().get(taskIndex).stateChange());
+        System.out.println("Task : " + currentProject.getTasks().get(taskIndex).getTitle() + " > State : " + currentProject.getTasks().get(taskIndex).getState());
         System.out.println("SubTask");
         System.out.println(currentProject.getTasks().get(taskIndex).getSubTasks());
 
@@ -289,12 +289,12 @@ public class Main {
             switch (inputIndex) {
                 case 1:
                     System.out.println("===========================");
-                    System.out.println("Task : " + currentProject.getTasks().get(taskIndex).getTitle() + " > State : " + currentProject.getTasks().get(taskIndex).stateChange());
+                    System.out.println("Task : " + currentProject.getTasks().get(taskIndex).getTitle() + " > State : " + currentProject.getTasks().get(taskIndex).getState());
                     checkingTask(sc, taskIndex);
                     break;
                 case 2:
                     System.out.println("===========================");
-                    System.out.println("Task : " + currentProject.getTasks().get(taskIndex).getTitle() + " > State : " + currentProject.getTasks().get(taskIndex).stateChange());
+                    System.out.println("Task : " + currentProject.getTasks().get(taskIndex).getTitle() + " > State : " + currentProject.getTasks().get(taskIndex).getState());
                     System.out.println("SubTask");
                     System.out.println(currentProject.getTasks().get(taskIndex).getSubTasks());
                     checkingSubTask(sc, taskIndex);
@@ -321,15 +321,29 @@ public class Main {
         switch (inputIndex) {
             case 1:
                 System.out.println("===========================");
-                currentProject.getTasks().get(index).setTaskState(onGoing); // State Pattern
-                System.out.println("Task : " + currentProject.getTasks().get(index).getTitle() + " > State : " + currentProject.getTasks().get(index).stateChange());
+                currentProject.getTasks().get(index).setState(onGoing); // State Pattern
+
+                try {
+                    SingletonJSON.getInstance().saveJson(currentProject, SingletonAuth.getInstance().getCurrentUser());
+                } catch (IOException | org.json.simple.parser.ParseException e) {
+                    e.printStackTrace();
+                }
+        
+                System.out.println("Task : " + currentProject.getTasks().get(index).getTitle() + " > State : " + currentProject.getTasks().get(index).getState());
                 System.out.println("SubTask");
                 System.out.println(currentProject.getTasks().get(index).getSubTasks());
                 break;
             case 2:
                 System.out.println("===========================");
                 currentProject.getTasks().get(index).upgradeComplete();
-                System.out.println("Task : " + currentProject.getTasks().get(index).getTitle() + " > State : " + currentProject.getTasks().get(index).stateChange());
+                
+                try {
+                    SingletonJSON.getInstance().saveJson(currentProject, SingletonAuth.getInstance().getCurrentUser());
+                } catch (IOException | org.json.simple.parser.ParseException e) {
+                    e.printStackTrace();
+                }        
+
+                System.out.println("Task : " + currentProject.getTasks().get(index).getTitle() + " > State : " + currentProject.getTasks().get(index).getState());
                 System.out.println("SubTask");
                 System.out.println(currentProject.getTasks().get(index).getSubTasks());
                 ; // Observer Pattern
@@ -346,7 +360,7 @@ public class Main {
         int subtaskIndex = sc.nextInt();
 
         System.out.println("===========================");
-        System.out.println("Task : " + currentProject.getTasks().get(index).getTitle() + " > State : " + currentProject.getTasks().get(index).stateChange());
+        System.out.println("Task : " + currentProject.getTasks().get(index).getTitle() + " > State : " + currentProject.getTasks().get(index).getState());
         System.out.println("SubTask");
         System.out.println(currentProject.getTasks().get(index).getSubTasks());
         printState();
@@ -357,15 +371,25 @@ public class Main {
         switch (inputIndex) {
             case 1:
                 currentProject.getTasks().get(index).getSubTasks().get(subtaskIndex).setState("진행중");
+                try {
+                    SingletonJSON.getInstance().saveJson(currentProject, SingletonAuth.getInstance().getCurrentUser());
+                } catch (IOException | org.json.simple.parser.ParseException e) {
+                    e.printStackTrace();
+                }        
                 System.out.println("===========================");
-                System.out.println("Task : " + currentProject.getTasks().get(index).getTitle() + " > State : " + currentProject.getTasks().get(index).stateChange());
+                System.out.println("Task : " + currentProject.getTasks().get(index).getTitle() + " > State : " + currentProject.getTasks().get(index).getState());
                 System.out.println("SubTask");
                 System.out.println(currentProject.getTasks().get(index).getSubTasks());
                 break;
             case 2:
                 currentProject.getTasks().get(index).getSubTasks().get(subtaskIndex).setState("완료");
+                try {
+                    SingletonJSON.getInstance().saveJson(currentProject, SingletonAuth.getInstance().getCurrentUser());
+                } catch (IOException | org.json.simple.parser.ParseException e) {
+                    e.printStackTrace();
+                }        
                 System.out.println("===========================");
-                System.out.println("Task : " + currentProject.getTasks().get(index).getTitle() + " > State : " + currentProject.getTasks().get(index).stateChange());
+                System.out.println("Task : " + currentProject.getTasks().get(index).getTitle() + " > State : " + currentProject.getTasks().get(index).getState());
                 System.out.println("SubTask");
                 System.out.println(currentProject.getTasks().get(index).getSubTasks());
                 break;

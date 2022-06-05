@@ -11,7 +11,10 @@ public class MainTask extends AbstractTask implements Todo {
     private String backgroundColor = "White";
     private ArrayList<SubTask> subTasks = new ArrayList<>();
     private ArrayList<Observer> subTodos = new ArrayList<>(); // Observer Pattern
-    private TaskState taskState = new Waiting(); // State Pattern
+    private Waiting waiting = new Waiting();
+    private Complete complete = new Complete();
+    private TaskState taskState = waiting; // State Pattern
+    private String state = taskState.stateChange();
     private ArrayList<Meeting> meetings = new ArrayList<>();
 
     public ArrayList<Meeting> getMeetings() {
@@ -23,6 +26,7 @@ public class MainTask extends AbstractTask implements Todo {
     }
 
     public MainTask() {
+
     }
 
     public MainTask(String title) {
@@ -69,12 +73,12 @@ public class MainTask extends AbstractTask implements Todo {
     }
 
     // State Pattern
-    public void setTaskState(TaskState tastState) {
-        this.taskState = new OnGoing();
+    public void setState(TaskState taskState) {
+        this.state = taskState.stateChange();
     }
 
-    public String getTaskState() {
-        return taskState.toString();
+    public String getState() {
+        return state;
     }
 
     // State Pattern
@@ -85,8 +89,7 @@ public class MainTask extends AbstractTask implements Todo {
     // Observer Patter
     public void upgradeComplete() {
         this.backgroundColor = "Blue";
-        // this.state = "완료" ;
-        this.taskState = new Complete();
+        this.state = complete.stateChange();
         notifySubTodo("완료");
     }
 
@@ -126,7 +129,7 @@ public class MainTask extends AbstractTask implements Todo {
     }
 
     public String toString() {
-        return "[" + this.getNum() + "] Task : " + this.getTitle() + " (상태 : " + this.taskState.stateChange()
-                + " / 배경색 : " + this.getBackgroundColor() + ")" + "\nSubtask : " + this.getSubTasks() + "\n" + "Mettings: " + this.getMeetings();
+        return "[" + this.getNum() + "] Task : " + this.getTitle() + " | 상태 : " + this.getState()
+                + " | 배경색 : " + this.getBackgroundColor() + "\nSubtask : " + this.getSubTasks() + "\n" + "Mettings: " + this.getMeetings();
     }
 }
