@@ -96,10 +96,13 @@ public class MainTask extends AbstractTask implements Todo {
         meetings.add(nmeet);
     }
 
-    public void dateList() {
-        Collections.sort(meetings);
+    public void meetingList() {
+//        Collections.sort(meetings);
+    	int i=0;
         for (Meeting m : meetings) {
-            System.out.println(m.toString());
+            System.out.print("# "+i+" : ");
+        	System.out.println(m.toString());
+        	i++;
         }
     }
 

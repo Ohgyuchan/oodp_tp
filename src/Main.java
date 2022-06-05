@@ -308,7 +308,10 @@ public class Main {
                     currentProject.getTasks().get(taskIndex).addMeeting(sc);
                     break;
                 case 4:
-                    currentProject.getTasks().get(taskIndex).getMeetings().get(0).printMeeting(sc, user,
+                	currentProject.getTasks().get(taskIndex).meetingList();
+                	System.out.println("please enter the index:");
+                	int index = sc.nextInt();
+                    currentProject.getTasks().get(taskIndex).getMeetings().get(index).printMeeting(sc, user,
                             currentProject);
                     break;
                 case 5:

@@ -56,8 +56,8 @@ public class Meeting implements Comparable<Meeting> {
                     break;
                 case 2:
                     read();
-                    FacadeComment comment = new FacadeComment();
-                    comment.writeComment(this.comments, sc, user, project);
+//                    FacadeComment comment = new FacadeComment();
+//                    comment.writeComment(this.comments, sc, user, project);
                     break;
                 default:
                     break;
@@ -120,8 +120,10 @@ public class Meeting implements Comparable<Meeting> {
     }
 
     public void read() {
-        IRead proxy = new Proxy();
-        proxy.Load(Log.getFileName());
+        String sen;
+    	IRead proxy = new Proxy();
+        sen=proxy.Load(Log.getFileName());
+        if(sen.equals("")) return;
     }
 
     public void write(User user, Project project) {

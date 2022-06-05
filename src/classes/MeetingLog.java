@@ -1,6 +1,7 @@
 package classes;
 
-import java.io.File;
+import java.io.BufferedWriter;
+//import java.io.File;
 import java.io.FileWriter;
 
 import classes.log.strategy.LeaderWrite;
@@ -10,13 +11,13 @@ import classes.user.User;
 
 public class MeetingLog {
 	private String txt = "내용이 없는데요?";
-	private String fileName = "./test11.txt";
+	private String fileName = "test11.txt";
 
 	public void WriteMeetingLog(String text, String fileName, User currentUser, Project currentProject) {
-
+		
 		try {
 			if (fileName != null) {// 파일 이름 입력
-				this.setFileName("./" + fileName + ".txt");
+				this.fileName=fileName;
 			}
 
 			if (text != null && currentUser.getId().equals(currentProject.getLeaderId())) { // 내용 입력, [strategy패턴]
@@ -30,9 +31,11 @@ public class MeetingLog {
 				this.txt = state + text;
 			}
 
-			File file = new File(fileName);
-
-			FileWriter fw = new FileWriter(file, true);
+//			File file = new File(fileName);
+//
+//			FileWriter fw = new FileWriter(file, true);
+			
+			BufferedWriter fw = new BufferedWriter(new FileWriter(fileName, true));
 
 			fw.write(txt);
 			fw.flush();
@@ -51,4 +54,10 @@ public class MeetingLog {
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
 	}
+
+	@Override
+	public String toString() {
+		return "MeetingLog [fileName=" + fileName + "]";
+	}
+	
 }

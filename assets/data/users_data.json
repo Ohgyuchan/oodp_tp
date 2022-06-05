@@ -1,16 +1,1 @@
-{
-  "users": [
-    {
-      "password": "1234",
-      "displayName": "gyu",
-      "id": "terman",
-      "projectIds": []
-    },
-    {
-      "password": "1234",
-      "displayName": "gyuchan",
-      "id": "gyu",
-      "projectIds": []
-    }
-  ]
-}
+{"users":[{"password":"1234","displayName":"gyu","id":"terman","projectIds":["11c1bcdc-fb30-4206-9b8f-f2d6536ffe56","d8addfab-11f1-4a00-9e1f-b10eb172e787"]},{"password":"1234","displayName":"gyuchan","id":"gyu","projectIds":[]}]}
