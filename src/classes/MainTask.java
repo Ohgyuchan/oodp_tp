@@ -13,8 +13,10 @@ public class MainTask extends AbstractTask implements Todo {
     private String title;
     private String backgroundColor = "White";
     private ArrayList<SubTask> subTasks = new ArrayList<>();
-    private ArrayList<Observer> subTodos = new ArrayList<>(); // Observer Pattern
-    private TaskState taskState = new Waiting(); // State Pattern
+    private ArrayList<Observer> observers = new ArrayList<>(); // Observer Pattern
+
+    private String state = "대기중";
+
     private ArrayList<Meeting> meetings = new ArrayList<>();
 
     public ArrayList<Meeting> getMeetings() {
@@ -26,6 +28,7 @@ public class MainTask extends AbstractTask implements Todo {
     }
 
     public MainTask() {
+
     }
 
     public MainTask(String title) {
@@ -36,9 +39,10 @@ public class MainTask extends AbstractTask implements Todo {
         return subTasks;
     }
 
-    public void setSubTasks(String title, int num) {
+    public void setSubTasks(String title, String person, int num) {
         SubTask st = new SubTask();
         st.setTitle(title);
+        st.setPerson(person);
         st.setNum(num);
         st.setState("대기중");
         this.subscribe(st); // Observer Pattern
@@ -70,21 +74,18 @@ public class MainTask extends AbstractTask implements Todo {
         this.backgroundColor = backgroundColor;
     }
 
-    // State Pattern
-    public void setTaskState(TaskState tastState) {
-        this.taskState = new OnGoing();
+    public void setState(String state) {
+        this.state = state;
     }
 
-    // State Pattern
-    public String stateChange() {
-        return taskState.stateChange();
+    public String getState() {
+        return state;
     }
 
     // Observer Patter
     public void upgradeComplete() {
         this.backgroundColor = "Blue";
-        // this.state = "완료" ;
-        this.taskState = new Complete();
+        this.state = "완료";
         notifySubTodo("완료");
     }
 
@@ -108,24 +109,29 @@ public class MainTask extends AbstractTask implements Todo {
     // Observer Patter
     @Override
     public void subscribe(Observer subtodo) {
-        subTodos.add(subtodo);
+        observers.add(subtodo);
     }
 
     // Observer Patter
     @Override
     public void unsubscribe(Observer subtodo) {
-        subTodos.remove(subtodo);
+        observers.remove(subtodo);
     }
 
     // Observer Patter
     @Override
     public void notifySubTodo(String msg) {
-        subTodos.forEach(crew -> crew.update(msg));
+        observers.forEach(crew -> crew.update(msg));
     }
 
     public String toString() {
+<<<<<<< HEAD
         return "[" + this.getNum() + "] Task : " + this.getTitle() + " (상태 : " + this.taskState.stateChange()
                 + "/배경색 : " + this.getBackgroundColor() + ")" + "\nSubtask : " + this.getSubTasks() + "\n"
                 + "Mettings: " + this.getMeetings();
+=======
+        return "[" + this.getNum() + "] Task : " + this.getTitle() + " | 상태 : " + this.getState()
+                + " | 배경색 : " + this.getBackgroundColor() + "\nSubtask : " + this.getSubTasks() + "\n" + "Mettings: " + this.getMeetings();
+>>>>>>> 1ddfc66a4351aa2fe1ae4ce2388198f4c64b6a7f
     }
 }

@@ -7,7 +7,11 @@ import classes.user.User;
 
 public class Comment {
     private String writer;
+<<<<<<< HEAD
     private String content;
+=======
+    private int num;
+>>>>>>> 1ddfc66a4351aa2fe1ae4ce2388198f4c64b6a7f
 
     public Comment() {
     }
@@ -17,6 +21,17 @@ public class Comment {
         this.content = content;
     }
 
+<<<<<<< HEAD
+=======
+    public int getNum() {
+        return num;
+    }
+
+    public void setNum(int num) {
+        this.num = num;
+    }
+
+>>>>>>> 1ddfc66a4351aa2fe1ae4ce2388198f4c64b6a7f
     public String getWriter() {
         return writer;
     }
@@ -33,6 +48,7 @@ public class Comment {
         this.content = content;
     }
 
+<<<<<<< HEAD
     public void printComment() {
         System.out.println("===========================");
         System.out.println("0: EXIT");
@@ -68,4 +84,12 @@ public class Comment {
         }
 
     }
+=======
+    @Override
+    public String toString() {
+        return "\n" + this.getWriter() + " : " + this.getContent();
+    }
+
+    private String content;
+>>>>>>> 1ddfc66a4351aa2fe1ae4ce2388198f4c64b6a7f
 }

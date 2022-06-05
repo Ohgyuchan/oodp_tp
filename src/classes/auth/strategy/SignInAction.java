@@ -12,7 +12,7 @@ import classes.user.User;
 public class SignInAction implements Auth {
     @Override
     public boolean authAction() {
-        System.out.println("====== SIGN IN ======");
+        System.out.println("========= SIGN IN =========");
         Scanner sc = SingletonScanner.getInstance().getScanner();
         ArrayList<User> users = new ArrayList<>();
         users = SingletonJSON.getInstance().getUserList();

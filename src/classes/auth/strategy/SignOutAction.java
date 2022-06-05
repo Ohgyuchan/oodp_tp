@@ -7,12 +7,12 @@ public class SignOutAction implements Auth {
     public boolean authAction() {
         SingletonAuth.getInstance().setCurrentUser(null);
         if (SingletonAuth.getInstance().getCurrentUser() != null) {
-            System.out.println("====== SignOut FAILED======");
+            System.out.println("======= SignOut FAILED =======");
             return false;
         }
 
         else {
-            System.out.println("====== SignOut ======");
+            System.out.println("========= SignOut =========");
             return true;
         }
     }
