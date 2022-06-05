@@ -4,8 +4,6 @@ import java.util.Comparator;
 import java.util.ConcurrentModificationException;
 import java.util.Scanner;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-
 import org.json.simple.parser.ParseException;
 
 import classes.Facade;
@@ -13,9 +11,7 @@ import classes.MainTask;
 import classes.MementoProject;
 import classes.OnGoing;
 import classes.Project;
-import classes.auth.strategy.SignInAction;
-import classes.auth.strategy.SignOutAction;
-import classes.auth.strategy.SignUpAction;
+import classes.auth.AuthFactory;
 import classes.auth.strategy.SignWithAuth;
 import classes.singleton.SingletonAuth;
 import classes.singleton.SingletonJSON;
@@ -33,9 +29,10 @@ public class Main {
 
     public static void main(String[] args) {
         Scanner sc = SingletonScanner.getInstance().getScanner();
-
         SignWithAuth auth = new SignWithAuth();
-        while (loginMenu(auth, sc)) {
+        AuthFactory af = new AuthFactory();
+
+        while (loginMenu(auth, sc, af)) {
             boolean flag = true;
             while (flag) {
                 printMenu();
@@ -49,7 +46,7 @@ public class Main {
                             System.out.println("========= FAILED TO SAVE ==========");
                             e.printStackTrace();
                         }
-                        auth.setAuth(new SignOutAction());
+                        auth.setAuth(af.createAuth("SignOut"));
                         flag = !auth.authAction();
                         break;
                     case 1:
@@ -113,7 +110,7 @@ public class Main {
         }
     }
 
-    private static boolean loginMenu(SignWithAuth auth, Scanner sc) {
+    private static boolean loginMenu(SignWithAuth auth, Scanner sc, AuthFactory af) {
         while (SingletonAuth.getInstance().getCurrentUser() == null) {
             printLoginMenu();
             int mode = sc.nextInt();
@@ -124,7 +121,7 @@ public class Main {
                     return false;
 
                 case 1:
-                    auth.setAuth(new SignInAction());
+                    auth.setAuth(af.createAuth("SignIn"));
                     boolean result = auth.authAction();
                     if (result) {
                         if (SingletonAuth.getInstance().getCurrentUser() != null)
@@ -138,7 +135,7 @@ public class Main {
                     break;
 
                 case 2:
-                    auth.setAuth(new SignUpAction());
+                    auth.setAuth(af.createAuth("SignUp"));
                     if (auth.authAction()) {
                         System.out.println("===== Sign Up Success ======");
                     } else {
