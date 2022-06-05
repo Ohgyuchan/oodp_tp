@@ -71,7 +71,7 @@ public class Main {
                                 boolean FLAG = true;
                                 while (FLAG) {
                                     printProjectMenu();
-                                    System.out.print("Please Enter the index : ");
+                                    
                                     int TAG = sc.nextInt();
                                     switch (TAG) {
                                         case 0:
@@ -510,6 +510,7 @@ public class Main {
         System.out.println("3: ADD TASK");
         System.out.println("4: INVITE A MEMBER");
         System.out.println("===========================");
+        System.out.print("Please Enter the number : ");
     }
 
     private static void printInputSubtask() {
