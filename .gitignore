@@ -1,4 +1,4 @@
 .classpath
 .project
-bin/*.class
-assets/data/*.json
+*.class
+*.json
