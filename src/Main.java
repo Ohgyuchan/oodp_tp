@@ -269,8 +269,6 @@ public class Main {
             printStateChange();
             sc.nextLine();
             int inputIndex = sc.nextInt();
-            
-            SignWithAuth auth = new SignWithAuth();
             User user = SingletonAuth.getInstance().getCurrentUser();
 
             switch (inputIndex) {
@@ -284,11 +282,12 @@ public class Main {
                     currentProject.getTasks().get(taskIndex).addMeeting(sc);
                     break;
                 case 4:
-                    currentProject.getTasks().get(taskIndex).getMeetings().get(0).printMeeting(sc, user, currentProject);
+                    currentProject.getTasks().get(taskIndex).getMeetings().get(0).printMeeting(sc, user,
+                            currentProject);
                     break;
                 case 5:
-                	check = false;
-                	break;
+                    check = false;
+                    break;
                 default:
                     break;
             }
