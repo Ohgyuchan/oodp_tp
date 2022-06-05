@@ -60,7 +60,7 @@ public class User extends Member {
     }
 
     public MementoProject savetoMemento() { // 메멘토패턴, 프로젝트 리스트 저장
-        System.out.println("======= Save the projects =======");
+        System.out.println("======= Save the projects by Memento =======");
         return new MementoProject(this.projectIds);
     }
 
