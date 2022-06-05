@@ -14,7 +14,7 @@ public class Leader {
         sc.nextLine();
         System.out.print("Input ID: ");
         this.id = sc.nextLine();
-        System.out.print("Input display name: ");
+        System.out.print("Input Name: ");
         this.displayName = sc.nextLine();
     }
 
@@ -40,7 +40,8 @@ public class Leader {
     }
 
     public void print() {
-        System.out.println(this.getId());
+        System.out.println("ID:" + this.getId());
+        System.out.println("NAME:" + this.getDisplayName());
     }
 
 }

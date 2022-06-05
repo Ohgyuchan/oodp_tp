@@ -104,6 +104,10 @@ public class Main {
                             restoreProjects(sc);
                         }
                         break;
+                    case 6:
+                        auth.setAuth(af.createAuth("UpdateUserInfo"));
+                        auth.authAction();
+                        break;
                     default:
                         break;
                 }
@@ -352,7 +356,8 @@ public class Main {
         System.out.println("2: CREATE A PROJECT");
         System.out.println("3: DELETE A PROJECT");
         System.out.println("4: SELECT A PROJECT");
-        System.out.println("5: Restore A PROJECTS");
+        System.out.println("5: RESTORE A PROJECTS");
+        System.out.println("6: UPDATE USER INFO");
         System.out.println("DEFAULT: PRINT MENU");
         System.out.println("===========================");
     }

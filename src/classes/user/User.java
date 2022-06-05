@@ -16,7 +16,7 @@ public class User extends Member {
 
     public User(Scanner sc) {
         super(sc);
-        System.out.print("Input password: ");
+        System.out.print("Input Password: ");
         this.password = sc.nextLine();
         this.projectIds = new ArrayList<>();
     }
@@ -66,5 +66,11 @@ public class User extends Member {
 
     public void restoreFromMemento(MementoProject memento) { // 메멘토패턴, 프로젝트 리스트 불러오기
         this.projectIds = memento.getProjectIds();
+    }
+
+    @Override
+    public void print() {
+        super.print();
+        System.out.println("PASSWORD:" + this.getPassword());
     }
 }
