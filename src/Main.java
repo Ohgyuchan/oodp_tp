@@ -311,7 +311,6 @@ public class Main {
                 break;
             case 2:
                 currentProject.getTasks().get(index).upgradeComplete();
-                ; // Observer Pattern
                 break;
             case 3:
                 break;

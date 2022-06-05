@@ -97,7 +97,7 @@ public class MainTask extends AbstractTask implements Todo {
         Meeting nmeet = new Meeting(time, title);
         meetings.add(nmeet);
     }
-    
+
     public void dateList() {
         Collections.sort(meetings);
         for (Meeting m : meetings) {
@@ -125,6 +125,7 @@ public class MainTask extends AbstractTask implements Todo {
 
     public String toString() {
         return "[" + this.getNum() + "] Task : " + this.getTitle() + " (상태 : " + this.taskState.stateChange()
-                + "/배경색 : " + this.getBackgroundColor() + ")" + "\nSubtask : " + this.getSubTasks() + "\n" + "Mettings: " + this.getMeetings();
+                + "/배경색 : " + this.getBackgroundColor() + ")" + "\nSubtask : " + this.getSubTasks() + "\n"
+                + "Mettings: " + this.getMeetings();
     }
 }
