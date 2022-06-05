@@ -1,6 +1,6 @@
 package classes;
 
-public class SubTask implements SubTodo {
+public class SubTask implements Observer {
     private int num;
     private String title;
     private String state;

@@ -1,5 +1,5 @@
 package classes;
 
-public interface SubTodo {
+public interface Observer {
     void update(String msg);
 }
