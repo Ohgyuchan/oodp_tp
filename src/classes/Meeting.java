@@ -34,7 +34,7 @@ public class Meeting implements Comparable<Meeting> {
         System.out.println("===========================");
     }
     
-    public void printMeeting(Scanner sc, User user, Project projcet) {
+    public void printMeeting(Scanner sc, User user, Project project) {
     	
         boolean FLAG = true;
         while (FLAG) {
@@ -45,10 +45,12 @@ public class Meeting implements Comparable<Meeting> {
                     FLAG = false;
                     break;
                 case 1:
-                	write(user, projcet);
+                	write(user, project);
                     break;
                 case 2:
                 	read();
+                	FacadeComment comment = new FacadeComment();
+                	comment.writeComment(this.comments, sc, user, project);
                     break;
                 default:
                     break;

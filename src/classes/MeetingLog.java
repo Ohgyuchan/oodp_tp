@@ -10,13 +10,13 @@ import classes.user.User;
 
 public class MeetingLog {
 	private String txt = "내용이 없는데요?" ;
-	private String fileName = "assets/test11.txt" ;
+	private String fileName = "./test11.txt" ;
 	
 	public void WriteMeetingLog(String text, String fileName ,User currentUser, Project currentProject) {
 		
 		try{	
 			if(fileName != null) {//파일 이름 입력
-				this.setFileName("assets/"+fileName+".txt");
+				this.setFileName("./"+fileName+".txt");
 			}
 			
 		
