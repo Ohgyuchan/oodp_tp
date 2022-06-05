@@ -537,7 +537,7 @@ public class Main {
         System.out.println("2: CHANGE SUBTASK'S STATE");
         System.out.println("3: ADD MEETING");
         System.out.println("4: EDIT MEETNG");
-        System.out.println("5: EXIT");
+        System.out.println("5: VIEW SUBTASK'S DETAILE");
         System.out.println("===========================");
     }
 

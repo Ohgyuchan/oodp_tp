@@ -1,3 +1,1 @@
-{
-  "projects": []
-}
+{"projects":[{"projectName":"OODP","projectId":"ee9a3c94-e2c4-4179-ae5e-2d41bc6cd03f","memberIds":["terman"],"tasks":[{"backgroundColor":"White","subTasks":[],"num":0,"meetings":[],"state":"대기중","title":"예시 task"},{"backgroundColor":"Blue","subTasks":[{"comments":[{"num":0,"writer":"오규찬","content":"HI"},{"num":1,"writer":"오규찬","content":"HOO"}],"person":"Oh","num":0,"state":"진행중","title":"Sub1"},{"comments":[],"person":"Kim","num":1,"state":"진행중","title":"Sub2"}],"num":1,"meetings":[],"state":"완료","title":"TASK1"}],"leaderId":"terman"}]}
