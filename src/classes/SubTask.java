@@ -1,10 +1,13 @@
 package classes;
+import java.util.ArrayList;
+import java.util.Comparator;
 
 public class SubTask implements Observer {
     private int num;
     private String title;
     private String state;
     private String person;
+    private ArrayList<Comment> comments = new ArrayList<>();
 
     public SubTask() {
 
@@ -12,6 +15,19 @@ public class SubTask implements Observer {
 
     public SubTask(String title) {
         this.title = title;
+    }
+
+    public void setComments(String content, String writer, int num) {
+        Comment cmt = new Comment();
+        cmt.setContent(content);
+        cmt.setWriter(writer);
+        cmt.setNum(num);
+        this.comments.add(cmt);
+        this.comments.sort(Comparator.comparing(Comment::getNum));
+    }
+
+    public ArrayList<Comment> getComments() {
+        return comments;
     }
 
     public String getTitle() {

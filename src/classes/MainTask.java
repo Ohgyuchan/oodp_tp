@@ -10,11 +10,10 @@ public class MainTask extends AbstractTask implements Todo {
     private String title;
     private String backgroundColor = "White";
     private ArrayList<SubTask> subTasks = new ArrayList<>();
-    private ArrayList<Observer> subTodos = new ArrayList<>(); // Observer Pattern
-    private Waiting waiting = new Waiting();
-    private Complete complete = new Complete();
-    private TaskState taskState = waiting; // State Pattern
-    private String state = taskState.stateChange();
+    private ArrayList<Observer> observers = new ArrayList<>(); // Observer Pattern
+
+    private String state = "대기중";
+
     private ArrayList<Meeting> meetings = new ArrayList<>();
 
     public ArrayList<Meeting> getMeetings() {
@@ -72,24 +71,18 @@ public class MainTask extends AbstractTask implements Todo {
         this.backgroundColor = backgroundColor;
     }
 
-    // State Pattern
-    public void setState(TaskState taskState) {
-        this.state = taskState.stateChange();
+    public void setState(String state) {
+        this.state = state;
     }
 
     public String getState() {
         return state;
     }
 
-    // State Pattern
-    public String stateChange() {
-        return taskState.stateChange();
-    }
-
     // Observer Patter
     public void upgradeComplete() {
         this.backgroundColor = "Blue";
-        this.state = complete.stateChange();
+        this.state = "완료";
         notifySubTodo("완료");
     }
 
@@ -113,19 +106,19 @@ public class MainTask extends AbstractTask implements Todo {
     // Observer Patter
     @Override
     public void subscribe(Observer subtodo) {
-        subTodos.add(subtodo);
+        observers.add(subtodo);
     }
 
     // Observer Patter
     @Override
     public void unsubscribe(Observer subtodo) {
-        subTodos.remove(subtodo);
+        observers.remove(subtodo);
     }
 
     // Observer Patter
     @Override
     public void notifySubTodo(String msg) {
-        subTodos.forEach(crew -> crew.update(msg));
+        observers.forEach(crew -> crew.update(msg));
     }
 
     public String toString() {
