@@ -62,7 +62,11 @@ public class Main {
                         createProject(sc);
                         break;
                     case 3:
-                        deleteProject(sc);
+                        if (SingletonAuth.getInstance().getCurrentUser().getProjectIds().isEmpty()) {
+                            System.out.println("======== THE PROJECT LIST IS EMPTY ========");
+                        } else {
+                            deleteProject(sc);
+                        }
                         break;
                     case 4:
                         if (SingletonAuth.getInstance().getCurrentUser().getProjectIds().isEmpty()) {
