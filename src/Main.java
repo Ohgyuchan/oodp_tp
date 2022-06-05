@@ -20,6 +20,7 @@ import classes.auth.strategy.SignWithAuth;
 import classes.singleton.SingletonAuth;
 import classes.singleton.SingletonJSON;
 import classes.singleton.SingletonScanner;
+import classes.user.User;
 
 // 회원가입, 로그아웃
 // 프로젝트리스트
@@ -271,6 +272,9 @@ public class Main {
             printStateChange();
             sc.nextLine();
             int inputIndex = sc.nextInt();
+            
+            SignWithAuth auth = new SignWithAuth();
+            User user = SingletonAuth.getInstance().getCurrentUser();
 
             switch (inputIndex) {
                 case 1:
@@ -283,8 +287,11 @@ public class Main {
                     currentProject.getTasks().get(taskIndex).addMeeting(sc);
                     break;
                 case 4:
-                    check = false;
+                    currentProject.getTasks().get(taskIndex).getMeetings().get(0).printMeeting(sc, user, currentProject);
                     break;
+                case 5:
+                	check = false;
+                	break;
                 default:
                     break;
             }
@@ -383,7 +390,8 @@ public class Main {
         System.out.println("1: CHANGE TASK'S STATE");
         System.out.println("2: CHANGE SUBTASK'S STATE");
         System.out.println("3: ADD MEETING");
-        System.out.println("4: EXIT");
+        System.out.println("4: EDIT MEETNG");
+        System.out.println("5: EXIT");
         System.out.println("===========================");
     }
 

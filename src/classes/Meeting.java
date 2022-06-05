@@ -1,6 +1,7 @@
 package classes;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import classes.user.User;
 
@@ -11,7 +12,7 @@ public class Meeting implements Comparable<Meeting> {
     private String content;
     private String dir;
     private ArrayList<Comment> comments;
-    private MeetingLog Log;
+    private MeetingLog Log = new MeetingLog();
 
     public Meeting() {
     }
@@ -23,6 +24,36 @@ public class Meeting implements Comparable<Meeting> {
         this.comments = comments;
         this.title = title;
 
+    }
+    
+    public void printMeeting(){
+    	System.out.println("===========================");
+    	System.out.println("0: EXIT");
+        System.out.println("1: WRITE MEETING LOG");
+        System.out.println("2: VIEW MEETING LOG");
+        System.out.println("===========================");
+    }
+    
+    public void printMeeting(Scanner sc, User user, Project projcet) {
+    	
+        boolean FLAG = true;
+        while (FLAG) {
+        	printMeeting();
+            int TAG = sc.nextInt();
+            switch (TAG) {
+                case 0:
+                    FLAG = false;
+                    break;
+                case 1:
+                	write(user, projcet);
+                    break;
+                case 2:
+                	read();
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 
     public Meeting(String startTime, String title) {
@@ -84,7 +115,16 @@ public class Meeting implements Comparable<Meeting> {
         proxy.Load(Log.getFileName());
     }
 
-    public void write(String text, String fileName, User user, Project project) {
+    public void write(User user, Project project) {
+    	@SuppressWarnings("resource")
+		Scanner sc = new Scanner(System.in);
+    	
+    	System.out.println("FileName: ");
+    	String fileName = sc.next();
+    	System.out.println("Write Down");
+    	String text = sc.next();
+    	
+    	System.out.println("fileName");
         Log.WriteMeetingLog(text, fileName, user, project);
     }
 
