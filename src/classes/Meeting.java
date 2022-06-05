@@ -3,7 +3,9 @@ package classes;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import classes.singleton.SingletonJSON;
 import classes.user.User;
+import java.io.IOException;
 
 public class Meeting implements Comparable<Meeting> {
     private String startTime;
@@ -46,6 +48,11 @@ public class Meeting implements Comparable<Meeting> {
                     break;
                 case 1:
                 	write(user, project);
+                	try {
+                        SingletonJSON.getInstance().saveJson(project, user);
+                    } catch (IOException | org.json.simple.parser.ParseException e) {
+                        e.printStackTrace();
+                    }
                     break;
                 case 2:
                 	read();
