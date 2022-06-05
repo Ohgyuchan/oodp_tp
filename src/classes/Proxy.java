@@ -6,6 +6,7 @@ public class Proxy implements IRead {
 	@Override
 	public String Load(String fileName) {
 		reader = new ReadMeetingLog();
+		
 		return reader.Load(fileName);
 	}
 	

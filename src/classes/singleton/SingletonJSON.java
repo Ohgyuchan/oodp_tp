@@ -199,15 +199,16 @@ public class SingletonJSON {
         boolean isNew = true;
         for (int i = 0; i < usersJsonArray.size(); i++) {
             JSONObject jo = (JSONObject) usersJsonArray.get(i);
+
             if (userJson.get("id").toString().equals(jo.get("id").toString())) {
                 jo.put("password", userJson.get("password"));
                 jo.put("displayName", userJson.get("displayName"));
                 jo.put("projectIds", userJson.get("projectIds"));
-                isNew =false;
+                isNew = false;
             }
         }
         if (isNew) {
-            projectsJsonArray.add(userJson);
+            usersJsonArray.add(userJson);
         }
 
         String usersJsonString = usersJson.toString();
@@ -241,9 +242,7 @@ public class SingletonJSON {
         }
 
         String projectsJsonString = projectsJson.toString();
-
         File projectsJsonFile = new File(projectsJsonPath);
-
         writeStringToFile(projectsJsonString, projectsJsonFile);
 
     }
