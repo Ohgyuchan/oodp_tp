@@ -68,31 +68,7 @@ public class Main {
                         } else {
                             selectProject(sc);
                             if (currentProject.getProjectId() != null) {
-                                boolean FLAG = true;
-                                while (FLAG) {
-                                    printProjectMenu();
-                                    int TAG = sc.nextInt();
-                                    switch (TAG) {
-                                        case 0:
-                                            FLAG = false;
-                                            currentProject.init();
-                                            break;
-                                        case 1:
-                                            currentProject.print();
-                                            break;
-                                        case 2:
-                                            viewTasks(sc, tag);
-                                            break;
-                                        case 3:
-                                            createTask(sc);
-                                            break;
-                                        case 4:
-                                            inviteMember(sc);
-                                            break;
-                                        default:
-                                            break;
-                                    }
-                                }
+                                //TODO: ProjectCommand
                             }
                         }
                         break;
