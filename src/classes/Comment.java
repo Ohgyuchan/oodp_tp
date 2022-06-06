@@ -1,8 +1,10 @@
 package classes;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import classes.singleton.SingletonJSON;
 import classes.user.User;
 
 public class Comment {
@@ -50,18 +52,21 @@ public class Comment {
         System.out.println("===========================");
     }
 
-    public void printComment(ArrayList<Comment> comments, Scanner sc, User user, Project project) {
+    public void printComment(ArrayList<Comment> comments, User user, Project project) {
 
         boolean FLAG = true;
+        Scanner sc = new Scanner(System.in);
         while (FLAG) {
+        	printComment();
             int TAG = sc.nextInt();
-            printComment();
             switch (TAG) {
                 case 0:
                     FLAG = false;
                     break;
                 case 1:
                     this.writer = user.getId();
+                    System.out.println("write comment: ");
+                    this.content = sc.nextLine();
                     this.content = sc.nextLine();
                     comments.add(this);
                     break;

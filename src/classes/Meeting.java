@@ -23,9 +23,8 @@ public class Meeting implements Comparable<Meeting> {
         this.startTime = startTime;
         this.content = content;
         this.dir = dir;
-        this.comments = comments;
+        this.comments = new ArrayList<Comment>();
         this.title = title;
-
     }
 
     public void printMeeting() {
@@ -55,9 +54,7 @@ public class Meeting implements Comparable<Meeting> {
                     }
                     break;
                 case 2:
-                    read();
-//                    FacadeComment comment = new FacadeComment();
-//                    comment.writeComment(this.comments, sc, user, project);
+                    read(user, project);
                     break;
                 default:
                     break;
@@ -68,6 +65,7 @@ public class Meeting implements Comparable<Meeting> {
     public Meeting(String startTime, String title) {
         this.startTime = startTime;
         this.title = title;
+        this.comments = new ArrayList<Comment>();
     }
 
     public String getStartTime() {
@@ -119,11 +117,16 @@ public class Meeting implements Comparable<Meeting> {
         return "Meeting [startTime=" + startTime + ", title=" + title + "]";
     }
 
-    public void read() {
+    public void read(User user, Project project) {
         String sen;
     	IRead proxy = new Proxy();
         sen=proxy.Load(Log.getFileName());
-        if(sen.equals("")) return;
+        if(sen.equals("")){
+        	return;
+        }else{
+        	FacadeComment comment = new FacadeComment();
+            comment.writeComment(this.comments, user, project);
+        }
     }
 
     public void write(User user, Project project) {

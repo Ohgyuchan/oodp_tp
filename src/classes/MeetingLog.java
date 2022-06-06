@@ -35,7 +35,7 @@ public class MeetingLog {
 //
 //			FileWriter fw = new FileWriter(file, true);
 			
-			BufferedWriter fw = new BufferedWriter(new FileWriter(fileName, true));
+			BufferedWriter fw = new BufferedWriter(new FileWriter(fileName));
 
 			fw.write(txt);
 			fw.flush();
