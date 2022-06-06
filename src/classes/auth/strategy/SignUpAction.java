@@ -10,6 +10,15 @@ import classes.singleton.SingletonScanner;
 import classes.user.User;
 
 public class SignUpAction implements Auth {
+    private static Auth instance = null;
+
+    public static Auth getInstance() {
+        if (instance == null) {
+            instance = new SignUpAction();
+        }
+        return instance;
+    }
+
     @Override
     public boolean authAction() {
         System.out.println("====== SIGN UP ======");

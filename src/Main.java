@@ -1,22 +1,17 @@
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.ConcurrentModificationException;
 import java.util.Scanner;
 
 import org.json.simple.parser.ParseException;
 
-import classes.Comment;
 import classes.Facade;
-import classes.MainTask;
 import classes.MementoProject;
 import classes.Project;
-import classes.auth.AuthFactory;
+import classes.auth.ConcreteAuthFactory;
 import classes.auth.strategy.SignWithAuth;
 import classes.singleton.SingletonAuth;
 import classes.singleton.SingletonJSON;
 import classes.singleton.SingletonScanner;
-import classes.user.User;
 
 public class Main {
     private static Project currentProject;
@@ -25,7 +20,7 @@ public class Main {
     public static void main(String[] args) {
         Scanner sc = SingletonScanner.getInstance().getScanner();
         SignWithAuth auth = new SignWithAuth();
-        AuthFactory af = new AuthFactory();
+        ConcreteAuthFactory af = new ConcreteAuthFactory();
 
         while (loginMenu(auth, sc, af)) {
             boolean flag = true;
@@ -92,7 +87,7 @@ public class Main {
         }
     }
 
-    private static boolean loginMenu(SignWithAuth auth, Scanner sc, AuthFactory af) {
+    private static boolean loginMenu(SignWithAuth auth, Scanner sc, ConcreteAuthFactory af) {
         while (SingletonAuth.getInstance().getCurrentUser() == null) {
             printLoginMenu();
             int mode = sc.nextInt();
