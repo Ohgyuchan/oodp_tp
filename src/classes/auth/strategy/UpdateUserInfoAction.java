@@ -11,6 +11,14 @@ import classes.singleton.SingletonJSON;
 import classes.singleton.SingletonScanner;
 
 public class UpdateUserInfoAction implements Auth {
+    private static Auth instance = null;
+
+    public static Auth getInstance() {
+        if (instance == null) {
+            instance = new UpdateUserInfoAction();
+        }
+        return instance;
+    }
 
     @Override
     public boolean authAction() {
@@ -18,7 +26,7 @@ public class UpdateUserInfoAction implements Auth {
         printInfoUpdateMenu();
         int select = sc.nextInt();
         sc.nextLine();
-        if(select == 0)  {
+        if (select == 0) {
             try {
                 SingletonJSON.getInstance().saveJson(SingletonAuth.getInstance().getCurrentUser());
             } catch (ConcurrentModificationException | IOException | ParseException e) {
@@ -26,9 +34,12 @@ public class UpdateUserInfoAction implements Auth {
             }
             return false;
         }
-        if(select == 1) SingletonAuth.getInstance().getCurrentUser().print();
-        if(select == 2) return updateDiplayName(sc);
-        if(select == 3) return updatePassword(sc);
+        if (select == 1)
+            SingletonAuth.getInstance().getCurrentUser().print();
+        if (select == 2)
+            return updateDiplayName(sc);
+        if (select == 3)
+            return updatePassword(sc);
         return true;
     }
 
@@ -38,6 +49,7 @@ public class UpdateUserInfoAction implements Auth {
         SingletonAuth.getInstance().getCurrentUser().setDisplayName(name);
         return true;
     }
+
     private boolean updatePassword(Scanner sc) {
         System.out.print("INPUT PASSWORD:  ");
         String password = sc.nextLine();
