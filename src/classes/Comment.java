@@ -1,10 +1,9 @@
 package classes;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import classes.singleton.SingletonJSON;
+import classes.singleton.SingletonScanner;
 import classes.user.User;
 
 public class Comment {
@@ -55,9 +54,9 @@ public class Comment {
     public void printComment(ArrayList<Comment> comments, User user, Project project) {
 
         boolean FLAG = true;
-        Scanner sc = new Scanner(System.in);
+        Scanner sc = SingletonScanner.getInstance().getScanner();
         while (FLAG) {
-        	printComment();
+            printComment();
             int TAG = sc.nextInt();
             switch (TAG) {
                 case 0:
