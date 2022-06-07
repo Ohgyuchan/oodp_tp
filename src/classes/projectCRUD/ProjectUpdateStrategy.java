@@ -1,4 +1,4 @@
-package classes.command;
+package classes.projectCRUD;
 
 import java.io.IOException;
 import java.util.Comparator;
@@ -12,23 +12,34 @@ import classes.MainTask;
 import classes.Project;
 import classes.singleton.SingletonAuth;
 import classes.singleton.SingletonJSON;
+import classes.singleton.SingletonProject;
 import classes.singleton.SingletonScanner;
 
-public class ProjectUpdateCommand implements ProjectCommand {
+public class ProjectUpdateStrategy implements ProjectEditStrategy {
+    private static ProjectEditStrategy instance = null;
     private Project project;
 
-    ProjectUpdateCommand(Project project) {
-        this.project = project;
+    private ProjectUpdateStrategy() {
+    }
+
+    public static ProjectEditStrategy getInstance() {
+        if (instance == null) {
+            instance = new ProjectUpdateStrategy();
+        }
+        return instance;
     }
 
     @Override
     public void run() {
         Scanner sc = SingletonScanner.getInstance().getScanner();
-        printUpdateProjectMenu();
-        int input = sc.nextInt();
-        while (input != 0) {
+        project = SingletonProject.getInstance().getCurrentProject();
+        boolean FLAG = false;
+        while (!FLAG) {
+            printUpdateProjectMenu();
+            int input = sc.nextInt();
             switch (input) {
                 case 0:
+                    FLAG = !FLAG;
                     break;
                 case 1:
                     project.print();
@@ -77,36 +88,6 @@ public class ProjectUpdateCommand implements ProjectCommand {
                 System.out.println("===========================");
                 for (MainTask mainTask : project.getTasks()) {
                     System.out.println(mainTask.toString());
-                }
-                printSelectTask();
-                System.out.print("Please Enter the index : ");
-                int taskInput = sc.nextInt();
-                switch (taskInput) {
-                    case 1:
-                        viewTaskDetail(sc);
-                        break;
-                    case 0:
-                        check = false;
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }
-    }
-
-    private void viewTasks(Scanner sc, int index) {
-        boolean check = true;
-
-        if (project.getTasks().isEmpty()) {
-            System.out.println("");
-            System.out.println("입력된 Task가 없습니다.");
-            System.out.println("");
-        } else {
-            while (check) {
-                System.out.println("===========================");
-                for (MainTask p : project.getTasks()) {
-                    System.out.println(p.toString());
                 }
                 printSelectTask();
                 System.out.print("Please Enter the index : ");

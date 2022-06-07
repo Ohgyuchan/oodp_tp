@@ -10,10 +10,13 @@ import classes.singleton.SingletonAuth;
 import classes.singleton.SingletonJSON;
 import classes.singleton.SingletonScanner;
 
-public class UpdateUserInfoAction implements Auth {
-    private static Auth instance = null;
+public class UpdateUserInfoAction implements AuthAction {
+    private static AuthAction instance = null;
 
-    public static Auth getInstance() {
+    private UpdateUserInfoAction() {
+    }
+
+    public static AuthAction getInstance() {
         if (instance == null) {
             instance = new UpdateUserInfoAction();
         }
