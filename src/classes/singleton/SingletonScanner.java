@@ -7,12 +7,11 @@ public class SingletonScanner {
     private Scanner scanner;
 
     private SingletonScanner() {
-        System.out.println("SingletonScanner constructed");
         scanner = new Scanner(System.in);
     }
 
     public static SingletonScanner getInstance() {
-        if(instance == null){
+        if (instance == null) {
             instance = new SingletonScanner();
         }
         return instance;

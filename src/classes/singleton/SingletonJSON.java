@@ -32,7 +32,6 @@ public class SingletonJSON {
     private String projectsJsonPath = "assets/data/projects_data.json";
 
     private SingletonJSON() {
-        System.out.println("SingletonJSON constructed");
         this.setJson();
     }
 

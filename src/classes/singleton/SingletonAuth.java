@@ -7,11 +7,10 @@ public class SingletonAuth {
     private User currentUser;
 
     private SingletonAuth() {
-        System.out.println("SingletonAuth constructed");
     }
-    
+
     public static SingletonAuth getInstance() {
-        if(instance == null){
+        if (instance == null) {
             instance = new SingletonAuth();
         }
         return instance;

@@ -1,15 +1,15 @@
-package classes.auth;
+package classes.auth.factoryMethod;
 
-import classes.auth.strategy.Auth;
+import classes.auth.strategy.AuthAction;
 import classes.auth.strategy.SignInAction;
 import classes.auth.strategy.SignOutAction;
 import classes.auth.strategy.SignUpAction;
 import classes.auth.strategy.UpdateUserInfoAction;
 
-public class ConcreteAuthFactory extends AuthFactory{
+public class ConcreteAuthActionFactory extends AuthActionFactory{
 	
 	@Override
-    public Auth createAuth(String name) {
+    public AuthAction createAuthAction(String name) {
         switch(name){
 			case "SignIn": return SignInAction.getInstance();
 			case "SignOut": return SignOutAction.getInstance();

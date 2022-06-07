@@ -6,25 +6,28 @@ import org.json.simple.parser.ParseException;
 
 import classes.Facade;
 import classes.MementoProject;
-import classes.Project;
-import classes.auth.ConcreteAuthFactory;
-import classes.auth.strategy.SignWithAuth;
+import classes.auth.factoryMethod.ConcreteAuthActionFactory;
+import classes.auth.strategy.SignWithAuthAction;
+import classes.projectCRUD.ProjectEditor;
+import classes.projectCRUD.factoryMethod.ConcreteProjectStrategyFactory;
 import classes.singleton.SingletonAuth;
 import classes.singleton.SingletonJSON;
+import classes.singleton.SingletonProject;
 import classes.singleton.SingletonScanner;
 
 public class Main {
-    private static Project currentProject;
     private static ArrayList<MementoProject> savedProjects = new ArrayList<MementoProject>();
 
     public static void main(String[] args) {
         Scanner sc = SingletonScanner.getInstance().getScanner();
-        SignWithAuth auth = new SignWithAuth();
-        ConcreteAuthFactory af = new ConcreteAuthFactory();
+        SignWithAuthAction auth = new SignWithAuthAction();
+        ConcreteAuthActionFactory af = new ConcreteAuthActionFactory();
+        ProjectEditor pe  = new ProjectEditor();
+        ConcreteProjectStrategyFactory pf = new ConcreteProjectStrategyFactory();
 
         while (loginMenu(auth, sc, af)) {
-            boolean flag = true;
-            while (flag) {
+            boolean flag = false;
+            while (!flag) {
                 printMenu();
                 int tag = sc.nextInt();
                 System.out.println("===========================");
@@ -37,8 +40,8 @@ public class Main {
                             System.out.println("========= FAILED TO SAVE ==========");
                             e.printStackTrace();
                         }
-                        auth.setAuth(af.createAuth("SignOut"));
-                        flag = !auth.authAction();
+                        auth.setAuth(af.create("SignOut"));
+                        flag = auth.authAction();
                         break;
                     case 1:
                         if (SingletonAuth.getInstance().getCurrentUser().getProjectIds().isEmpty()) {
@@ -62,8 +65,9 @@ public class Main {
                             System.out.println("======== THE PROJECT LIST IS EMPTY ========");
                         } else {
                             selectProject(sc);
-                            if (currentProject.getProjectId() != null) {
-                                //TODO: ProjectCommand
+                            if (SingletonProject.getInstance().getCurrentProject().getProjectId() != null) {
+                                pe.setProjectStrategy(pf.create("u"));
+                                pe.run();
                             }
                         }
                         break;
@@ -75,7 +79,7 @@ public class Main {
                         }
                         break;
                     case 6:
-                        auth.setAuth(af.createAuth("UpdateUserInfo"));
+                        auth.setAuth(af.create("UpdateUserInfo"));
                         while (auth.authAction()) {
                             auth.authAction();
                         }
@@ -87,7 +91,7 @@ public class Main {
         }
     }
 
-    private static boolean loginMenu(SignWithAuth auth, Scanner sc, ConcreteAuthFactory af) {
+    private static boolean loginMenu(SignWithAuthAction auth, Scanner sc, ConcreteAuthActionFactory af) {
         while (SingletonAuth.getInstance().getCurrentUser() == null) {
             printLoginMenu();
             int mode = sc.nextInt();
@@ -98,7 +102,7 @@ public class Main {
                     return false;
 
                 case 1:
-                    auth.setAuth(af.createAuth("SignIn"));
+                    auth.setAuth(af.create("SignIn"));
                     boolean result = auth.authAction();
                     if (result) {
                         if (SingletonAuth.getInstance().getCurrentUser() != null)
@@ -112,7 +116,7 @@ public class Main {
                     break;
 
                 case 2:
-                    auth.setAuth(af.createAuth("SignUp"));
+                    auth.setAuth(af.create("SignUp"));
                     if (auth.authAction()) {
                         System.out.println("===== Sign Up Success ======");
                     } else {
@@ -156,7 +160,7 @@ public class Main {
         System.out.print("Please Enter the index : ");
         int indexToSelect = sc.nextInt();
         String selectedProjectId = SingletonAuth.getInstance().getCurrentUser().getProjectIds().get(indexToSelect - 1);
-        currentProject = SingletonJSON.getInstance().getProject(selectedProjectId);
+        SingletonProject.getInstance().setCurrentProject(SingletonJSON.getInstance().getProject(selectedProjectId));
     }
 
     private static void printMenu() {
