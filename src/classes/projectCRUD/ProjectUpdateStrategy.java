@@ -33,11 +33,13 @@ public class ProjectUpdateStrategy implements ProjectEditStrategy {
     public void run() {
         Scanner sc = SingletonScanner.getInstance().getScanner();
         project = SingletonProject.getInstance().getCurrentProject();
-        printUpdateProjectMenu();
-        int input = sc.nextInt();
-        while (input != 0) {
+        boolean FLAG = false;
+        while (!FLAG) {
+            printUpdateProjectMenu();
+            int input = sc.nextInt();
             switch (input) {
                 case 0:
+                    FLAG = !FLAG;
                     break;
                 case 1:
                     project.print();
