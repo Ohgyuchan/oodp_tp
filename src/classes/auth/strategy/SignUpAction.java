@@ -9,10 +9,13 @@ import classes.singleton.SingletonJSON;
 import classes.singleton.SingletonScanner;
 import classes.user.User;
 
-public class SignUpAction implements Auth {
-    private static Auth instance = null;
+public class SignUpAction implements AuthAction {
+    private static AuthAction instance = null;
 
-    public static Auth getInstance() {
+    private SignUpAction() {
+    }
+
+    public static AuthAction getInstance() {
         if (instance == null) {
             instance = new SignUpAction();
         }

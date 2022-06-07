@@ -8,10 +8,13 @@ import classes.singleton.SingletonJSON;
 import classes.singleton.SingletonScanner;
 import classes.user.User;
 
-public class SignInAction implements Auth {
-    private static Auth instance = null;
+public class SignInAction implements AuthAction {
+    private static AuthAction instance = null;
 
-    public static Auth getInstance() {
+    private SignInAction() {
+    }
+
+    public static AuthAction getInstance() {
         if (instance == null) {
             instance = new SignInAction();
         }

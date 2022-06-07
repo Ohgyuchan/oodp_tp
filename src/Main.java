@@ -7,8 +7,9 @@ import org.json.simple.parser.ParseException;
 import classes.Facade;
 import classes.MementoProject;
 import classes.Project;
-import classes.auth.ConcreteAuthFactory;
-import classes.auth.strategy.SignWithAuth;
+import classes.auth.factoryMethod.ConcreteAuthActionFactory;
+import classes.auth.strategy.SignWithAuthAction;
+import classes.projectCRUD.ProjectEditor;
 import classes.singleton.SingletonAuth;
 import classes.singleton.SingletonJSON;
 import classes.singleton.SingletonScanner;
@@ -19,8 +20,9 @@ public class Main {
 
     public static void main(String[] args) {
         Scanner sc = SingletonScanner.getInstance().getScanner();
-        SignWithAuth auth = new SignWithAuth();
-        ConcreteAuthFactory af = new ConcreteAuthFactory();
+        SignWithAuthAction auth = new SignWithAuthAction();
+        ConcreteAuthActionFactory af = new ConcreteAuthActionFactory();
+        ProjectEditor pe  = new ProjectEditor();
 
         while (loginMenu(auth, sc, af)) {
             boolean flag = true;
@@ -37,7 +39,7 @@ public class Main {
                             System.out.println("========= FAILED TO SAVE ==========");
                             e.printStackTrace();
                         }
-                        auth.setAuth(af.createAuth("SignOut"));
+                        auth.setAuth(af.createAuthAction("SignOut"));
                         flag = !auth.authAction();
                         break;
                     case 1:
@@ -63,7 +65,7 @@ public class Main {
                         } else {
                             selectProject(sc);
                             if (currentProject.getProjectId() != null) {
-                                //TODO: ProjectCommand
+                                // TODO: UPDATE
                             }
                         }
                         break;
@@ -75,7 +77,7 @@ public class Main {
                         }
                         break;
                     case 6:
-                        auth.setAuth(af.createAuth("UpdateUserInfo"));
+                        auth.setAuth(af.createAuthAction("UpdateUserInfo"));
                         while (auth.authAction()) {
                             auth.authAction();
                         }
@@ -87,7 +89,7 @@ public class Main {
         }
     }
 
-    private static boolean loginMenu(SignWithAuth auth, Scanner sc, ConcreteAuthFactory af) {
+    private static boolean loginMenu(SignWithAuthAction auth, Scanner sc, ConcreteAuthActionFactory af) {
         while (SingletonAuth.getInstance().getCurrentUser() == null) {
             printLoginMenu();
             int mode = sc.nextInt();
@@ -98,7 +100,7 @@ public class Main {
                     return false;
 
                 case 1:
-                    auth.setAuth(af.createAuth("SignIn"));
+                    auth.setAuth(af.createAuthAction("SignIn"));
                     boolean result = auth.authAction();
                     if (result) {
                         if (SingletonAuth.getInstance().getCurrentUser() != null)
@@ -112,7 +114,7 @@ public class Main {
                     break;
 
                 case 2:
-                    auth.setAuth(af.createAuth("SignUp"));
+                    auth.setAuth(af.createAuthAction("SignUp"));
                     if (auth.authAction()) {
                         System.out.println("===== Sign Up Success ======");
                     } else {

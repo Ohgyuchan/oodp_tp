@@ -2,15 +2,14 @@ package classes.auth.strategy;
 
 import classes.singleton.SingletonAuth;
 
-public class SignOutAction implements Auth {
+public class SignOutAction implements AuthAction {
+    private static AuthAction instance = null;
 
     private SignOutAction() {
-        
+
     }
 
-    private static Auth instance = null;
-
-    public static Auth getInstance() {
+    public static AuthAction getInstance() {
         if (instance == null) {
             instance = new SignOutAction();
         }
