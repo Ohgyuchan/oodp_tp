@@ -76,7 +76,7 @@ public class Project {
     }
 
     // public int getMembersCount() {
-    //     return memberIds.size();
+    // return memberIds.size();
     // }
 
     public void setMemberIds(ArrayList<String> memberIds) {
@@ -105,8 +105,8 @@ public class Project {
         System.out.println("2: Manage tasks");
         System.out.println("3: Manage Members");
     }
-    
+
     public void set(String projectId) {
-    	this.projectId = projectId;
+        this.projectId = projectId;
     }
 }
