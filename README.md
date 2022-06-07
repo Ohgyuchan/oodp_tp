@@ -1,6 +1,10 @@
 Vscode 기준
 > `.class` 충돌 나면 아무 `.java` 파일에서 코드 아무거나 수정하고 RUN
 
+## TODO
+* MEMENTO
+* PROJECT CRUD
+* 회의록
 ## JSON CRUD
 ```java
 // JSON 으로 파싱할 문자열
