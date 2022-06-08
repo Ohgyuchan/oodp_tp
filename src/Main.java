@@ -141,7 +141,7 @@ public class Main {
         SingletonAuth.getInstance().getCurrentUser().printProjects();
         System.out.print("Please Enter the index to delete: ");
         int indexToDelete = sc.nextInt();
-        storeProjects();
+        // storeProjects();
         SingletonAuth.getInstance().getCurrentUser().deleteProject(indexToDelete - 1);
     }
 
