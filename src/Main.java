@@ -6,16 +6,20 @@ import java.util.Scanner;
 
 import org.json.simple.parser.ParseException;
 
+import classes.Command;
 import classes.Comment;
+import classes.CommentToStringCommand;
 import classes.Facade;
 import classes.MainTask;
 import classes.MementoProject;
 import classes.Project;
+import classes.TaskToStringCommand;
 import classes.auth.AuthFactory;
 import classes.auth.strategy.SignWithAuth;
 import classes.singleton.SingletonAuth;
 import classes.singleton.SingletonJSON;
 import classes.singleton.SingletonScanner;
+import classes.user.Button;
 import classes.user.User;
 
 // 회원가입, 로그아웃
@@ -252,7 +256,9 @@ public class Main {
             while (check) {
                 System.out.println("===========================");
                 for (MainTask p : currentProject.getTasks()) {
-                    System.out.println(p.toString());
+                    Command taskToStringCommand = new TaskToStringCommand(p);
+                    Button button = new Button(taskToStringCommand);
+                    button.pressed();
                 }
                 printSelectTask();
                 System.out.print("Please Enter the index : ");
@@ -342,7 +348,9 @@ public class Main {
                 "SubTask : " + currentProject.getTasks().get(taskIndex).getSubTasks().get(inputIndex).toString());
         System.out.println("Comment : ");
         for (Comment cmt : currentProject.getTasks().get(taskIndex).getSubTasks().get(inputIndex).getComments()) {
-            System.out.print(cmt.toString());
+            Command commentToStringCommand = new CommentToStringCommand(cmt);
+            Button buttonTwo = new Button(commentToStringCommand);
+            buttonTwo.pressed();
         }
         System.out.println("");
         commentWrite(sc, inputIndex, taskIndex);
