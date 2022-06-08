@@ -1,5 +1,9 @@
 package classes.projectCRUD;
 
+import classes.Facade;
+import classes.singleton.SingletonAuth;
+import classes.singleton.SingletonScanner;
+
 public class ProjectCreateStrategy implements ProjectEditStrategy {
     private static ProjectEditStrategy instance = null;
 
@@ -15,7 +19,8 @@ public class ProjectCreateStrategy implements ProjectEditStrategy {
 
     @Override
     public void run() {
-
+        Facade facade = new Facade();
+        facade.createProject(SingletonScanner.getInstance().getScanner(), SingletonAuth.getInstance().getCurrentUser());
     }
 
 }

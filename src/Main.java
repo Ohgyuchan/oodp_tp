@@ -4,7 +4,6 @@ import java.util.Scanner;
 
 import org.json.simple.parser.ParseException;
 
-import classes.Facade;
 import classes.MementoProject;
 
 import classes.auth.factoryMethod.ConcreteAuthActionFactory;
@@ -18,11 +17,7 @@ import classes.singleton.SingletonJSON;
 import classes.singleton.SingletonProject;
 import classes.singleton.SingletonScanner;
 
-// 회원가입, 로그아웃
-// 프로젝트리스트
-// 프로젝트 추가 삭제
-// 멤버 초대
-// task, subtask 추가
+// TODO: MEMENTO
 
 public class Main {
     private static ArrayList<MementoProject> savedProjects = new ArrayList<MementoProject>();
@@ -60,13 +55,15 @@ public class Main {
                         }
                         break;
                     case 2:
-                        createProject(sc);
+                        pe.setProjectStrategy(pf.create("c"));
+                        pe.run();
                         break;
                     case 3:
                         if (SingletonAuth.getInstance().getCurrentUser().getProjectIds().isEmpty()) {
                             System.out.println("======== THE PROJECT LIST IS EMPTY ========");
                         } else {
-                            deleteProject(sc);
+                            pe.setProjectStrategy(pf.create("d"));
+                            pe.run();
                         }
                         break;
                     case 4:
@@ -138,11 +135,6 @@ public class Main {
             }
         }
         return false;
-    }
-
-    private static void createProject(Scanner sc) {
-        Facade facade = new Facade();
-        facade.createProject(sc, SingletonAuth.getInstance().getCurrentUser());
     }
 
     private static void deleteProject(Scanner sc) {
