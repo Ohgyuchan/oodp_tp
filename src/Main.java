@@ -22,19 +22,16 @@ import classes.user.User;
 
 public class Main {
     private static Project currentProject;
-    private static int mindex=0;
+    private static int mindex = 0;
     private static List<MeetingMemento> meets = new ArrayList<MeetingMemento>();
 
-  
     public static void main(String[] args) {
         Scanner sc = SingletonScanner.getInstance().getScanner();
         SignWithAuth auth = new SignWithAuth();
         AuthFactory af = new AuthFactory();
-        int storedIndex =0; //(메멘토) 프로젝트 인덱스        
-        List<MementoProject> projects = new ArrayList<MementoProject>();	//메멘토 패턴 저장
-        
-        
-        
+        int storedIndex = 0; // (메멘토) 프로젝트 인덱스
+        List<MementoProject> projects = new ArrayList<MementoProject>(); // 메멘토 패턴 저장
+
         while (loginMenu(auth, sc, af)) {
             boolean flag = true;
             while (flag) {
@@ -79,7 +76,7 @@ public class Main {
                                 boolean FLAG = true;
                                 while (FLAG) {
                                     printProjectMenu();
-                                    
+
                                     int TAG = sc.nextInt();
                                     switch (TAG) {
                                         case 0:
@@ -109,9 +106,9 @@ public class Main {
                         if (SingletonAuth.getInstance().getCurrentUser().getProjectIds().isEmpty()) {
                             System.out.println("======== THE PROJECT LIST IS EMPTY ========");
                         } else {
-                        	 System.out.println("Input the index of stored list");
-                        	 int sindex= sc.nextInt();
-                        	 SingletonAuth.getInstance().getCurrentUser().restoreFromMemento(projects.get(sindex));
+                            System.out.println("Input the index of stored list");
+                            int sindex = sc.nextInt();
+                            SingletonAuth.getInstance().getCurrentUser().restoreFromMemento(projects.get(sindex));
                         }
                         break;
                     case 6:
@@ -120,11 +117,11 @@ public class Main {
                             auth.authAction();
                         }
                         break;
-                    case 7: 
-                    	System.out.println("Stored index : "+storedIndex);
-                    	projects.add(SingletonAuth.getInstance().getCurrentUser().createMemento());
-                    	storedIndex++;
-                    	break;
+                    case 7:
+                        System.out.println("Stored index : " + storedIndex);
+                        projects.add(SingletonAuth.getInstance().getCurrentUser().createMemento());
+                        storedIndex++;
+                        break;
                     default:
                         break;
                 }
@@ -181,18 +178,19 @@ public class Main {
         SingletonAuth.getInstance().getCurrentUser().printProjects();
         System.out.print("Please Enter the index to delete: ");
         int indexToDelete = sc.nextInt();
-//        storeProjects();
+        // storeProjects();
         SingletonAuth.getInstance().getCurrentUser().deleteProject(indexToDelete - 1);
     }
-
 
     private static void selectProject(Scanner sc) {
         SingletonAuth.getInstance().getCurrentUser().printProjects();
         System.out.println("===========================");
         System.out.print("Please Enter the index : ");
         int indexToSelect = sc.nextInt();
-        Object selectedProjectId = SingletonAuth.getInstance().getCurrentUser().getProjectIds().get(indexToSelect-1);     //.get(indexToSelect - 1);
-        currentProject = SingletonJSON.getInstance().getProject((String)selectedProjectId);
+        Object selectedProjectId = SingletonAuth.getInstance().getCurrentUser().getProjectIds().get(indexToSelect - 1); // .get(indexToSelect
+                                                                                                                        // -
+                                                                                                                        // 1);
+        currentProject = SingletonJSON.getInstance().getProject((String) selectedProjectId);
     }
 
     private static void createTask(Scanner sc) {
@@ -294,7 +292,7 @@ public class Main {
             System.out.print("Please Enter the index : ");
             int inputIndex = sc.nextInt();
             User user = SingletonAuth.getInstance().getCurrentUser();
-            
+
             switch (inputIndex) {
                 case 1:
                     System.out.println("===========================");
@@ -314,13 +312,13 @@ public class Main {
                     currentProject.getTasks().get(taskIndex).addMeeting(sc);
                     break;
                 case 4:
-                	currentProject.getTasks().get(taskIndex).meetingList();
-                	if(currentProject.getTasks().get(taskIndex).emptyCheck()) {
-                		System.out.println("there is no meeting schedule");
-                		break;
-                	}
-                	System.out.println("please enter the index:");
-                	int index = sc.nextInt();
+                    currentProject.getTasks().get(taskIndex).meetingList();
+                    if (currentProject.getTasks().get(taskIndex).emptyCheck()) {
+                        System.out.println("there is no meeting schedule");
+                        break;
+                    }
+                    System.out.println("please enter the index:");
+                    int index = sc.nextInt();
                     currentProject.getTasks().get(taskIndex).getMeetings().get(index).printMeeting(sc, user,
                             currentProject);
                     break;
@@ -331,15 +329,15 @@ public class Main {
                     currentProject.getTasks().get(taskIndex).deleteMeeting(sc);
                     break;
                 case 7:
-                	meets.add(currentProject.getTasks().get(taskIndex).createMemento());    
-                	System.out.println("stored index : " + mindex );
-                	mindex++;
-                	break;
+                    meets.add(currentProject.getTasks().get(taskIndex).createMemento());
+                    System.out.println("stored index : " + mindex);
+                    mindex++;
+                    break;
                 case 8:
-                	System.out.println("Input the index of stored meetinglist");
-                	int mindex=sc.nextInt();
-                	currentProject.getTasks().get(taskIndex).restoreMeeting(meets.get(mindex));
-                	break;
+                    System.out.println("Input the index of stored meetinglist");
+                    int mindex = sc.nextInt();
+                    currentProject.getTasks().get(taskIndex).restoreMeeting(meets.get(mindex));
+                    break;
                 case 0:
                     check = false;
                     break;
@@ -407,7 +405,6 @@ public class Main {
         }
     }
 
-    
     private static void commentWriteMenu() {
         System.out.println("===========================");
         System.out.println("0: EXIT");
