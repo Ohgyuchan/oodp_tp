@@ -1,8 +1,11 @@
 package classes;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
+import classes.singleton.SingletonJSON;
 import classes.user.User;
+import java.io.IOException;
 
 public class Meeting implements Comparable<Meeting> {
     private String startTime;
@@ -11,7 +14,7 @@ public class Meeting implements Comparable<Meeting> {
     private String content;
     private String dir;
     private ArrayList<Comment> comments;
-    private MeetingLog Log;
+    private MeetingLog Log = new MeetingLog();
 
     public Meeting() {
     }
@@ -22,7 +25,43 @@ public class Meeting implements Comparable<Meeting> {
         this.dir = dir;
         this.comments = comments;
         this.title = title;
+    }
 
+    public void printMeeting() {
+        System.out.println("===========================");
+        System.out.println("0: EXIT");
+        System.out.println("1: WRITE MEETING LOG");
+        System.out.println("2: VIEW MEETING LOG");
+        System.out.println("===========================");
+    }
+
+    public void printMeeting(Scanner sc, User user, Project project) {
+
+        boolean FLAG = true;
+        while (FLAG) {
+            printMeeting();
+            int TAG = sc.nextInt();
+            switch (TAG) {
+                case 0:
+                    FLAG = false;
+                    break;
+                case 1:
+                    write(user, project);
+                    try {
+                        SingletonJSON.getInstance().saveJson(project, user);
+                    } catch (IOException | org.json.simple.parser.ParseException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case 2:
+                    read();
+//                    FacadeComment comment = new FacadeComment();
+//                    comment.writeComment(this.comments, sc, user, project);
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 
     public Meeting(String startTime, String title) {
@@ -74,17 +113,28 @@ public class Meeting implements Comparable<Meeting> {
         return startTime.compareTo(m.startTime);
     }
 
-    @Override
+ 
     public String toString() {
         return "Meeting [startTime=" + startTime + ", title=" + title + "]";
     }
 
     public void read() {
-        IRead proxy = new Proxy();
-        proxy.Load(Log.getFileName());
+        String sen;
+    	IRead proxy = new Proxy();
+        sen=proxy.Load(Log.getFileName());
+        if(sen.equals("")) return;
     }
 
-    public void write(String text, String fileName, User user, Project project) {
+    public void write(User user, Project project) {
+        @SuppressWarnings("resource")
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("FileName: ");
+        String fileName = sc.next();
+        System.out.println("Write Down");
+        String text = sc.next();
+
+        System.out.println("fileName");
         Log.WriteMeetingLog(text, fileName, user, project);
     }
 

@@ -1,35 +1,32 @@
 package classes;
 
+import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
 public class ReadMeetingLog implements IRead {
 	private String text;
-	
+
 	@Override
 	public String Load(String fileName) {
-		// TODO Auto-generated method stub
-		 FileReader reader = null;
+		if(fileName.equals("test11.txt")) {
+			System.out.println("There is no log");
+			return "";
+		}
+
 		try {
-			reader = new FileReader("./asset/"+fileName+".txt");
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}         
-		 
-		int ch;        
-		try {
-			while ((ch = reader.read()) != -1) {
-				text += (char)ch;
-				System.out.print((char) ch);
+			String sen;
+			BufferedReader fw = new BufferedReader(new FileReader(fileName));
+			while((sen=fw.readLine())!=null) {
+				text+=sen+"\n";
+				System.out.println(sen);
 			}
+			fw.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return text;
 	}
-	
 }

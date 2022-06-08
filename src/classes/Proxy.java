@@ -5,8 +5,8 @@ public class Proxy implements IRead {
 
 	@Override
 	public String Load(String fileName) {
-		// TODO Auto-generated method stub
 		reader = new ReadMeetingLog();
+		
 		return reader.Load(fileName);
 	}
 	

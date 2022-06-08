@@ -3,6 +3,8 @@ package classes;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Scanner;
 
 public class MainTask extends AbstractTask implements Todo {
@@ -10,11 +12,23 @@ public class MainTask extends AbstractTask implements Todo {
     private String title;
     private String backgroundColor = "White";
     private ArrayList<SubTask> subTasks = new ArrayList<>();
-    private ArrayList<SubTodo> subTodos = new ArrayList<>(); // Observer Pattern
-    private TaskState taskState = new Waiting(); // State Pattern
-    private ArrayList<Meeting> meetings = new ArrayList<>();
+    private ArrayList<Observer> observers = new ArrayList<>(); // Observer Pattern
 
+    private String state = "대기중";
+
+    public List meetings = new ArrayList<>();
+
+    public ArrayList<Meeting> getMeetings() {
+        return (ArrayList<Meeting>)this.meetings;
+    }
+
+    public void setMeetings(ArrayList<Meeting> meetings) {
+        this.meetings = meetings;
+    }
+
+    
     public MainTask() {
+
     }
 
     public MainTask(String title) {
@@ -25,9 +39,10 @@ public class MainTask extends AbstractTask implements Todo {
         return subTasks;
     }
 
-    public void setSubTasks(String title, int num) {
+    public void setSubTasks(String title, String person, int num) {
         SubTask st = new SubTask();
         st.setTitle(title);
+        st.setPerson(person);
         st.setNum(num);
         st.setState("대기중");
         this.subscribe(st); // Observer Pattern
@@ -59,22 +74,19 @@ public class MainTask extends AbstractTask implements Todo {
         this.backgroundColor = backgroundColor;
     }
 
-    // State Pattern
-    public void setTaskState(TaskState tastState) {
-        this.taskState = new OnGoing();
+    public void setState(String state) {
+        this.state = state;
     }
 
-    // State Pattern
-    public String stateChange() {
-        return taskState.stateChange();
+    public String getState() {
+        return state;
     }
 
     // Observer Patter
     public void upgradeComplete() {
         this.backgroundColor = "Blue";
-        // this.state = "완료" ;
-        this.taskState = new Complete();
-        notifySubtodo("완료");
+        this.state = "완료";
+        notifySubTodo("완료");
     }
 
     public void addMeeting(Scanner sc) {
@@ -87,33 +99,63 @@ public class MainTask extends AbstractTask implements Todo {
         meetings.add(nmeet);
     }
     
-    public void dateList() {
-        Collections.sort(meetings);
-        for (Meeting m : meetings) {
-            System.out.println(m.toString());
-        }
+    public void deleteMeeting(Scanner sc) {
+    	int index;
+    	meetingList();
+    	System.out.println("Please Enter the number of index to delete :");
+    	index=sc.nextInt();
+    	meetings.remove(index);
+    }
+
+    public MeetingMemento createMemento() {
+    	System.out.println("====saved meeting list====");
+    	MeetingMemento m = new MeetingMemento();
+    	Iterator it = meetings.iterator();
+    	while(it.hasNext()) {
+    		Meeting mt = (Meeting)it.next();
+    		m.add(mt);
+    	}
+    	return m;
+    }
+    
+    public void restoreMeeting(MeetingMemento mt) {
+    	this.meetings=mt.getSavedMeet();
+    	System.out.println("restore meetings");
+    }
+    
+    
+    public void meetingList() {
+    	PrintMeeting pm = new PrintMeetingA((ArrayList<Meeting>)meetings);
+    	pm.print();
+    }
+
+    public boolean emptyCheck() {
+    	boolean check=false;
+    	if(meetings.isEmpty())
+    		check=true;
+    	return check;
+    }
+    // Observer Patter
+    @Override
+    public void subscribe(Observer subtodo) {
+        observers.add(subtodo);
     }
 
     // Observer Patter
     @Override
-    public void subscribe(SubTodo subtodo) {
-        subTodos.add(subtodo);
+    public void unsubscribe(Observer subtodo) {
+        observers.remove(subtodo);
     }
 
     // Observer Patter
     @Override
-    public void unsubscribe(SubTodo subtodo) {
-        subTodos.remove(subtodo);
-    }
-
-    // Observer Patter
-    @Override
-    public void notifySubtodo(String msg) {
-        subTodos.forEach(crew -> crew.update(msg));
+    public void notifySubTodo(String msg) {
+        observers.forEach(crew -> crew.update(msg));
     }
 
     public String toString() {
-        return "[" + this.getNum() + "] Task : " + this.getTitle() + " (상태 : " + this.taskState.stateChange()
-                + "/배경색 : " + this.getBackgroundColor() + ")" + "\nSubtask : " + this.getSubTasks() + "\n";
+        return "[" + this.getNum() + "] Task : " + this.getTitle() + " | 상태 : " + this.getState()
+                + " | 배경색 : " + this.getBackgroundColor() + "\nSubtask : " + this.getSubTasks() + "\n" + "Mettings: "
+                + this.getMeetings();
     }
 }

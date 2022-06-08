@@ -1,9 +1,13 @@
 package classes;
+import java.util.ArrayList;
+import java.util.Comparator;
 
-public class SubTask implements SubTodo {
+public class SubTask implements Observer {
     private int num;
     private String title;
     private String state;
+    private String person;
+    private ArrayList<Comment> comments = new ArrayList<>();
 
     public SubTask() {
 
@@ -11,6 +15,19 @@ public class SubTask implements SubTodo {
 
     public SubTask(String title) {
         this.title = title;
+    }
+
+    public void setComments(String content, String writer, int num) {
+        Comment cmt = new Comment();
+        cmt.setContent(content);
+        cmt.setWriter(writer);
+        cmt.setNum(num);
+        this.comments.add(cmt);
+        this.comments.sort(Comparator.comparing(Comment::getNum));
+    }
+
+    public ArrayList<Comment> getComments() {
+        return comments;
     }
 
     public String getTitle() {
@@ -37,6 +54,14 @@ public class SubTask implements SubTodo {
         this.state = state;
     }
 
+    public String getPerson() {
+        return person;
+    }
+
+    public void setPerson(String person) {
+        this.person = person;
+    }
+
     // Obeserver Pattern
     @Override
     public void update(String msg) {
@@ -45,6 +70,6 @@ public class SubTask implements SubTodo {
 
     @Override
     public String toString() {
-        return "\n" + this.getNum() + ".Subtask : " + this.getTitle() + " | 상태 : " + this.getState();
+        return "\n" + this.getNum() + ".Subtask : " + this.getTitle() + " | 상태 : " + this.getState() + " | 담당자 : " + this.getPerson();
     }
 }
