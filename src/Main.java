@@ -6,14 +6,23 @@ import org.json.simple.parser.ParseException;
 
 import classes.Facade;
 import classes.MementoProject;
+
 import classes.auth.factoryMethod.ConcreteAuthActionFactory;
 import classes.auth.strategy.SignWithAuthAction;
+
 import classes.projectCRUD.ProjectEditor;
 import classes.projectCRUD.factoryMethod.ConcreteProjectStrategyFactory;
+
 import classes.singleton.SingletonAuth;
 import classes.singleton.SingletonJSON;
 import classes.singleton.SingletonProject;
 import classes.singleton.SingletonScanner;
+
+// 회원가입, 로그아웃
+// 프로젝트리스트
+// 프로젝트 추가 삭제
+// 멤버 초대
+// task, subtask 추가
 
 public class Main {
     private static ArrayList<MementoProject> savedProjects = new ArrayList<MementoProject>();
@@ -22,7 +31,7 @@ public class Main {
         Scanner sc = SingletonScanner.getInstance().getScanner();
         SignWithAuthAction auth = new SignWithAuthAction();
         ConcreteAuthActionFactory af = new ConcreteAuthActionFactory();
-        ProjectEditor pe  = new ProjectEditor();
+        ProjectEditor pe = new ProjectEditor();
         ConcreteProjectStrategyFactory pf = new ConcreteProjectStrategyFactory();
 
         while (loginMenu(auth, sc, af)) {
