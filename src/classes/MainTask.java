@@ -128,4 +128,10 @@ public class MainTask extends AbstractTask implements Todo {
                 + " | 배경색 : " + this.getBackgroundColor() + "\nSubtask : " + this.getSubTasks() + "\n" + "Mettings: "
                 + this.getMeetings();
     }
+
+    public void turnOn() {
+        System.out.print("[" + this.getNum() + "] Task : " + this.getTitle() + " | 상태 : " + this.getState()
+        + " | 배경색 : " + this.getBackgroundColor() + "\nSubtask : " + this.getSubTasks() + "\n" + "Mettings: "
+        + this.getMeetings() + "\n");
+    }
 }

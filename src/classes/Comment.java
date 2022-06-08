@@ -86,4 +86,8 @@ public class Comment {
     public String toString() {
         return "\n" + this.getWriter() + " : " + this.getContent();
     }
+    
+    public void turnOn() {
+        System.out.print("\n" + this.getWriter() + " : " + this.getContent());
+    }
 }

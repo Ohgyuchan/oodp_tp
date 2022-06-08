@@ -7,13 +7,17 @@ import java.util.Scanner;
 
 import org.json.simple.parser.ParseException;
 
+import classes.Command;
 import classes.Comment;
+import classes.CommentToStringCommand;
 import classes.MainTask;
 import classes.Project;
+import classes.TaskToStringCommand;
 import classes.singleton.SingletonAuth;
 import classes.singleton.SingletonJSON;
 import classes.singleton.SingletonProject;
 import classes.singleton.SingletonScanner;
+import classes.user.Button;
 
 public class ProjectUpdateStrategy implements ProjectEditStrategy {
     private static ProjectEditStrategy instance = null;
@@ -87,7 +91,9 @@ public class ProjectUpdateStrategy implements ProjectEditStrategy {
             while (check) {
                 System.out.println("===========================");
                 for (MainTask mainTask : project.getTasks()) {
-                    System.out.println(mainTask.toString());
+                    Command taskToStringCommand = new TaskToStringCommand(mainTask);
+                    Button button = new Button(taskToStringCommand);
+                    button.pressed();
                 }
                 printSelectTask();
                 System.out.print("Please Enter the index : ");
@@ -177,7 +183,9 @@ public class ProjectUpdateStrategy implements ProjectEditStrategy {
                 "SubTask : " + project.getTasks().get(taskIndex).getSubTasks().get(inputIndex).toString());
         System.out.println("Comment : ");
         for (Comment cmt : project.getTasks().get(taskIndex).getSubTasks().get(inputIndex).getComments()) {
-            System.out.print(cmt.toString());
+            Command commentToStringCommand = new CommentToStringCommand(cmt);
+            Button buttonTwo = new Button(commentToStringCommand);
+            buttonTwo.pressed();
         }
         System.out.println("");
         commentWrite(sc, inputIndex, taskIndex);
