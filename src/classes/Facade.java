@@ -1,7 +1,6 @@
 package classes;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
 import java.util.Scanner;
 
@@ -25,20 +24,5 @@ public class Facade {
 			e.getMessage();
 		}
 		System.out.println("====== Project 생성 ======");
-	}
-
-	public void createProjectWithName(String name, ArrayList<String> memberIds, String leaderId) {
-		Project project = new Project(name, memberIds, leaderId);
-		MainTask task = new MainTask(title);
-		project.addTask(task);
-		System.out.println("Project 생성");
-	}
-
-	public void createTask() {
-		System.out.println("Task 생성");
-	}
-
-	public void createSubTask() {
-		System.out.println("SubTask 생성");
 	}
 }

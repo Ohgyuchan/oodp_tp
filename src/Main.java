@@ -20,6 +20,7 @@ import classes.singleton.SingletonScanner;
 public class Main {
 
     public static void main(String[] args) {
+        System.out.println(args.getClass());
         ArrayList<MementoProject> savedProjects = new ArrayList<MementoProject>();
         Scanner sc = SingletonScanner.getInstance().getScanner();
         SignWithAuthAction auth = new SignWithAuthAction();

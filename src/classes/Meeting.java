@@ -33,7 +33,6 @@ public class Meeting implements Comparable<Meeting> {
     }
 
     public void printMeeting(Scanner sc, User user, Project project) {
-
         boolean FLAG = true;
         while (FLAG) {
             printMeeting();
@@ -124,7 +123,7 @@ public class Meeting implements Comparable<Meeting> {
 
         System.out.println("Write Down");
         String text = sc.nextLine();
-        
+
         System.out.println("fileName");
         Log.WriteMeetingLog(text, user, project);
         setDir(Log.getFileName());
