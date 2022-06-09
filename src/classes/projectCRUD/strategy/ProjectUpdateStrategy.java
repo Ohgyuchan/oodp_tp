@@ -1,6 +1,7 @@
 package classes.projectCRUD.strategy;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.ConcurrentModificationException;
 import java.util.Scanner;
@@ -11,6 +12,7 @@ import classes.Command;
 import classes.Comment;
 import classes.CommentToStringCommand;
 import classes.MainTask;
+import classes.MeetingMemento;
 import classes.Project;
 import classes.TaskToStringCommand;
 import classes.singleton.SingletonAuth;
@@ -22,6 +24,7 @@ import classes.user.Button;
 public class ProjectUpdateStrategy implements ProjectEditStrategy {
     private static ProjectEditStrategy instance = null;
     private Project project;
+    private ArrayList<MeetingMemento> savedMeetings = new ArrayList<>();
 
     private ProjectUpdateStrategy() {
     }
@@ -172,6 +175,31 @@ public class ProjectUpdateStrategy implements ProjectEditStrategy {
                     break;
                 case 5:
                     viewSubTaskDETAIL(sc, taskIndex);
+                    break;
+                case 6:
+                    project.getTasks().get(taskIndex).deleteMeeting(sc);
+                    break;
+                case 7:
+                    savedMeetings.add(project.getTasks().get(taskIndex).createMemento());
+                    break;
+                case 8:
+                    if (savedMeetings.isEmpty()) {
+                        System.out.println("======== THE STORED LIST IS EMPTY ========");
+                    } else {
+                        for (int i = 0; i < savedMeetings.size(); i++) {
+                            System.out.print(i + 1 + ": ");
+                            for(int j = 0; j < savedMeetings.get(i).getSavedMeet().size(); j++) {
+                                System.out.print(savedMeetings.get(i).getSavedMeet().get(j).getTitle());
+                                if(j != savedMeetings.get(i).getSavedMeet().size() - 1) {
+                                    System.out.print(" ,");
+                                }
+                            }
+                            System.out.println();
+                        }
+                        System.out.print("복구할 리스트 입력: ");
+                        int sindex = sc.nextInt();
+                        project.getTasks().get(taskIndex).restoreMeeting(savedMeetings.get(sindex - 1));
+                    }
                     break;
                 case 0:
                     check = false;
@@ -415,8 +443,11 @@ public class ProjectUpdateStrategy implements ProjectEditStrategy {
         System.out.println("1: CHANGE TASK'S STATE");
         System.out.println("2: CHANGE SUBTASK'S STATE");
         System.out.println("3: ADD MEETING");
-        System.out.println("4: EDIT MEETNG");
+        System.out.println("4: EDIT MEETING");
         System.out.println("5: VIEW SUBTASK'S DETAIL");
+        System.out.println("6: DELETE MEETING");
+        System.out.println("7: STORE MEETING");
+        System.out.println("8: RESTORE MEETING");
         System.out.println("===========================");
     }
 

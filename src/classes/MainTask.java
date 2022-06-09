@@ -112,8 +112,15 @@ public class MainTask extends AbstractTask implements Todo {
         return m;
     }
 
+    public void restoreMeeting(MeetingMemento mt) {
+        this.meetings.clear();
+        for (Meeting meeting : mt.getSavedMeet()) {
+            meetings.add(meeting);
+        }
+        System.out.println("Restore the Meetings");
+    }
+
     public void meetingList() {
-        // Collections.sort(meetings);
         int i = 0;
         for (Meeting m : meetings) {
             System.out.print("# " + i + " : ");
@@ -122,7 +129,7 @@ public class MainTask extends AbstractTask implements Todo {
         }
     }
 
-    // Observer Patter
+    // Observer Pattern
     @Override
     public void subscribe(Observer subtodo) {
         observers.add(subtodo);
