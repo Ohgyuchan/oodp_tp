@@ -8,10 +8,8 @@ import classes.MementoProject;
 
 import classes.auth.factoryMethod.ConcreteAuthActionFactory;
 import classes.auth.strategy.SignWithAuthAction;
-
-import classes.projectCRUD.ProjectEditor;
 import classes.projectCRUD.factoryMethod.ConcreteProjectStrategyFactory;
-
+import classes.projectCRUD.strategy.ProjectEditor;
 import classes.singleton.SingletonAuth;
 import classes.singleton.SingletonJSON;
 import classes.singleton.SingletonProject;
@@ -20,9 +18,9 @@ import classes.singleton.SingletonScanner;
 // TODO: MEMENTO
 
 public class Main {
-    private static ArrayList<MementoProject> savedProjects = new ArrayList<MementoProject>();
 
     public static void main(String[] args) {
+        ArrayList<MementoProject> savedProjects = new ArrayList<MementoProject>();
         Scanner sc = SingletonScanner.getInstance().getScanner();
         SignWithAuthAction auth = new SignWithAuthAction();
         ConcreteAuthActionFactory af = new ConcreteAuthActionFactory();
@@ -78,21 +76,38 @@ public class Main {
                         }
                         break;
                     case 5:
-                        if (SingletonAuth.getInstance().getCurrentUser().getProjectIds().isEmpty()) {
-                            System.out.println("======== THE PROJECT LIST IS EMPTY ========");
-                        } else {
-                            restoreProjects(sc);
-                        }
-                        break;
-                    case 6:
                         auth.setAuth(af.create("UpdateUserInfo"));
                         while (auth.authAction()) {
                             auth.authAction();
                         }
                         break;
+                    case 6:
+                        if (savedProjects.isEmpty()) {
+                            System.out.println("======== THE STORED LIST IS EMPTY ========");
+                        } else {
+                            for(int i = 0; i < savedProjects.size(); i++) {
+                                System.out.print(i+1 + ": ");
+                                for(int j = 0; j < SingletonJSON.getInstance().getProjects(savedProjects.get(i).getProjectIds()).size(); j++) {
+                                    System.out.print(SingletonJSON.getInstance().getProjects(savedProjects.get(i).getProjectIds()).get(j).getProjectName());
+                                    if(j != SingletonJSON.getInstance().getProjects(savedProjects.get(i).getProjectIds()).size() - 1) {
+                                        System.out.print(" ,");
+                                    }
+                                }
+                                System.out.println();
+                            }
+                            System.out.print("복구할 리스트 입력: ");
+                            int sindex = sc.nextInt();
+                            SingletonAuth.getInstance().getCurrentUser().restoreFromMemento(savedProjects.get(sindex - 1));
+                        }
+                        break;
+                    case 7:
+                        savedProjects.add(SingletonAuth.getInstance().getCurrentUser().createMemento());
+                        break;
                     default:
                         break;
                 }
+                if(!savedProjects.isEmpty())
+                    System.out.println(savedProjects.get(0).getProjectIds());
             }
         }
     }
@@ -137,24 +152,6 @@ public class Main {
         return false;
     }
 
-    private static void deleteProject(Scanner sc) {
-        SingletonAuth.getInstance().getCurrentUser().printProjects();
-        System.out.print("Please Enter the index to delete: ");
-        int indexToDelete = sc.nextInt();
-        // storeProjects();
-        SingletonAuth.getInstance().getCurrentUser().deleteProject(indexToDelete - 1);
-    }
-
-    private static void storeProjects() {
-        savedProjects.add(SingletonAuth.getInstance().getCurrentUser().savetoMemento());
-    }
-
-    private static void restoreProjects(Scanner sc) {
-        System.out.println("Input the index of stored lists");
-        int i = sc.nextInt();
-        SingletonAuth.getInstance().getCurrentUser().restoreFromMemento(savedProjects.get(i));
-    }
-
     private static void selectProject(Scanner sc) {
         SingletonAuth.getInstance().getCurrentUser().printProjects();
         System.out.println("===========================");
@@ -171,8 +168,9 @@ public class Main {
         System.out.println("2: CREATE A PROJECT");
         System.out.println("3: DELETE A PROJECT");
         System.out.println("4: SELECT A PROJECT");
-        System.out.println("5: RESTORE A PROJECTS");
-        System.out.println("6: UPDATE USER INFO");
+        System.out.println("5: UPDATE USER INFO");
+        System.out.println("6: RESTORE PROJECTS");
+        System.out.println("7: STORE PROJECTS");
         System.out.println("DEFAULT: PRINT MENU");
         System.out.println("===========================");
         System.out.print("Please Enter the number : ");

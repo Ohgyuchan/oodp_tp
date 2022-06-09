@@ -95,17 +95,41 @@ public class MainTask extends AbstractTask implements Todo {
         meetings.add(nmeet);
     }
 
+    public void deleteMeeting(Scanner sc) {
+        int index;
+        meetingList();
+        System.out.println("Please Enter the number of index to delete :");
+        index = sc.nextInt();
+        meetings.remove(index);
+    }
+
+    public MeetingMemento createMemento() {
+        System.out.println("====saved meeting list====");
+        MeetingMemento m = new MeetingMemento();
+        for (Meeting meeting : meetings) {
+            m.meetingAdd(meeting);
+        }
+        return m;
+    }
+
+    public void restoreMeeting(MeetingMemento mt) {
+        this.meetings.clear();
+        for (Meeting meeting : mt.getSavedMeet()) {
+            meetings.add(meeting);
+        }
+        System.out.println("Restore the Meetings");
+    }
+
     public void meetingList() {
-//        Collections.sort(meetings);
-    	int i=0;
+        int i = 0;
         for (Meeting m : meetings) {
-            System.out.print("# "+i+" : ");
-        	System.out.println(m.toString());
-        	i++;
+            System.out.print("# " + i + " : ");
+            System.out.println(m.toString());
+            i++;
         }
     }
 
-    // Observer Patter
+    // Observer Pattern
     @Override
     public void subscribe(Observer subtodo) {
         observers.add(subtodo);
@@ -131,7 +155,7 @@ public class MainTask extends AbstractTask implements Todo {
 
     public void turnOn() {
         System.out.print("[" + this.getNum() + "] Task : " + this.getTitle() + " | 상태 : " + this.getState()
-        + " | 배경색 : " + this.getBackgroundColor() + "\nSubtask : " + this.getSubTasks() + "\n" + "Mettings: "
-        + this.getMeetings() + "\n");
+                + " | 배경색 : " + this.getBackgroundColor() + "\nSubtask : " + this.getSubTasks() + "\n" + "Mettings: "
+                + this.getMeetings() + "\n");
     }
 }
