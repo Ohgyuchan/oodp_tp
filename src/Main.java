@@ -8,10 +8,8 @@ import classes.MementoProject;
 
 import classes.auth.factoryMethod.ConcreteAuthActionFactory;
 import classes.auth.strategy.SignWithAuthAction;
-
-import classes.projectCRUD.ProjectEditor;
 import classes.projectCRUD.factoryMethod.ConcreteProjectStrategyFactory;
-
+import classes.projectCRUD.strategy.ProjectEditor;
 import classes.singleton.SingletonAuth;
 import classes.singleton.SingletonJSON;
 import classes.singleton.SingletonProject;

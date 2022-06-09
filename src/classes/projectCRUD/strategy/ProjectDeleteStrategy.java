@@ -1,4 +1,4 @@
-package classes.projectCRUD;
+package classes.projectCRUD.strategy;
 
 import classes.singleton.SingletonAuth;
 import classes.singleton.SingletonScanner;

@@ -1,9 +1,9 @@
 package classes.projectCRUD.factoryMethod;
 
-import classes.projectCRUD.ProjectEditStrategy;
-import classes.projectCRUD.ProjectCreateStrategy;
-import classes.projectCRUD.ProjectDeleteStrategy;
-import classes.projectCRUD.ProjectUpdateStrategy;
+import classes.projectCRUD.strategy.ProjectCreateStrategy;
+import classes.projectCRUD.strategy.ProjectDeleteStrategy;
+import classes.projectCRUD.strategy.ProjectEditStrategy;
+import classes.projectCRUD.strategy.ProjectUpdateStrategy;
 
 public class ConcreteProjectStrategyFactory extends ProjectStrategyFactory {
 
