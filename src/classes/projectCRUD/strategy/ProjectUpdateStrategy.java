@@ -53,8 +53,7 @@ public class ProjectUpdateStrategy implements ProjectEditStrategy {
                     break;
                 case 2:
                     System.out.print("새이름: ");
-                    sc.next();
-                    String newName = sc.nextLine();
+                    String newName = sc.next();
                     project.setProjectName(newName);
                     break;
                 case 3:
@@ -134,8 +133,7 @@ public class ProjectUpdateStrategy implements ProjectEditStrategy {
         System.out.println("===========================");
         System.out.println("Task : " + project.getTasks().get(taskIndex).getTitle() + " > State : "
                 + project.getTasks().get(taskIndex).getState());
-        System.out.println("SubTask");
-        System.out.println(project.getTasks().get(taskIndex).getSubTasks());
+        System.out.println("SubTask" + project.getTasks().get(taskIndex).getSubTasks());
 
         while (check) {
             printStateChange();
@@ -188,9 +186,9 @@ public class ProjectUpdateStrategy implements ProjectEditStrategy {
                     } else {
                         for (int i = 0; i < savedMeetings.size(); i++) {
                             System.out.print(i + 1 + ": ");
-                            for(int j = 0; j < savedMeetings.get(i).getSavedMeet().size(); j++) {
+                            for (int j = 0; j < savedMeetings.get(i).getSavedMeet().size(); j++) {
                                 System.out.print(savedMeetings.get(i).getSavedMeet().get(j).getTitle());
-                                if(j != savedMeetings.get(i).getSavedMeet().size() - 1) {
+                                if (j != savedMeetings.get(i).getSavedMeet().size() - 1) {
                                     System.out.print(" ,");
                                 }
                             }
@@ -302,17 +300,12 @@ public class ProjectUpdateStrategy implements ProjectEditStrategy {
             case 2:
                 System.out.println("===========================");
                 project.getTasks().get(index).upgradeComplete();
-
+                System.out.println(project.getTasks().get(index));
                 try {
                     SingletonJSON.getInstance().saveJson(project, SingletonAuth.getInstance().getCurrentUser());
                 } catch (IOException | org.json.simple.parser.ParseException e) {
                     e.printStackTrace();
                 }
-
-                System.out.println("Task : " + project.getTasks().get(index).getTitle() + " > State : "
-                        + project.getTasks().get(index).getState());
-                System.out.println("SubTask");
-                System.out.println(project.getTasks().get(index).getSubTasks());
                 break;
             case 0:
                 break;
@@ -391,7 +384,7 @@ public class ProjectUpdateStrategy implements ProjectEditStrategy {
                     String subTitle = sc.nextLine();
                     System.out.print("Enter The Person in Charge : ");
                     String person = sc.nextLine();
-                    t.setSubTasks(subTitle, person, t.getSubTasks().size());
+                    t.setSubTask(subTitle, person, t.getSubTasks().size());
                     break;
                 case 0:
                     System.out.println("===========================");

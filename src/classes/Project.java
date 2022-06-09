@@ -96,13 +96,6 @@ public class Project {
         System.out.println("projectName: " + projectName);
         System.out.println("memberIds: " + memberIds.toString());
         System.out.println("leaderId: " + leaderId);
-    }
-
-    public void menu(Scanner sc) {
-        print();
-        System.out.println("0: Exit");
-        System.out.println("1: List tasks");
-        System.out.println("2: Manage tasks");
-        System.out.println("3: Manage Members");
+        System.out.println(tasks);
     }
 }

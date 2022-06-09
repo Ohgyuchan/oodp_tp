@@ -8,8 +8,8 @@ public class MainTask extends AbstractTask implements Todo {
     private int num;
     private String title;
     private String backgroundColor = "White";
-    private ArrayList<SubTask> subTasks = new ArrayList<>();
-    private ArrayList<Observer> observers = new ArrayList<>(); // Observer Pattern
+    private ArrayList<SubTask> subTasks = new ArrayList<>(); // Observer Pattern
+    private ArrayList<Observer> observers = new ArrayList<>();
 
     private String state = "대기중";
 
@@ -35,7 +35,7 @@ public class MainTask extends AbstractTask implements Todo {
         return subTasks;
     }
 
-    public void setSubTasks(String title, String person, int num) {
+    public void setSubTask(String title, String person, int num) {
         SubTask st = new SubTask();
         st.setTitle(title);
         st.setPerson(person);
@@ -44,6 +44,15 @@ public class MainTask extends AbstractTask implements Todo {
         this.subscribe(st); // Observer Pattern
         this.subTasks.add(st);
         this.subTasks.sort(Comparator.comparing(SubTask::getNum));
+    }
+
+    public void setSubTasks(ArrayList<SubTask> subTasks) {
+        this.subTasks = subTasks;
+        setObservers(observers);
+    }
+
+    public void setObservers(ArrayList<Observer> observers) {
+        this.observers.addAll(subTasks);
     }
 
     public String getTitle() {
@@ -131,31 +140,29 @@ public class MainTask extends AbstractTask implements Todo {
 
     // Observer Pattern
     @Override
-    public void subscribe(Observer subtodo) {
-        observers.add(subtodo);
+    public void subscribe(Observer subTodo) {
+        observers.add(subTodo);
     }
 
-    // Observer Patter
+    // Observer Pattern
     @Override
     public void unsubscribe(Observer subtodo) {
         observers.remove(subtodo);
     }
 
-    // Observer Patter
+    // Observer Pattern
     @Override
     public void notifySubTodo(String msg) {
-        observers.forEach(crew -> crew.update(msg));
+        observers.forEach(observer -> observer.update(msg));
     }
 
     public String toString() {
         return "[" + this.getNum() + "] Task : " + this.getTitle() + " | 상태 : " + this.getState()
-                + " | 배경색 : " + this.getBackgroundColor() + "\nSubtask : " + this.getSubTasks() + "\n" + "Mettings: "
-                + this.getMeetings();
+                + " | 배경색 : " + this.getBackgroundColor() + "\nSubtask: " + this.subTasks + "\n" + "Meetings: "
+                + this.getMeetings() + "\n";
     }
 
     public void turnOn() {
-        System.out.print("[" + this.getNum() + "] Task : " + this.getTitle() + " | 상태 : " + this.getState()
-                + " | 배경색 : " + this.getBackgroundColor() + "\nSubtask : " + this.getSubTasks() + "\n" + "Mettings: "
-                + this.getMeetings() + "\n");
+        System.out.print(toString());
     }
 }

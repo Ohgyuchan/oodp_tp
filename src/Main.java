@@ -106,8 +106,6 @@ public class Main {
                     default:
                         break;
                 }
-                if(!savedProjects.isEmpty())
-                    System.out.println(savedProjects.get(0).getProjectIds());
             }
         }
     }

@@ -1,4 +1,5 @@
 package classes;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 
@@ -65,11 +66,12 @@ public class SubTask implements Observer {
     // Obeserver Pattern
     @Override
     public void update(String msg) {
-        this.setState(msg);
+        this.state = msg;
     }
 
     @Override
     public String toString() {
-        return "\n" + this.getNum() + ".Subtask : " + this.getTitle() + " | 상태 : " + this.getState() + " | 담당자 : " + this.getPerson();
+        return "\n" + this.getNum() + ".Subtask : " + this.getTitle() + " | 상태 : " + this.getState() + " | 담당자 : "
+                + this.getPerson();
     }
 }
