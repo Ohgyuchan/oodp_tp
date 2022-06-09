@@ -408,7 +408,7 @@ public class ProjectUpdateStrategy implements ProjectEditStrategy {
 
     }
 
-    private static void printInputSubtask() {
+    private void printInputSubtask() {
         System.out.println("===========================");
         System.out.println("0: EXIT");
         System.out.println("1: ADD SUBTASK");
@@ -423,14 +423,14 @@ public class ProjectUpdateStrategy implements ProjectEditStrategy {
 
     }
 
-    private static void printSelectTask() {
+    private void printSelectTask() {
         System.out.println("===========================");
         System.out.println("0: EXIT");
         System.out.println("1: VIEW TASK DETAIL");
         System.out.println("===========================");
     }
 
-    private static void printStateChange() {
+    private void printStateChange() {
         System.out.println("===========================");
         System.out.println("0: EXIT");
         System.out.println("1: CHANGE TASK'S STATE");
@@ -444,7 +444,7 @@ public class ProjectUpdateStrategy implements ProjectEditStrategy {
         System.out.println("===========================");
     }
 
-    private static void printState() {
+    private void printState() {
         System.out.println("===========================");
         System.out.println("0: EXIT");
         System.out.println("1: ON-GOING");

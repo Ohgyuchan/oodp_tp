@@ -88,6 +88,6 @@ public class Comment {
     }
     
     public void turnOn() {
-        System.out.print("\n" + this.getWriter() + " : " + this.getContent());
+        System.out.print(toString());
     }
 }
