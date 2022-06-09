@@ -2,6 +2,7 @@ package classes;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
+import java.util.UUID;
 
 import classes.log.strategy.LeaderWrite;
 import classes.log.strategy.MemberWrite;
@@ -10,15 +11,11 @@ import classes.user.User;
 
 public class MeetingLog {
 	private String txt;
-	private String fileName =  "text11.txt";
+	private String fileName =  UUID.randomUUID().toString() + ".txt";
 
-	public void WriteMeetingLog(String text, String fileName, User currentUser, Project currentProject) {
+	public void WriteMeetingLog(String text, User currentUser, Project currentProject) {
 
 		try {
-			fileName = fileName + ".txt";
-			if (fileName != null) {// 파일 이름 입력
-				this.fileName = fileName;
-			}
 
 			if (text != null && currentUser.getId().equals(currentProject.getLeaderId())) { // 내용 입력, [strategy패턴]
 																							// leader이면

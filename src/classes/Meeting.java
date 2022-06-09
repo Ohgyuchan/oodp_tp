@@ -10,8 +10,6 @@ import java.io.IOException;
 public class Meeting implements Comparable<Meeting> {
     private String startTime;
     private String title;
-
-    private String content;
     private String dir;
     private ArrayList<Comment> comments;
     private MeetingLog Log = new MeetingLog();
@@ -19,9 +17,8 @@ public class Meeting implements Comparable<Meeting> {
     public Meeting() {
     }
 
-    public Meeting(String startTime, String title, String content, String dir, ArrayList<Comment> comments) {
+    public Meeting(String startTime, String title, String dir, ArrayList<Comment> comments) {
         this.startTime = startTime;
-        this.content = content;
         this.dir = dir;
         this.comments = new ArrayList<Comment>();
         this.title = title;
@@ -84,14 +81,6 @@ public class Meeting implements Comparable<Meeting> {
         this.title = title;
     }
 
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
     public String getDir() {
         return dir;
     }
@@ -120,7 +109,7 @@ public class Meeting implements Comparable<Meeting> {
     public void read(User user, Project project) {
         String sen;
         IRead proxy = new Proxy();
-        sen = proxy.Load(Log.getFileName());
+        sen = proxy.Load(dir);
         if (sen.equals("")) {
             return;
         } else {
@@ -133,13 +122,12 @@ public class Meeting implements Comparable<Meeting> {
         @SuppressWarnings("resource")
         Scanner sc = new Scanner(System.in);
 
-        System.out.println("FileName: ");
-        String fileName = sc.nextLine();
         System.out.println("Write Down");
         String text = sc.nextLine();
-
+        
         System.out.println("fileName");
-        Log.WriteMeetingLog(text, fileName, user, project);
+        Log.WriteMeetingLog(text, user, project);
+        setDir(Log.getFileName());
     }
 
 }

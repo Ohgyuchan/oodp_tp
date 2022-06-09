@@ -9,7 +9,7 @@ public class ReadMeetingLog implements IRead {
 
 	@Override
 	public String Load(String fileName) {
-		if(fileName.equals("text11.txt")) {
+		if(fileName == null) {
 			System.out.println("There is no log");
 			return "";
 		}
