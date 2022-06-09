@@ -1,4 +1,4 @@
-package classes.projectCRUD;
+package classes.projectCRUD.strategy;
 
 public class ProjectEditor {
     private ProjectEditStrategy strategy;

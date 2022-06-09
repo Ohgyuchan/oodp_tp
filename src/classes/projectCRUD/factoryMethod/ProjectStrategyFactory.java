@@ -1,6 +1,6 @@
 package classes.projectCRUD.factoryMethod;
 
-import classes.projectCRUD.ProjectEditStrategy;
+import classes.projectCRUD.strategy.ProjectEditStrategy;
 
 public abstract class ProjectStrategyFactory {
     public ProjectEditStrategy create(String name) {
