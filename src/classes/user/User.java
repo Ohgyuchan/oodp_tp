@@ -59,13 +59,21 @@ public class User extends Member {
         }
     }
 
-    public MementoProject savetoMemento() { // 메멘토패턴, 프로젝트 리스트 저장
+    public MementoProject createMemento() { // 메멘토패턴, 프로젝트 리스트 저장
         System.out.println("======= Save the projects by Memento =======");
-        return new MementoProject(this.projectIds);
+        MementoProject m = new MementoProject();
+        for (String string : projectIds) {
+            m.projectAdd(string);
+        }
+        return m;
     }
 
     public void restoreFromMemento(MementoProject memento) { // 메멘토패턴, 프로젝트 리스트 불러오기
-        this.projectIds = memento.getProjectIds();
+        this.projectIds.clear(); 
+        for (String string : memento.getProjectIds()) {
+            projectIds.add(string);
+        }
+        System.out.println("Restore the Projects");
     }
 
     @Override

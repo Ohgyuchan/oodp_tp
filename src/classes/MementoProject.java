@@ -13,6 +13,10 @@ public class MementoProject {
 		this.projectIds = saveIds;
 	}
 
+	public void projectAdd(String ids) {
+		projectIds.add(ids);
+	}
+
 	public ArrayList<String> getProjectIds() {
 		return projectIds;
 	}

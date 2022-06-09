@@ -119,12 +119,12 @@ public class Meeting implements Comparable<Meeting> {
 
     public void read(User user, Project project) {
         String sen;
-    	IRead proxy = new Proxy();
-        sen=proxy.Load(Log.getFileName());
-        if(sen.equals("")){
-        	return;
-        }else{
-        	FacadeComment comment = new FacadeComment();
+        IRead proxy = new Proxy();
+        sen = proxy.Load(Log.getFileName());
+        if (sen.equals("")) {
+            return;
+        } else {
+            FacadeComment comment = new FacadeComment();
             comment.writeComment(this.comments, user, project);
         }
     }
@@ -134,9 +134,9 @@ public class Meeting implements Comparable<Meeting> {
         Scanner sc = new Scanner(System.in);
 
         System.out.println("FileName: ");
-        String fileName = sc.next();
+        String fileName = sc.nextLine();
         System.out.println("Write Down");
-        String text = sc.next();
+        String text = sc.nextLine();
 
         System.out.println("fileName");
         Log.WriteMeetingLog(text, fileName, user, project);

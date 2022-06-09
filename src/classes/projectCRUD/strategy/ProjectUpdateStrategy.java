@@ -49,17 +49,24 @@ public class ProjectUpdateStrategy implements ProjectEditStrategy {
                     project.print();
                     break;
                 case 2:
-                    viewTasks(sc);
+                    System.out.print("새이름: ");
+                    sc.next();
+                    String newName = sc.nextLine();
+                    project.setProjectName(newName);
                     break;
                 case 3:
-                    createTask(sc);
+                    viewTasks(sc);
                     break;
                 case 4:
+                    createTask(sc);
+                    break;
+                case 5:
                     inviteMember(sc);
                     break;
                 default:
                     break;
             }
+            SingletonProject.getInstance().setCurrentProject(project);
         }
         try {
             SingletonJSON.getInstance().saveJson(project);
@@ -152,12 +159,19 @@ public class ProjectUpdateStrategy implements ProjectEditStrategy {
                     project.getTasks().get(taskIndex).addMeeting(sc);
                     break;
                 case 4:
-                    project.getTasks().get(taskIndex).getMeetings().get(0).printMeeting(sc,
+                    project.getTasks().get(taskIndex).meetingList();
+                    if (project.getTasks().get(taskIndex).getMeetings().isEmpty()) {
+                        System.out.println("there is no meeting schedule");
+                        break;
+                    }
+                    System.out.println("please enter the index:");
+                    int index = sc.nextInt();
+                    project.getTasks().get(taskIndex).getMeetings().get(index).printMeeting(sc,
                             SingletonAuth.getInstance().getCurrentUser(),
                             project);
                     break;
                 case 5:
-                    viewSubTaskDetaile(sc, taskIndex);
+                    viewSubTaskDETAIL(sc, taskIndex);
                     break;
                 case 0:
                     check = false;
@@ -168,7 +182,7 @@ public class ProjectUpdateStrategy implements ProjectEditStrategy {
         }
     }
 
-    private void viewSubTaskDetaile(Scanner sc, int taskIndex) {
+    private void viewSubTaskDETAIL(Scanner sc, int taskIndex) {
         System.out.println("===========================");
         System.out.println("Task : " + project.getTasks().get(taskIndex).getTitle() + " > State : "
                 + project.getTasks().get(taskIndex).getState());
@@ -271,7 +285,6 @@ public class ProjectUpdateStrategy implements ProjectEditStrategy {
                         + project.getTasks().get(index).getState());
                 System.out.println("SubTask");
                 System.out.println(project.getTasks().get(index).getSubTasks());
-                ; // Observer Pattern
                 break;
             case 0:
                 break;
@@ -403,7 +416,7 @@ public class ProjectUpdateStrategy implements ProjectEditStrategy {
         System.out.println("2: CHANGE SUBTASK'S STATE");
         System.out.println("3: ADD MEETING");
         System.out.println("4: EDIT MEETNG");
-        System.out.println("5: VIEW SUBTASK'S DETAILE");
+        System.out.println("5: VIEW SUBTASK'S DETAIL");
         System.out.println("===========================");
     }
 

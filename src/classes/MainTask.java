@@ -95,13 +95,30 @@ public class MainTask extends AbstractTask implements Todo {
         meetings.add(nmeet);
     }
 
+    public void deleteMeeting(Scanner sc) {
+        int index;
+        meetingList();
+        System.out.println("Please Enter the number of index to delete :");
+        index = sc.nextInt();
+        meetings.remove(index);
+    }
+
+    public MeetingMemento createMemento() {
+        System.out.println("====saved meeting list====");
+        MeetingMemento m = new MeetingMemento();
+        for (Meeting meeting : meetings) {
+            m.meetingAdd(meeting);
+        }
+        return m;
+    }
+
     public void meetingList() {
-//        Collections.sort(meetings);
-    	int i=0;
+        // Collections.sort(meetings);
+        int i = 0;
         for (Meeting m : meetings) {
-            System.out.print("# "+i+" : ");
-        	System.out.println(m.toString());
-        	i++;
+            System.out.print("# " + i + " : ");
+            System.out.println(m.toString());
+            i++;
         }
     }
 
@@ -131,7 +148,7 @@ public class MainTask extends AbstractTask implements Todo {
 
     public void turnOn() {
         System.out.print("[" + this.getNum() + "] Task : " + this.getTitle() + " | 상태 : " + this.getState()
-        + " | 배경색 : " + this.getBackgroundColor() + "\nSubtask : " + this.getSubTasks() + "\n" + "Mettings: "
-        + this.getMeetings() + "\n");
+                + " | 배경색 : " + this.getBackgroundColor() + "\nSubtask : " + this.getSubTasks() + "\n" + "Mettings: "
+                + this.getMeetings() + "\n");
     }
 }
