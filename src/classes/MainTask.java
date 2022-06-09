@@ -126,8 +126,10 @@ public class MainTask extends AbstractTask implements Todo {
     
     public void meetingList() {
     	PrintMeeting pm = new PrintMeetingA((ArrayList<Meeting>)meetings);
+    	pm.countMeeting();
     	pm.print();
     }
+    
 
     public boolean emptyCheck() {
     	boolean check=false;
