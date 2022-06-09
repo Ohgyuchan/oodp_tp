@@ -3,7 +3,6 @@ package classes.user;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import classes.MementoProject;
 import classes.Project;
 import classes.singleton.SingletonJSON;
 

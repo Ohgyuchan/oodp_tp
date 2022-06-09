@@ -1,19 +1,19 @@
-package classes;
+package classes.user;
 
 import java.util.ArrayList;
 
 public class MementoProject {
 	private ArrayList<String> projectIds;
 
-	public MementoProject() {
+	MementoProject() {
 		this.projectIds = new ArrayList<>();
 	}
 
-	public MementoProject(ArrayList<String> saveIds) { // 메멘토 패턴, 접근자 default
+	MementoProject(ArrayList<String> saveIds) { // 메멘토 패턴, 접근자 default
 		this.projectIds = saveIds;
 	}
 
-	public void projectAdd(String ids) {
+	void projectAdd(String ids) {
 		projectIds.add(ids);
 	}
 
@@ -21,7 +21,7 @@ public class MementoProject {
 		return projectIds;
 	}
 
-	public void setProjectIds(ArrayList<String> projectIds) {
+	void setProjectIds(ArrayList<String> projectIds) {
 		this.projectIds = projectIds;
 	}
 }
