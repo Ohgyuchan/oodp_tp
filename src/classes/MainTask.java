@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Scanner;
 
+import classes.singleton.SingletonScanner;
+
 public class MainTask extends AbstractTask implements Todo {
     private int num;
     private String title;
@@ -130,12 +132,16 @@ public class MainTask extends AbstractTask implements Todo {
     }
 
     public void meetingList() {
-        int i = 0;
-        for (Meeting m : meetings) {
-            System.out.print("# " + i + " : ");
-            System.out.println(m.toString());
-            i++;
+        System.out.println("1: ONLY TITLE");
+        System.out.println("2: TITLE & TIME");
+        int input = SingletonScanner.getInstance().getScanner().nextInt();
+        PrintMeeting pm;
+        if (input == 1) {
+            pm = new PrintMeetingA(meetings);
+        } else {
+            pm = new PrintMeetingB(meetings);
         }
+        pm.printAll();
     }
 
     // Observer Pattern

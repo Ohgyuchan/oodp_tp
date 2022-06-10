@@ -4,8 +4,6 @@ import java.util.Scanner;
 
 import org.json.simple.parser.ParseException;
 
-import classes.MementoProject;
-
 import classes.auth.factoryMethod.ConcreteAuthActionFactory;
 import classes.auth.strategy.SignWithAuthAction;
 import classes.projectCRUD.factoryMethod.ConcreteProjectStrategyFactory;
@@ -14,6 +12,7 @@ import classes.singleton.SingletonAuth;
 import classes.singleton.SingletonJSON;
 import classes.singleton.SingletonProject;
 import classes.singleton.SingletonScanner;
+import classes.user.MementoProject;
 
 // TODO: MEMENTO
 
